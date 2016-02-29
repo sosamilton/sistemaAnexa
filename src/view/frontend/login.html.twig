@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %} Login {% endblock %}
+  {% block cuerpo %}
+  <div class="margin-top2 margin-left">
+    <div class="col-md-5 col-md-offset-3">
+     <div class="panel panel-default">
+       <div class="panel-heading">
+         <span class="glyphicon glyphicon-lock">  
+           Identificarse
+         </span>
+       </div>
+       <div class="panel-body">
+        {% if error %}
+          <div id="login-error" class="alert alert-danger">
+            La contraseña o el nombre de usuario es incorrecto
+          </div>
+        {% endif %}
+        <form class="form-horizontal" role="form" title="formulario de login" action="{{URL.backend}}" method="post">
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">
+              Usuario
+            </label>
+            <div class="col-sm-9">
+              <input id="username" class="form-control" type="text" name="user" placeholder="Usuario" title="campo de usuario" required >
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-3 control-label">
+              Contraseña
+            </label>
+            <div class="col-sm-9">
+              <input  id="password" type="password" class="form-control" name="pass" placeholder="Contraseña" title=" campo de contraseña" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <button type="submit" class="btn btn-primary" title="entrar">
+                Entrar 
+              </button>
+              <button type="reset" class="btn btn-default" title="limpiar campos">
+                Limpiar
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="login-custom-message">Si no estas registrado comunicate con el administrador
+        </div>
+      </div>
+      <div class="login-custom-footer">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

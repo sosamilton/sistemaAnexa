@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% endblock %}
+
+{% block header %}
+    
+      <h2>Escuela Anexa - Estadísticas</h2>
+
+{% endblock %}
+
+{% block addJS %}
+  <script src="{{resource}}/js/Chart.js"></script>
+{% endblock %}
+
+{% block addCSS %}
+{% endblock %}
+
+{% block cuerpo %}
+  <div class="col-md-11">
+  {% for año, dato in datos %}
+    <div class="panel panel-primary">
+      <div class="panel-heading">Estadísticas {{año}}</div>
+      <div class="panel-body padding0">
+        <div style="width:96%; padding:2%; min-height:500px;" id="canvas{{año}}_div">
+          <canvas id="canvas{{año}}" height="300" width="600"></canvas>
+        </div>
+      </div>
+    </div>
+
+  <script>
+    var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+    var lineChartData{{año}} = {
+      labels : ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre",""],
+      datasets : [
+        {
+          label: "Mensual",
+          fillColor : "rgba(220,220,220,0.2)",
+          strokeColor : "rgba(220,220,220,1)",
+          pointColor : "rgba(220,220,220,1)",
+          pointStrokeColor : "#fff",
+          pointHighlightFill : "#fff",
+          pointHighlightStroke : "rgba(220,220,220,1)",
+          data : [
+            {% for cant in dato['mensual'] %}
+              {{cant}},
+            {% endfor %}
+          ]
+        },
+        {
+          label: "Matrícula",
+          fillColor : "rgba(151,187,205,0.2)",
+          strokeColor : "rgba(151,187,205,1)",
+          pointColor : "rgba(151,187,205,1)",
+          pointStrokeColor : "#fff",
+          pointHighlightFill : "#fff",
+          pointHighlightStroke : "rgba(151,187,205,1)",
+          data : [
+            {% for cant in dato['matricula'] %}
+              {{cant}},
+            {% endfor %}
+          ]
+        }
+      ]
+
+    }
+
+    function cargar{{año}}(){
+      var ctx = document.getElementById("canvas{{año}}").getContext("2d");
+      window.myLine = new Chart(ctx).{{tipo}}(lineChartData{{año}}, {
+        responsive: true,
+        animation: false
+      });
+
+    }
+
+  </script>
+  {% endfor %}
+  </div>
+
+  <script>
+    window.onload = function(){
+      {% for año, dato in datos %}
+        cargar{{año}}();
+
+        var can = document.getElementById('canvas{{año}}');
+        var ctx = can.getContext('2d');
+        ctx.fillRect(50,50,50,50);
+        var img = new Image();
+        img.src = can.toDataURL();
+        img.className="imagenFull"
+        $('#canvas{{año}}_div').append(img);
+        $('#canvas{{año}}').remove();
+      {% endfor %}
+    }
+  </script>
+
+  <div id="leyenda">
+    <ul>
+      <li><span class="mensual circulo"></span>Mensuales</li>
+      <li><span class="matricula circulo"></span>Matrículas</li>
+    </ul>
+  </div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

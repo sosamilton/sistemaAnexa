@@ -1,0 +1,51 @@
+{% extends 'basePdf.html.twig' %}
+{% block title %}Comisi&oacute;n Cobrada{% endblock %}
+
+{% block cuerpo %}
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">{{info}}</div>
+        <div class="panel-body">
+            <table class="table">
+               <thead>
+                  <tr>
+                      <th>
+                        Año
+                     </th>
+                     <th>
+                        Mes
+                     </th>
+                     <th>
+                        Monto Cuota
+                     </th>
+                      <th>
+                        Porcentaje Comisión
+                     </th>
+                      <th>
+                        Monto Cobrado
+                     </th>
+                 </tr>
+               </thead>
+
+               <tbody class="list">
+                   {% for cuota in cuotas %}
+                                <tr>                                  
+                                    <td class="año">{{cuota.data.anio}}</td>
+                                    <td class="mes">{{cuota.data.mes}}</td>
+                                    <td class="montoCuota">{{cuota.data.monto}}</td> 
+                                    <td class="comision">{{cuota.data.comisionCobrador}}</td>
+                                    <td class="monto">{{cuota.montoCobrado}}</td>                                                            
+                                </tr>
+                            {% endfor %}
+               </tbody>
+           </table>
+       </div>
+        <div class="panel-footer">          
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="label-group label-group-sm col-md-32" role="group" >
+                      Total Cobrado <span class="label label-success col-md-32">{{total}}</button>
+                    </div>
+                </div>                   
+            </div>
+</div>
+{% endblock %}

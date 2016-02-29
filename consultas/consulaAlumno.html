@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Anexa | Consulta</title>
+    <link href="https://grupo_57.proyecto2015.linti.unlp.edu.ar/web/css/bootstrap.css" rel="stylesheet">
+    <link href="https://grupo_57.proyecto2015.linti.unlp.edu.ar/web/css/custom.css" rel="stylesheet">
+	<link href='./fullcalendar.css' rel='stylesheet' />
+	<link href='./fullcalendar.print.css' rel='stylesheet' media='print' />
+	<script src='./lib/moment.min.js'></script>
+	<script src='./lib/jquery.min.js'></script>
+	<script src='./fullcalendar.min.js'></script>
+	<script src='./lang-all.js'></script>
+	<script>
+		
+		$(document).ready(function() {
+        
+        $('.submit').click(function(){
+	        $.ajax({
+	          method: "GET",
+	          //url: 'https://grupo_57.proyecto2015.linti.unlp.edu.ar/API_Rest/total/'+$("#anio").val(),
+	          url: 'https://grupo_57.proyecto2015.linti.unlp.edu.ar/API_Rest/index.php/alumno/'+$("#dni").val()+"/"+$("#anio").val(),
+	            dataType: "json"
+	          }).done(function( datos ) {
+	            $('#resultado').removeClass('hidden');
+				var d = new Date();
+				var yyyy = d.getFullYear().toString();
+				var mm = (d.getMonth()+1).toString(); // getMonth() is zero-based
+				var dd  = d.getDate().toString();
+				$('#calendar').fullCalendar({
+					lang: 'es',
+					defaultDate: yyyy+"-"+mm+"-"+dd,
+					editable: false,
+				});
+				
+				$.each( datos, function( key, dato ) {
+				  cargar(dato);
+				});
+	        });
+        });
+		
+	
+	});
+
+	</script>
+	<style>
+
+		body {
+			margin: 40px 10px;
+			padding: 0;
+			font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+			font-size: 14px;
+		}
+
+		#calendar {
+			max-width: 900px;
+			margin: 0 auto;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Cantidad de ingresos totales de un año</div>
+				<div class="panel-body" id="paginacion">                                 
+					<div class="col-md-4"> Introduzca el dni y el año para ver las fechas de pago de aquellas cuotas que tenga pagas e informar aquellas cuotas vencidas que se encuentren sin pagar</div>
+					<div class="col-md-8"> 
+						<div class="col-md-4 col-md-offset-0">
+							<label for="año">DNI</label>
+							<input type="number" class="form-control" name="dni" id="dni" placeholder="Ingrese el DNI" required>
+						</div>
+						<div class="col-md-4 col-md-offset-0">
+							<label for="año">Año</label>
+							<input type="number" class="form-control" name="año" id="anio" placeholder="Ingrese el Año" required>
+						</div>
+						<div type="submit" class="btn btn-primary col-md-3 submit" style="margin-top:3%;">Ver</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-primary hidden" id="resultado">
+				<div class="panel-heading">Resultado</div>
+				<!-- Table -->
+				<div class="panel-body" id='calendar'>                                 
+				</div>
+			</div>
+		</div>
+	</div>
+   <script>
+    
+    function cargar(dato){
+		$('#calendar').fullCalendar( 'renderEvent', {
+         title : (dato['pagada']) ? "Pagada":"Impaga",
+         start : new Date(dato['anio'],dato['mes'],dato['dia']),
+         backgroundColor: (dato['pagada']) ? "#006917":"#9A0000",
+        },
+        true // make the event "stick"
+       );    
+    }
+
+  </script>
+</body>
+</html>

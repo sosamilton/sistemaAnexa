@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Anexa | Consulta</title>
+    <link href="https://grupo_57.proyecto2015.linti.unlp.edu.ar/web/css/bootstrap.css" rel="stylesheet">
+    <link href="https://grupo_57.proyecto2015.linti.unlp.edu.ar/web/css/custom.css" rel="stylesheet">
+    <script src="https://grupo_57.proyecto2015.linti.unlp.edu.ar/web/js/jquery-1.10.2.js"></script>
+    <script>
+      $( document ).ready(function() {
+        $('.submit').click(function(){
+            $.ajax({
+              method: "GET",
+              //url: 'https://grupo_57.proyecto2015.linti.unlp.edu.ar/API_Rest/total/'+$("#anio").val(),
+              url: 'https://grupo_57.proyecto2015.linti.unlp.edu.ar/API_Rest/index.php/total/'+$("#año").val(),
+                dataType: "json"
+              }).done(function( data ) {
+                $('#resultado').removeClass('hidden');
+                cargar(data);
+            });
+        });
+      });
+    </script>
+
+  </head>
+  <body>
+      <div class="container">
+        <div class="row">
+            <div class="panel panel-primary">
+    <!-- Default panel contents -->
+              <div class="panel-heading">Cantidad de ingresos totales de un año</div>
+              <!-- Table -->
+              <div class="panel-body" id="paginacion">                                 
+                <div class="col-md-4"> Introduzca un año para ver los ingresos totales por mes</div>
+                <div class="col-md-8"> 
+                      <div class="col-md-5 col-md-offset-1">
+                        <label for="año">Año</label>
+                        <input type="number" class="form-control" name="año" id="año" placeholder="Ingrese un año" required>
+                      </div>
+                      <div type="submit" class="btn btn-primary col-md-5 submit" style="margin-top:3.4%;">Ver</div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-primary hidden" id="resultado">
+              <div class="panel-heading">Resultado</div>
+              <!-- Table -->
+              <div class="panel-body">                                 
+                <div style="width:96%; padding:2%;">
+                  <canvas id="canvas" class="canvasImg" height="400" width="800"></canvas>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+        <div>
+          <footer class="footer">
+            <p class="text-muted text-center">Grupo 57 - Proyecto de Software 2015</p>
+          </footer>
+        </div>
+
+      <script src="https://grupo_57.proyecto2015.linti.unlp.edu.ar/web/js/Chart.js"></script>
+
+      <script src="https://grupo_57.proyecto2015.linti.unlp.edu.ar/web/js/bootstrap.min.js"></script>
+       <script>
+    var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+
+
+    function cargar(datos){
+      var ctx = document.getElementById("canvas").getContext("2d");
+      var meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+      var lineChartData = {
+        labels : [],
+        datasets : [
+          {
+            label: "Mensual",
+            fillColor : "rgba(220,220,220,0.2)",
+            strokeColor : "rgba(220,220,220,1)",
+            pointColor : "rgba(220,220,220,1)",
+            pointStrokeColor : "#fff",
+            pointHighlightFill : "#fff",
+            pointHighlightStroke : "rgba(220,220,220,1)",
+            data : [ ]
+          }
+        ]
+
+      }
+      var myLineChart = new Chart(ctx).Line(lineChartData, {
+        responsive: true
+      });
+      $.each(datos, function(i, obj) {
+        myLineChart.addData( [obj], meses[i-1]);
+      });
+    }
+
+  </script>
+  </body>
+</html>
