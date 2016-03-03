@@ -1,15 +1,14 @@
 {
     "require": {
-		"doctrine/orm": "2.5.*",
-		"doctrine/common": "2.5.*",
-        "twig/twig": "1.*",
-        "knplabs/knp-snappy-bundle": "dev-master",
-        "h4cc/wkhtmltopdf-amd64": "0.12.x",
-        "h4cc/wkhtmltoimage-amd64": "0.12.x",
-        "jens-na/osrm-api-client": "dev-master"
-        
+  		"doctrine/orm": "2.5.*",
+  		"doctrine/common": "2.5.*",
+      "twig/twig": "1.*",
+      "knplabs/knp-snappy-bundle": "dev-master",
+      "h4cc/wkhtmltopdf-amd64": "0.12.x",
+      "h4cc/wkhtmltoimage-amd64": "0.12.x",
+      "jens-na/osrm-api-client": "dev-master"
     },
     "require-dev": {
-        "mustangostang/spyc": "dev-master"
+      "mustangostang/spyc": "dev-master"
     }
 }

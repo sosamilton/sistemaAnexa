@@ -1,0 +1,58 @@
+{% extends 'AnexaCooperadoraBundle:backend:inicio.html.twig' %}
+
+{% block title %} Administracion | Cuotas | Agregar{% endblock %}
+
+{% block dataAdmin %}
+    	<div class="panel panel-primary">
+          <!-- Default panel contents -->
+          <div class="panel-heading">Agregar Cuota</div>
+          <!-- Table -->
+          <div class="panel-body">
+            <form action="{{URL.backend_cuota_agregar}}" method="post">
+              <input type="hidden" name="token" value="{{token}}">
+              <div class="form-group">
+                <div class="col-md-6">
+                  <label for="nombre">N&uacute;mero</label>
+                  <input type="number" class="form-control" id="numero" name="numero" placeholder="N&uacute;mero" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="anio">A&ntilde;o</label>
+                  <input type="number" class="form-control" id="anio" name="anio" placeholder="A&ntilde;o" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-6">
+                  <label for="mes">Mes</label>
+                  <input type="number" class="form-control" id="mes" name="mes" placeholder= "Mes" required>
+                </div>
+
+                <div class="col-md-3">
+                  <label for="tipo">Tipo Cuota</label>
+                  <select class="form-control" name="tipo" required>
+                    <option value="mensual">Mensual</option>
+                    <option value="matricula">Matricula</option>
+                  </select>
+                </div>
+                <div class="col-md-5">
+                  <label for="monto">Monto</label>
+                  <input type="number" class="form-control" name="monto" id="monto" placeholder="Monto" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-5">
+                  <label for="comision">Comisi&oacute;n Cobrador</label>
+                  <input type="number" class="form-control" name="comision" id="comision" placeholder="Comisi&oacute;n Cobrador" required>
+                </div>
+                <div class="col-md-4">
+                  <label for="fecha">Fecha de Alta</label>
+                  <input type="date" class="form-control" id="fecha" name="fecha" value="{{"now" | date("Y/m/d")}}" required>
+                </div>
+
+              </div>
+
+              <button type="submit" class="btn btn-primary col-md-12">Agregar Cuota</button>
+            </form>
+          </div>
+      </div>
+
+{% endblock %}

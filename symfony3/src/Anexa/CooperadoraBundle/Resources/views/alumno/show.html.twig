@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Alumno</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ alumno.id }}</td>
+            </tr>
+            <tr>
+                <th>Borrado</th>
+                <td>{% if alumno.borrado %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Tipodni</th>
+                <td>{{ alumno.tipoDNI }}</td>
+            </tr>
+            <tr>
+                <th>Dni</th>
+                <td>{{ alumno.dni }}</td>
+            </tr>
+            <tr>
+                <th>Apellido</th>
+                <td>{{ alumno.apellido }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ alumno.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Fechanacimiento</th>
+                <td>{% if alumno.fechaNacimiento %}{{ alumno.fechaNacimiento|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Sexo</th>
+                <td>{{ alumno.sexo }}</td>
+            </tr>
+            <tr>
+                <th>Calle</th>
+                <td>{{ alumno.calle }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ alumno.numero }}</td>
+            </tr>
+            <tr>
+                <th>Ciudad</th>
+                <td>{{ alumno.ciudad }}</td>
+            </tr>
+            <tr>
+                <th>Provincia</th>
+                <td>{{ alumno.provincia }}</td>
+            </tr>
+            <tr>
+                <th>Codigopostal</th>
+                <td>{{ alumno.codigoPostal }}</td>
+            </tr>
+            <tr>
+                <th>Pais</th>
+                <td>{{ alumno.pais }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ alumno.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ alumno.email }}</td>
+            </tr>
+            <tr>
+                <th>Fechaingreso</th>
+                <td>{% if alumno.fechaIngreso %}{{ alumno.fechaIngreso|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Fechaegreso</th>
+                <td>{% if alumno.fechaEgreso %}{{ alumno.fechaEgreso|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Latitud</th>
+                <td>{{ alumno.latitud }}</td>
+            </tr>
+            <tr>
+                <th>Longitud</th>
+                <td>{{ alumno.longitud }}</td>
+            </tr>
+            <tr>
+                <th>Fechaalta</th>
+                <td>{% if alumno.fechaAlta %}{{ alumno.fechaAlta|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('alumno_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('alumno_edit', { 'id': alumno.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

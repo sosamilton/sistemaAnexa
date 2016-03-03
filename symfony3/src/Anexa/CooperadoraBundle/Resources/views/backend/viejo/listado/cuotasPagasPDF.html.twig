@@ -1,0 +1,70 @@
+{% extends 'basePdf.html.twig' %}
+{% block title %}Cuotas Pagas{% endblock %}
+{% block dataAdmin %}
+  <div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">{{info}}</div>
+        <!-- Table -->
+        <div class="panel-body" id="paginacion">
+          
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <button class="sort btn" data-sort="id">
+                                <span class="glyphicon glyphicon-sort"></span>
+                            </button>
+                        #
+                        </th>
+                        <th>
+                            <button class="sort btn" data-sort="dni">
+                                <span class="glyphicon glyphicon-sort"></span>
+                            </button>
+                            DNI
+                        </th>
+                        <th>
+                            <button class="sort btn" data-sort="nombre">
+                                <span class="glyphicon glyphicon-sort"></span> 
+                            </button>
+                            Nombre
+                        </th>
+                        <th>
+                            <button class="sort btn" data-sort="apellido">
+                                <span class="glyphicon glyphicon-sort"></span>
+                            </button>
+                            Apellido
+                        </th>
+                        <th>
+                            <button class="sort btn" data-sort="becado">
+                                <span class="glyphicon glyphicon-sort"></span>
+                            </button>
+                            Becado
+                        </th>
+                        <th>
+                            <button class="sort btn" data-sort="cobrador">
+                                <span class="glyphicon glyphicon-sort"></span>
+                            </button>
+                            Cobrador
+                        </th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for alumno in alumnos %}
+                        <tr>
+                            <th scope="row" class="id">{{alumno.data.id}}</th>
+                            <td class="dni">{{alumno.data.dni}}</td>
+                            <td class="nombre">{{alumno.data.nombre}}</td>
+                            <td class="apellido">{{alumno.data.apellido}}</td>
+                            <td class="becado">{% if alumno.beca.becado %} si {% else %} no {% endif %}</td>
+                            <td class="cobrador">{{alumno.user.username}}</td>
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</div>
+{% endblock %}
