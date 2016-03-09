@@ -21,4 +21,4 @@ cuota_edit:
 cuota_delete:
     path:     /{id}/delete
     defaults: { _controller: "AnexaCooperadoraBundle:Cuota:delete" }
-    methods:  DELETE
+    methods:  GET

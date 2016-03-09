@@ -1,15 +1,15 @@
 {% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
 
-{% block title %} Administración | Alumnos | Listado{% endblock %}
+{% block title %} Administración | Responsables | Listado{% endblock %}
 
 {% block dataAdmin %}
     {% if is_granted('ROLE_SUPER_ADMIN') %}
-      <a class="btn btn-primary botonAdd" href="{{ path('alumno_new') }}">Agregar Alumno</a>
+        <a class="btn btn-primary botonAdd" href="{{ path('responsable_new') }}">Agregar Responsable</a>
     {% endif %}
 
     <div class="panel panel-primary">
         <!-- Default panel contents -->
-        <div class="panel-heading">Listado de Alumnos</div>
+        <div class="panel-heading">Listado de Responsables</div>
         <!-- Table -->
         <div class="panel-body">
 
@@ -69,27 +69,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for alumno in alumnos %}
-                        <tr>
-                                                       
-                          <td>{{ alumno.id }}</td>
-                          <td>{{ alumno.dni }}</td>
-                          <td>{{ alumno.apellido }}</td>
-                          <td>{{ alumno.nombre }}</td>
-                          <td>
-                              <div class="">
-                                  
-                                <a class="btn btn-success" href="{{ path('alumno_show', { 'id': alumno.id }) }}" title="Ver"><span class='glyphicon glyphicon-eye-open'></span></a>
+                    {% for responsable in responsables %}
+                        <tr>                           
+                            <td>{{ responsable.id }}</td>
+                            <td>{{ responsable.dni }}</td>
+                            <td>{{ responsable.apellido }}</td>
+                            <td>{{ responsable.nombre }}</td>
+                            <td>
+                                <div class="">
+                                    
+                                  <a class="btn btn-success" href="{{ path('responsable_show', { 'id': responsable.id }) }}" title="Ver"><span class='glyphicon glyphicon-eye-open'></span></a>
 
-                                {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_GESTION') %}
-                                  <a class="btn btn-primary" href="{{ path('alumno_edit', { 'id': alumno.id }) }}" title="Editar"><span class='glyphicon glyphicon-pencil' ></span></a>
-                                  {% if is_granted('ROLE_SUPER_ADMIN') %}
-                                    <a class="btn btn-danger" href="{{path('alumno_delete', { 'id': alumno.id })}}" title='Eliminar'><span class='glyphicon glyphicon-remove'></span></a>
-                                  {% endif %}   
-                                {% endif %}   
-                              </div>
-
-                          </td>
+                                  {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_GESTION') %}
+                                      <a class="btn btn-primary" href="{{ path('responsable_edit', { 'id': responsable.id }) }}" title="Editar"><span class='glyphicon glyphicon-pencil' ></span></a>
+                                      {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                          <a class="btn btn-danger" href="{{path('responsable_delete', { 'id':  responsable.id })}}" title='Eliminar'><span class='glyphicon glyphicon-remove'></span></a>
+                                      {% endif %}
+                                  {% endif %}
+                                </div>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>

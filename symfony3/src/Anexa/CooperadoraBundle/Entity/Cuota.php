@@ -158,16 +158,6 @@ class Cuota {
 		return $this->borrado;
 	}
 
-	/**
-	* toogle borrado
-	* @return Cuota
-	*/
-	public function toogle()
-	{
-		$this->borrado = false;
-	}
-
-
     /**
     * Get anio
     * @return integer
@@ -246,10 +236,10 @@ class Cuota {
 
 
 	/* *********************** SETTERS *********************** */
-
+    //* @param integer @ORM\anio//
 	/**
-    * Set anio
-    * @param integer @ORM\anio
+    * Set Anio
+    * @param integer $anio
     * @return Cuota
     */
     public function setAnio($anio)
@@ -332,6 +322,17 @@ class Cuota {
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
+        return $this;
+    }
+
+    /**
+    *Set borrado
+    * @param boolean $borrado
+    * @return Cuota
+    */
+    public function setBorrado($borrado)
+    {
+        $this->borrado = $borrado;
         return $this;
     }
 

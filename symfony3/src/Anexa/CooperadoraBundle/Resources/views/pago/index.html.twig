@@ -1,11 +1,8 @@
 {% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
 
-{% block title %} Administración | Alumnos | Listado{% endblock %}
+{% block title %} Administración | Pagos | Listado{% endblock %}
 
 {% block dataAdmin %}
-    {% if is_granted('ROLE_SUPER_ADMIN') %}
-      <a class="btn btn-primary botonAdd" href="{{ path('alumno_new') }}">Agregar Alumno</a>
-    {% endif %}
 
     <div class="panel panel-primary">
         <!-- Default panel contents -->
@@ -65,7 +62,6 @@
                         </button>
                         Nombre
                       </th>                  
-                      <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,13 +76,7 @@
                               <div class="">
                                   
                                 <a class="btn btn-success" href="{{ path('alumno_show', { 'id': alumno.id }) }}" title="Ver"><span class='glyphicon glyphicon-eye-open'></span></a>
-
-                                {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_GESTION') %}
-                                  <a class="btn btn-primary" href="{{ path('alumno_edit', { 'id': alumno.id }) }}" title="Editar"><span class='glyphicon glyphicon-pencil' ></span></a>
-                                  {% if is_granted('ROLE_SUPER_ADMIN') %}
-                                    <a class="btn btn-danger" href="{{path('alumno_delete', { 'id': alumno.id })}}" title='Eliminar'><span class='glyphicon glyphicon-remove'></span></a>
-                                  {% endif %}   
-                                {% endif %}   
+                                 
                               </div>
 
                           </td>

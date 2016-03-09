@@ -1,0 +1,60 @@
+{% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
+
+{% block title %} Administración | Cuota | Editar {% endblock %}
+
+{% block dataAdmin %}
+    <div class="panel panel-primary">
+      <!-- Default panel contents -->
+        <div class="panel-heading">Editar Cuota ~ Año: {{cuota.anio}} Mes: {{cuota.mes}}</div>
+      <!-- Table -->
+        <div class="panel-body">
+
+          {{ form_start(edit_form) }}
+              {{ form_errors(edit_form) }}
+                <div class="form-group col-md-12">
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.anio) }}
+                      {{ form_widget(edit_form.anio, {'attr': {'class':'form-control'}}) }}
+                  </div>
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.mes) }}
+                      {{ form_widget(edit_form.mes, {'attr': {'class':'form-control'}}) }}
+                  </div> 
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.numero) }}
+                      {{ form_widget(edit_form.numero, {'attr': {'class':'form-control'}}) }}
+                  </div> 
+                </div>
+
+                <div class="form-group col-md-12">
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.tipo) }}
+                      {{ form_widget(edit_form.tipo, {'attr': {'class':'form-control'}}) }}
+                  </div> 
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.monto) }}
+                      {{ form_widget(edit_form.monto, {'attr': {'class':'form-control'}}) }}
+                  </div> 
+                  <div class="col-md-3">
+                      {{ form_label(edit_form.comisionCobrador) }}
+                      {{ form_widget(edit_form.comisionCobrador, {'attr': {'class':'form-control'}} )}}
+                  </div>
+                </div>
+                <div class="form-group col-md-12">
+                  <div class="col-md-4 form-group">
+                      {{ form_label(edit_form.fechaAlta) }}
+                      {{ form_widget(edit_form.fechaAlta, {'attr': {'class':'form-control'}}) }}
+                  </div>   
+                </div>                  
+
+                  {{ form_label(edit_form.button) }}
+                  {{ form_widget(edit_form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label' : 'Editar Cuota'}) }}
+ 
+          {{ form_end(edit_form) }}
+
+        </div>
+    </div>
+    
+  
+{% endblock %}
+

@@ -18,6 +18,10 @@ anexa_cooperadora_responsable:
     prefix:     /backend/responsable
     resource: "@AnexaCooperadoraBundle/Resources/config/routing/responsable.yml"
 
+anexa_cooperadora_pago:
+    prefix:     /backend/pago
+    resource: "@AnexaCooperadoraBundle/Resources/config/routing/pago.yml"
+
 anexa_cooperadora_configuracion:
     prefix:     /backend/configuracion
     resource: "@AnexaCooperadoraBundle/Resources/config/routing/configuracion.yml"

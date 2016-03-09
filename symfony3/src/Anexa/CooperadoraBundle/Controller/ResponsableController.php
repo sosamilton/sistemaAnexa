@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Anexa\CooperadoraBundle\Entity\Responsable;
 use Anexa\CooperadoraBundle\Form\ResponsableType;
+use Anexa\CooperadoraBundle\Entity\Alumno;
 
 /**
  * Responsable controller.
@@ -22,10 +23,11 @@ class ResponsableController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $responsables = $em->getRepository('AnexaCooperadoraBundle:Responsable')->findAll();
+        $responsables = $em->getRepository('AnexaCooperadoraBundle:Responsable')->findByBorrado(false);
 
-        return $this->render('responsable/index.html.twig', array(
+        return $this->render('AnexaCooperadoraBundle:responsable:index.html.twig', array(
             'responsables' => $responsables,
+            "menu" => "responsable"
         ));
     }
 
@@ -47,9 +49,10 @@ class ResponsableController extends Controller
             return $this->redirectToRoute('responsable_show', array('id' => $responsable->getId()));
         }
 
-        return $this->render('responsable/new.html.twig', array(
+        return $this->render('AnexaCooperadoraBundle:responsable:new.html.twig', array(
             'responsable' => $responsable,
             'form' => $form->createView(),
+            "menu" => "responsable"
         ));
     }
 
@@ -61,9 +64,12 @@ class ResponsableController extends Controller
     {
         $deleteForm = $this->createDeleteForm($responsable);
 
-        return $this->render('responsable/show.html.twig', array(
+        return $this->render('AnexaCooperadoraBundle:responsable:show.html.twig', array(
             'responsable' => $responsable,
+            'alumnos' => $responsable->getAlumnos(),
+            'usuario'  =>$responsable->getUsuario(),
             'delete_form' => $deleteForm->createView(),
+            "menu" => "responsable"
         ));
     }
 
@@ -82,13 +88,18 @@ class ResponsableController extends Controller
             $em->persist($responsable);
             $em->flush();
 
-            return $this->redirectToRoute('responsable_edit', array('id' => $responsable->getId()));
+            //return $this->redirectToRoute('responsable_edit', array('id' => $responsable->getId()));
+            return $this->redirectToRoute('responsable_index');
         }
-
-        return $this->render('responsable/edit.html.twig', array(
+        $em = $this->getDoctrine()->getManager();
+        $alumnos = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findByBorrado(false);
+        return $this->render('AnexaCooperadoraBundle:responsable:edit.html.twig', array(
             'responsable' => $responsable,
+            'allAlumnos' => $alumnos,
+            'misAlumnos' => $responsable->getAlumnos(),
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            "menu" => "responsable"
         ));
     }
 
@@ -98,14 +109,10 @@ class ResponsableController extends Controller
      */
     public function deleteAction(Request $request, Responsable $responsable)
     {
-        $form = $this->createDeleteForm($responsable);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($responsable);
-            $em->flush();
-        }
+       
+        $em = $this->getDoctrine()->getManager();
+        $responsable->setBorrado(true);
+        $em->flush();
 
         return $this->redirectToRoute('responsable_index');
     }

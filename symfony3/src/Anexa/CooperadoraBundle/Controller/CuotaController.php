@@ -22,10 +22,11 @@ class CuotaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $cuotas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findAll();
+        $cuotas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findByBorrado(false);
 
-        return $this->render('cuota/index.html.twig', array(
+        return $this->render('AnexaCooperadoraBundle:cuota:index.html.twig', array(
             'cuotas' => $cuotas,
+            'menu' => 'cuota'
         ));
     }
 
@@ -35,20 +36,21 @@ class CuotaController extends Controller
      */
     public function newAction(Request $request)
     {
-        $cuotum = new Cuota();
-        $form = $this->createForm('Anexa\CooperadoraBundle\Form\CuotaType', $cuotum);
+        $cuota = new Cuota();
+        $form = $this->createForm('Anexa\CooperadoraBundle\Form\CuotaType', $cuota);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($cuotum);
+            $em->persist($cuota);
             $em->flush();
 
-            return $this->redirectToRoute('cuota_show', array('id' => $cuotum->getId()));
+            return $this->redirectToRoute('cuota_index'); //, array('id' => $cuota->getId()));
         }
 
-        return $this->render('cuota/new.html.twig', array(
-            'cuotum' => $cuotum,
+        return $this->render('AnexaCooperadoraBundle:cuota:new.html.twig', array(
+            'cuota' => $cuota,
+            'menu' => 'cuota',
             'form' => $form->createView(),
         ));
     }
@@ -57,12 +59,13 @@ class CuotaController extends Controller
      * Finds and displays a Cuota entity.
      *
      */
-    public function showAction(Cuota $cuotum)
+    public function showAction(Cuota $cuota)
     {
-        $deleteForm = $this->createDeleteForm($cuotum);
+        $deleteForm = $this->createDeleteForm($cuota);
 
-        return $this->render('cuota/show.html.twig', array(
-            'cuotum' => $cuotum,
+        return $this->render('AnexaCooperadoraBundle:cuota:show.html.twig', array(
+            'cuota' => $cuota,
+            'menu' => 'cuota',
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -71,22 +74,23 @@ class CuotaController extends Controller
      * Displays a form to edit an existing Cuota entity.
      *
      */
-    public function editAction(Request $request, Cuota $cuotum)
+    public function editAction(Request $request, Cuota $cuota)
     {
-        $deleteForm = $this->createDeleteForm($cuotum);
-        $editForm = $this->createForm('Anexa\CooperadoraBundle\Form\CuotaType', $cuotum);
+        $deleteForm = $this->createDeleteForm($cuota);
+        $editForm = $this->createForm('Anexa\CooperadoraBundle\Form\CuotaType', $cuota);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($cuotum);
+            $em->persist($cuota);
             $em->flush();
 
-            return $this->redirectToRoute('cuota_edit', array('id' => $cuotum->getId()));
+            return $this->redirectToRoute('cuota_index'); //, array('id' => $cuota->getId()));
         }
 
-        return $this->render('cuota/edit.html.twig', array(
-            'cuotum' => $cuotum,
+        return $this->render('AnexaCooperadoraBundle:cuota:edit.html.twig', array(
+            'cuota' => $cuota,
+            'menu' => 'cuota',
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -96,16 +100,11 @@ class CuotaController extends Controller
      * Deletes a Cuota entity.
      *
      */
-    public function deleteAction(Request $request, Cuota $cuotum)
+    public function deleteAction(Request $request, Cuota $cuota)
     {
-        $form = $this->createDeleteForm($cuotum);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($cuotum);
-            $em->flush();
-        }
+        $em = $this->getDoctrine()->getManager();
+        $cuota->setBorrado(true);
+        $em->flush();
 
         return $this->redirectToRoute('cuota_index');
     }
@@ -113,14 +112,14 @@ class CuotaController extends Controller
     /**
      * Creates a form to delete a Cuota entity.
      *
-     * @param Cuota $cuotum The Cuota entity
+     * @param Cuota $cuota The Cuota entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Cuota $cuotum)
+    private function createDeleteForm(Cuota $cuota)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('cuota_delete', array('id' => $cuotum->getId())))
+            ->setAction($this->generateUrl('cuota_delete', array('id' => $cuota->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

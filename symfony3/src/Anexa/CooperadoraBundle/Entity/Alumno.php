@@ -240,7 +240,7 @@ class Alumno {
 	*/
 	public function toogle()
 	{
-		return $this->borrado = false;
+		return $this->borrado = true;
 	}
 
 	/**
@@ -422,6 +422,16 @@ class Alumno {
 
 
 /** **************************  SETTERS  ********************************** */
+
+/**
+* Set Borrado
+* @param boolean $borrado
+* @return Alumno
+*/
+public function setBorrado($borrado) {
+	$this->borrado = $borrado;
+	return $this;
+}
 
 /**
 * Set Dni

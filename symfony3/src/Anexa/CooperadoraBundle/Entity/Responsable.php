@@ -63,8 +63,8 @@ class Responsable {
 	protected $nombre;
 
 	/**
-	* @var date
-	* @ORM\Column (name="fechaNacimiento")
+	* @var datetime
+	* @ORM\Column (name="fechaNacimiento", type="datetime")
 	*/
 	protected $fechaNacimiento;
 
@@ -113,7 +113,22 @@ class Responsable {
         $this->borrado = false;
 	}
 
+     public function __toString(){
+        return $this->nombre.$this->apellido;
+    }
+
 /* ***************** GETTERS ************************* */
+
+    /**
+    * add usuario
+    * @param Usuario $usuario
+    * @return Responsable
+    
+    public function addUsuario($usuario)
+    { 
+        $this->user = $usuario;
+        return $this;
+    } */
 
     /**
     * add alumno
@@ -155,15 +170,6 @@ class Responsable {
     public function getBorrado()
     {
         return $this->borrado;
-    }
-
-    /**
-    * toogle borrado
-    * @return Responsable
-    */
-    public function toogle()
-    {
-        $this->borrado = false;
     }
 
     /**
@@ -274,7 +280,7 @@ class Responsable {
     * Get alumnos
     * @return arrayCollection
     */
-    public function getAlumnosACargo()
+    public function getAlumnos()
     {
         return $this->alumnos;
     }
@@ -283,7 +289,7 @@ class Responsable {
     * Get user
     * @return User
     */
-    public function getUser()
+    public function getUsuario()
     {
         return $this->user;
     }
@@ -408,7 +414,7 @@ class Responsable {
     * @param User $user
     * @return Responsable
     */
-    public function setUser($user)
+    public function setUsuario($user)
     {
         $this->user = $user;
         return $this;
@@ -421,6 +427,26 @@ class Responsable {
 */
 public function setAlumnosACargo($alu) {
     $this->alumnos = $alu;
+    return $this;
+}
+
+ /**
+* Set alumnos
+* @param ArrayCollection $alu
+* @return Responsable
+*/
+public function setAlumnos($alu) {
+    $this->alumnos = $alu;
+    return $this;
+}
+
+/**
+* Set alumnos
+* @param boolean $valor
+* @return Responsable
+*/
+public function setBorrado($valor) {
+    $this->borrado = $valor;
     return $this;
 }
 

@@ -21,4 +21,4 @@ responsable_edit:
 responsable_delete:
     path:     /{id}/delete
     defaults: { _controller: "AnexaCooperadoraBundle:Responsable:delete" }
-    methods:  DELETE
+    methods:  GET

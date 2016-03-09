@@ -3,8 +3,21 @@
 namespace Anexa\CooperadoraBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
+use Doctrine\ORM\EntityRepository;
+use Anexa\CooperadoraBundle\Entity\Alumno;
+use Anexa\CooperadoraBundle\Entity\User;
+
 
 class ResponsableType extends AbstractType
 {
@@ -15,19 +28,61 @@ class ResponsableType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('borrado')
-            ->add('tipoDNI')
-            ->add('dni')
-            ->add('tipoResponsable')
-            ->add('apellido')
-            ->add('nombre')
-            ->add('fechaNacimiento')
-            ->add('sexo')
-            ->add('email')
-            ->add('telefono')
-            ->add('direccion')
-            ->add('alumnos')
-            ->add('user')
+            
+            ->add('tipoDNI', ChoiceType::class, array(
+                                                    'choices'  => array(
+                                                        'DNI' => 'DNI',
+                                                        'Cédula de Identidad' => 'CI',
+                                                        'Libreta Cívica' => 'LC',
+                                                        'Libreta de Enrolamiento' => 'LE'),
+                                                    'label' => 'Tipo de Documento')
+             )
+            ->add('dni', TextType::class, array('label' => 'Número de Documento'))
+            ->add('apellido', TextType::class, array('label' => 'Apellido'))
+            ->add('nombre', TextType::class, array('label' => 'Nombre'))
+            ->add('fechaNacimiento', DateType::class, array(
+                                                'widget' => 'single_text', 
+                                                'html5' => true, 
+                                                'label' => 'Fecha de Nacimiento')
+                )
+            ->add('sexo', ChoiceType::class, array(
+                                            'choices'  => array(
+                                                'Femenino' => 'F',
+                                                'Masculino' => 'M',
+                                                'Otro' => 'O'),
+                                            'label' => 'Sexo'))
+            ->add('email', TextType::class, array('label' => 'Email'))
+            ->add('telefono', TextType::class, array('label' => 'Teléfono'))
+            ->add('direccion', TextType::class, array('label' => 'Dirección'))
+            ->add('tipoResponsable', ChoiceType::class, array(
+                                                    'choices'  => array(
+                                                        'Padre' => 'Padre',
+                                                        'Madre' => 'Madre',
+                                                        'Tutor' => 'Tutor'),
+                                                    'label' => 'Tipo de Responsable')
+                                )
+            ->add('alumnos', EntityType::class, array(
+                                                    'class' => 'AnexaCooperadoraBundle:Alumno',
+                                                    'multiple' => true,
+                                                    'required' => false,
+                                                    'label' => 'Alumnos',
+                                                    'query_builder' => function(EntityRepository $er) {
+                                                        return $er -> createQueryBuilder('a')
+                                                                    ->where('a.borrado = 0'); 
+                                                        }
+                                                )
+                )
+            ->add('usuario', EntityType::class, array(
+                                                    'class' => 'AnexaCooperadoraBundle:User',
+                                                    'multiple' => false,
+                                                    'required' => false,
+                                                    'label' => 'Usuario',
+                                                    'query_builder' => function(EntityRepository $er) {
+                                                        return $er -> createQueryBuilder('u')
+                                                                    -> where('u.borrado = 0');
+                                                    })
+                )
+            ->add('button', SubmitType::class)
         ;
     }
     
