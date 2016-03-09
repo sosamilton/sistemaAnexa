@@ -3,7 +3,7 @@
   <li role="presentation" {% if menu == "alumno" %}class="active"{% endif %}><a href="{{path('alumno_index')}}">Alumnos</a></li>
   <li role="presentation" {% if menu == "listado" %}class="active"{% endif %}><a href="{{path('anexa_cooperadora_backend')}}">Listados</a></li>
   {# if session.rol != "Consulta" %#}
-    <li role="presentation"  {% if menu == "pago" %}class="active"{% endif %}><a href="{{path('anexa_cooperadora_backend')}}">Pagos</a></li>
+    <li role="presentation"  {% if menu == "pago" %}class="active"{% endif %}><a href="{{path('pago_index')}}">Pagos</a></li>
     <li role="presentation" {% if menu == "cuota" %}class="active"{% endif %}><a href="{{path('cuota_index')}}">Cuotas</a></li>
     <li role="presentation" {% if menu == "estadistica" %}class="active"{% endif %}><a href="{{path('anexa_cooperadora_backend')}}">Estadísticas</a></li>
     {# if session.rol == "Administracion" #}
