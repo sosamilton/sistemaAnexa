@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Anexa\CooperadoraBundle\Entity\Responsable;
 use Anexa\CooperadoraBundle\Form\ResponsableType;
 use Anexa\CooperadoraBundle\Entity\Alumno;
+use FOS\UserBundle\Doctrine\UserManager
 
 /**
  * Responsable controller.
@@ -45,6 +46,14 @@ class ResponsableController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($responsable);
             $em->flush();
+
+            // $userManager = $container->get('fos_user.user_manager');
+            // $user = $userManager->createUser();
+            // $user->setUsername($username);
+            // $user->setEmail($email);
+            // $user->setPlainPassword($password);
+            // $user->setEnabled(true);
+            // $userManager->updateUser($user);
 
             return $this->redirectToRoute('responsable_show', array('id' => $responsable->getId()));
         }
@@ -109,7 +118,7 @@ class ResponsableController extends Controller
      */
     public function deleteAction(Request $request, Responsable $responsable)
     {
-       
+
         $em = $this->getDoctrine()->getManager();
         $responsable->setBorrado(true);
         $em->flush();

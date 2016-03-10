@@ -13,7 +13,6 @@ namespace Symfony\Bundle\FrameworkBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -22,11 +21,9 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 
 /**
@@ -275,9 +272,9 @@ abstract class Controller implements ContainerAwareInterface
     /**
      * Creates and returns a Form instance from the type of the form.
      *
-     * @param string|FormTypeInterface $type    The built type of the form
-     * @param mixed                    $data    The initial data for the form
-     * @param array                    $options Options for the form
+     * @param string $type    The fully qualified class name of the form type
+     * @param mixed  $data    The initial data for the form
+     * @param array  $options Options for the form
      *
      * @return Form
      */

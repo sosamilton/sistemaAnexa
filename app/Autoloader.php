@@ -16,7 +16,6 @@ class Autoloader {
 		}
 	}
 }
-
 $autoloader = new Autoloader;
 $autoloader->register();
 

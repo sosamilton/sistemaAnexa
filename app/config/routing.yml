@@ -1,4 +1,5 @@
-
+base: "http://localhost/sistemaAnexa/web/app.php/"
+resource: "http://localhost/sistemaAnexa/web"
 index:
 	controller: "index"
 	action: "index"
@@ -29,93 +30,93 @@ backend/salir:
 	action: "logout"
 	role: notRegistered
 
-backend/alumno:	
+backend/alumno:
  	controller: "alumno"
  	action: "index"
  	role: isRemember
 
-backend/alumno/agregar:	
+backend/alumno/agregar:
  	controller: "alumno"
  	action: "create"
  	role: rolAdmin
 
-backend/alumno/editar:	
+backend/alumno/editar:
  	controller: "alumno"
  	action: "update"
  	role: rolAdmin
 
-backend/alumno/eliminar:	
+backend/alumno/eliminar:
  	controller: "alumno"
  	action: "delete"
  	role: rolAdmin
 
-backend/alumno/ver:	
+backend/alumno/ver:
  	controller: "alumno"
  	action: "view"
  	role: rolConsulta
 
-backend/responsable:	
+backend/responsable:
  	controller: "responsable"
  	action: "index"
  	role: rolAdmin
 
-backend/responsable/agregar:	
+backend/responsable/agregar:
  	controller: "responsable"
  	action: "create"
  	role: rolAdmin
 
-backend/responsable/editar:	
+backend/responsable/editar:
  	controller: "responsable"
  	action: "update"
  	role: rolAdmin
 
-backend/responsable/eliminar:	
+backend/responsable/eliminar:
  	controller: "responsable"
  	action: "delete"
  	role: rolAdmin
 
-backend/responsable/ver:	
+backend/responsable/ver:
  	controller: "responsable"
  	action: "view"
  	role: rolAdmin
 
-backend/usuario:	
+backend/usuario:
  	controller: "usuario"
  	action: "index"
  	role: rolAdmin
 
-backend/usuario/agregar:	
+backend/usuario/agregar:
  	controller: "usuario"
  	action: "create"
  	role: rolAdmin
 
-backend/usuario/editar:	
+backend/usuario/editar:
  	controller: "usuario"
  	action: "update"
  	role: rolAdmin
 
-backend/usuario/eliminar:	
+backend/usuario/eliminar:
  	controller: "usuario"
  	action: "delete"
  	role: rolAdmin
 
-backend/usuario/estado:	
+backend/usuario/estado:
  	controller: "usuario"
  	action: "toogle"
  	role: rolAdmin
 
-backend/usuario/ver:	
+backend/usuario/ver:
  	controller: "usuario"
  	action: "view"
  	role: rolAdmin
 
 
-backend/configuracion:	
+backend/configuracion:
  	controller: "configuracion"
  	action: "index"
  	role: rolAdmin
 
-backend/configuracion/editar:	
+backend/configuracion/editar:
  	controller: "configuracion"
  	action: "update"
  	role: rolAdmin
@@ -125,17 +126,17 @@ backend/cuota:
 	action: "index"
 	role: rolGestion
 
-backend/cuota/agregar:	
+backend/cuota/agregar:
  	controller: "cuota"
  	action: "create"
  	role: rolGestion
 
-backend/cuota/editar:	
+backend/cuota/editar:
  	controller: "cuota"
  	action: "update"
  	role: rolGestion
 
-backend/cuota/eliminar:	
+backend/cuota/eliminar:
  	controller: "cuota"
  	action: "delete"
  	role: rolGestion
@@ -163,7 +164,7 @@ backend/pago/editar:
 backend/pago/eliminar:
 	controller: "pago"
 	action: "delete"
-	role: rolGestion	
+	role: rolGestion
 
 backend/pago/listarPagos:
 	controller: "pago"
@@ -234,4 +235,3 @@ backend/listado/comisionCobradaPDF:
 	controller: "listado"
 	action: "comisionCobradaPdf"
 	role: rolGestion
-

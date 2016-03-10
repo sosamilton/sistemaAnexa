@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\DependencyInjection\Tests\Compiler;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Compiler\ResolveDefinitionTemplatesPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -79,6 +78,25 @@ class ResolveDefinitionTemplatesPassTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($def->isAbstract());
     }
 
+    public function testProcessDoesNotCopyShared()
+    {
+        $container = new ContainerBuilder();
+
+        $container
+            ->register('parent')
+            ->setShared(false)
+        ;
+
+        $container
+            ->setDefinition('child', new DefinitionDecorator('parent'))
+        ;
+
+        $this->process($container);
+
+        $def = $container->getDefinition('child');
+        $this->assertTrue($def->isShared());
+    }
+
     public function testProcessDoesNotCopyTags()
     {
         $container = new ContainerBuilder();
@@ -115,6 +133,25 @@ class ResolveDefinitionTemplatesPassTest extends \PHPUnit_Framework_TestCase
 
         $def = $container->getDefinition('child');
         $this->assertNull($def->getDecoratedService());
+    }
+
+    public function testProcessDoesNotDropShared()
+    {
+        $container = new ContainerBuilder();
+
+        $container
+            ->register('parent')
+        ;
+
+        $container
+            ->setDefinition('child', new DefinitionDecorator('parent'))
+            ->setShared(false)
+        ;
+
+        $this->process($container);
+
+        $def = $container->getDefinition('child');
+        $this->assertFalse($def->isShared());
     }
 
     public function testProcessHandlesMultipleInheritance()
