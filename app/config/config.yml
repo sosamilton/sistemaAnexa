@@ -4,7 +4,7 @@ driver: pdo_mysql
 
 ### Servidor
 db_user: root
-db_pass: h.L-3aZ<
+db_pass: 
 db_name: grupo_57
 
 knp_snappy:
