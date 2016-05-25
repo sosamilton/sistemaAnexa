@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Anexa\CooperadoraBundle\Entity\Configuracion;
 use Anexa\CooperadoraBundle\Form\ConfiguracionType;
+use Symfony\Component\HttpFoundation\Response;
+
 
 /**
  * Configuracion controller.
@@ -124,5 +126,16 @@ class ConfiguracionController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function paginacionAction(){
+        $em = $this->getDoctrine()->getManager();
+        $configuracions = $em->getRepository('AnexaCooperadoraBundle:Configuracion')->findOneByClave('paginacion');
+        if (count($configuracions) == 1 ) {
+            $configuracions=$configuracions->getValorNumerico();
+        }else{
+            $configuracions=5;
+        }
+        return new Response($configuracions);
     }
 }

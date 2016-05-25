@@ -7,7 +7,7 @@
         <a class="btn btn-primary botonAdd" href="{{ path('cuota_new') }}">Agregar Cuota</a>
     {% endif %}
 
-    <div class="panel panel-primary">
+    <div class="panel panel-primary" id="paginacion">
       <!-- Default panel contents -->
       <div class="panel-heading">Listado de Cuotas</div>
       <!-- Table -->
@@ -87,7 +87,20 @@
                 {% endfor %}
               </tbody>
             </table>
+            <div class="col-md-4 col-md-offset-4">
+                <ul class="pagination"></ul>
+            </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            var monkeyList = new List('paginacion', {
+              valueNames: ['numero', 'anio','mes','tipo', 'monto', "comision", "fechaAlta"],
+              page: {{paginacion}},
+              plugins: [ ListPagination({}) ] 
+          });
+        });
+    </script>
 
 {% endblock %}

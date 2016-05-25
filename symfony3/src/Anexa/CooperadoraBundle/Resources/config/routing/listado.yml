@@ -1,0 +1,16 @@
+listado_index:
+    path:     /
+    defaults: { _controller: "AnexaCooperadoraBundle:Listado:index" }
+    methods:  GET
+
+listado_matriculado:
+    path:     /matriculados
+    defaults: { _controller: "AnexaCooperadoraBundle:Listado:matriculados" }
+    methods:  POST
+
+listado_pago_becado:
+    path:     /cuotasPagasyBecadas
+    defaults: { _controller: "AnexaCooperadoraBundle:Listado:matriculados" }
+    methods:  POST
+
+

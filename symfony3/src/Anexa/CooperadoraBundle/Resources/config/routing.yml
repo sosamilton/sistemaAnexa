@@ -22,6 +22,10 @@ anexa_cooperadora_pago:
     prefix:     /backend/pago
     resource: "@AnexaCooperadoraBundle/Resources/config/routing/pago.yml"
 
+anexa_cooperadora_listado:
+    prefix:     /backend/listado
+    resource: "@AnexaCooperadoraBundle/Resources/config/routing/listado.yml"
+
 anexa_cooperadora_configuracion:
     prefix:     /backend/configuracion
     resource: "@AnexaCooperadoraBundle/Resources/config/routing/configuracion.yml"
@@ -39,6 +43,10 @@ user:
 login:
     path: /login
     defaults: { _controller: AnexaCooperadoraBundle:Security:login }
+
+paginacion:
+    path: /paginacion
+    defaults: { _controller: AnexaCooperadoraBundle:Configuracion:paginacion }
 
 # backend/usuario/estado:
 #  	controller: "usuario"
