@@ -1,0 +1,127 @@
+{% extends 'AnexaCooperadoraBundle:backend:inicio.html.twig' %}
+
+{% block title %} Gesti&oacute;n | Comisi&oacute;n cobrada{% endblock %}
+
+{% block dataAdmin %}
+
+  	{% if msj is defined %}
+
+        <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <strong>Atenci&oacute;n! </strong>{{msj}}
+        </div>
+
+    {% endif %}
+
+    {% if hayCuotasCobradas %}
+        <a class="btn btn-primary botonAdd" href="{{URL.backend_listado_comisionCobradaPDF}}?id={{id}}">Exportar a PDF</a>
+
+        <div class="panel panel-primary">
+            <!-- Default panel contents -->
+            <div class="panel-heading">{{info}}</div>
+                <!-- Table -->
+                <div class="panel-body" id="paginacion">
+                     <div class="input-group col-md-12">
+                    <div class="input-group-addon">
+                      <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        <span class="glyphicon glyphicon-filter"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
+                        <li role="presentation">
+                            <input type="checkbox" name="busqueda" value="año" checked> 
+                            <label>An&ntilde;o</label>
+                        </li>
+                        <li role="presentation">
+                            <input type="checkbox" name="busqueda" value="mes" checked> 
+                            <label>Mes</label>
+                        </li>
+                      </ul>
+                    </div>
+                    <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+
+                </div>           
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <button class="sort btn" data-sort="año">
+                                        <span class="glyphicon glyphicon-sort"></span>
+                                    </button>
+                                A&ntilde;o
+                                </th>
+                                <th>
+                                    <button class="sort btn" data-sort="mes">
+                                        <span class="glyphicon glyphicon-sort"></span>
+                                    </button>
+                                    Mes
+                                </th>
+                                <th>
+                                    <button class="sort btn" data-sort="montoCuota">
+                                        <span class="glyphicon glyphicon-sort"></span>
+                                    </button>
+                                    Monto Cuota
+                                </th>
+                                <th>
+                                    <button class="sort btn" data-sort="comision">
+                                        <span class="glyphicon glyphicon-sort"></span> 
+                                    </button>
+                                    Porcentaje Comisi&oacute;n
+                                </th>
+                                <th>
+                                    <button class="sort btn" data-sort="monto">
+                                        <span class="glyphicon glyphicon-sort"></span>
+                                    </button>
+                                    Monto Cobrado
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="list">
+                            {% for cuota in cuotas %}
+                                <tr>
+                                    
+                                    <td class="año">{{cuota.data.anio}}</td>
+                                    <td class="mes">{{cuota.data.mes}}</td>
+                                    <td class="montoCuota">{{cuota.data.monto}}</td> 
+                                    <td class="comision">{{cuota.data.comisionCobrador}}</td>
+                                    <td class="monto">{{cuota.montoCobrado}}</td> 
+                                                                     
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="col-md-4 col-md-offset-4">
+                        <ul class="pagination"></ul>
+                    </div>
+                </div>
+            <div class="panel-footer">          
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="label-group label-group-sm col-md-32" role="group" >
+                      Total Cobrado <span class="label label-success col-md-32">{{total}}</button>
+                    </div>
+                </div>                   
+            </div>
+    </div>
+    {% endif %}
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            var monkeyList = new List('paginacion', {
+              	valueNames: ['nombre','apellido','dni'],
+              	page: {{paginacion}},
+              	plugins: [ ListPagination({}) ] 
+          	});
+
+          	$(".input-busqueda").keyup(function(){
+              	filtros = [];
+              	$("input[name='busqueda']:checked").each(function() {
+                  	filtros.push($(this).val());
+              	});
+              	monkeyList.search($(this).val(), filtros)
+          	});
+        });
+        
+    </script>
+{% endblock %}

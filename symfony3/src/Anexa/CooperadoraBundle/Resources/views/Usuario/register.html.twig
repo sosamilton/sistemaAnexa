@@ -1,0 +1,72 @@
+{% extends 'InicioBundle:Admin:index.html.twig' %} 
+{% block form %}
+    <div class="row">
+        {{ form_start(form) }}
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                {{ form_errors(form) }}
+                {{ form_widget(form._token) }}
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-lock"></span>Registrar Usuarios</div>
+                <div class="panel-body distancia">
+                <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+                    {{ form_label(form.username)}}
+                    {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Nombre de Usuario'}}) }}
+                    
+                    <div class="form-group {% if form.email.vars.errors[0].message is defined %} has-error{% endif %}">
+                        {{ form_label(form.email)}}
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+                        {% if form.email.vars.errors[0].message is defined %}
+                            <span class="help-block">
+                            {{ form.email.vars.errors[0].message }}
+                            </span>
+                        {% endif %}
+                    </div>
+                    {{ form_label(form.plainPassword.first)}}
+                    {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control', 'placeholder': 'Contraseña'}}) }}
+                    {{ form_label(form.plainPassword.second)}}
+                    {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control', 'placeholder': 'Repita la Contraseña'}}) }}
+                    {{ form_label(form.nombre)}}
+                    {{ form_widget(form.nombre, {'attr': {'class': 'form-control', 'placeholder': 'Nombre'}}) }}
+                    {{ form_label(form.apellido)}}
+                    {{ form_widget(form.apellido, {'attr': {'class': 'form-control', 'placeholder': 'Apellido'}}) }}
+                    {{ form_label(form.dni)}}
+                    {{ form_widget(form.dni, {'attr': {'class': 'form-control', 'placeholder': 'DNI'}}) }}
+                    {{ form_label(form.fechaNacimiento)}}
+                    {{ form_widget(form.fechaNacimiento, {'attr': {'class': 'form-control', 'placeholder': 'Fecha de Nacimiento'}}) }}
+                    {{ form_label(form.carrera)}}
+                    {{ form_widget(form.carrera, {'attr': {'class': 'form-control', 'placeholder': 'Carrera'}}) }}
+                    {{ form_label(form.direccion)}}
+                    {{ form_widget(form.direccion, {'attr': {'class': 'form-control', 'placeholder': 'Dirección'}}) }}
+                    {{ form_label(form.telefono)}}
+                    {{ form_widget(form.telefono, {'attr': {'class': 'form-control', 'placeholder': 'Teléfono'}}) }}
+                    <div class="form-group">                        
+                        {{ form_label(form.roles)}}
+                        {{ form_widget(form.roles, {'attr': {'class': 'form-control' }, 'multiple':false } ) }}
+                    </div>
+                    <div class="form-group">                        
+                        {{ form_label(form.sistemas)}}
+                        {{ form_widget(form.sistemas, {'attr': {'class': 'form-control' }, 'multiple':true } ) }}
+                    </div>
+                    
+                    
+                    {{ form_end(form) }}
+           
+                    
+                    <div>
+                        <input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" class="btn btn-primary dropdown-toggle pull-left"/>
+                    
+                    </div>
+                    <a href="{{ path('index') }}">
+                        <div class="btn btn-primary dropdown-toggle distanciaa">
+                            <span class="glyphicon glyphicon-share-alt"></span>
+                            Volver al login
+                        </div>
+                    </a>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}
+

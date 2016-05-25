@@ -1,0 +1,11 @@
+logged:
+    path:     /
+    defaults: { _controller: AnexaCooperadoraBundle:backend:login }
+
+login:
+    path:     /login
+    defaults: { _controller: AnexaCooperadoraBundle:backend:login }
+
+sendMail:
+    path:     /sendMail
+    defaults: { _controller: AnexaCooperadoraBundle:backend:sendMail }

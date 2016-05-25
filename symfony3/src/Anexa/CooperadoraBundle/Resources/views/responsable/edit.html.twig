@@ -1,0 +1,107 @@
+{% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
+
+{% block title %} Administración | Responsable | Editar {% endblock %}
+
+{% block dataAdmin %}
+    <div class="panel panel-primary">
+      <!-- Default panel contents -->
+        <div class="panel-heading">Editar Responsable ~ {{responsable.nombre}} {{responsable.apellido}}</div>
+      <!-- Table -->
+        <div class="panel-body">
+
+          {{ form_start(edit_form) }}
+              {{ form_errors(edit_form) }}
+   
+                  <div class="col-md-6">
+                      {{ form_label(edit_form.nombre) }}
+                      {{ form_widget(edit_form.nombre, {'attr': {'class':'form-control'}}) }}
+                  </div>
+                  <div class="col-md-6">
+                      {{ form_label(edit_form.apellido) }}
+                      {{ form_widget(edit_form.apellido, {'attr': {'class':'form-control'}}) }}
+                  </div> 
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.fechaNacimiento) }}
+                      {{ form_widget(edit_form.fechaNacimiento, {'attr': {'class':'form-control'}}) }}
+                  </div> 
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.tipoDNI) }}
+                      {{ form_widget(edit_form.tipoDNI, {'attr': {'class':'form-control'}}) }}
+                  </div> 
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.dni) }}
+                      {{ form_widget(edit_form.dni, {'attr': {'class':'form-control'}}) }}
+                  </div> 
+                  <div class="col-md-3">
+                      {{ form_label(edit_form.sexo) }}
+                      {{ form_widget(edit_form.sexo, {'attr': {'class':'form-control'}} )}}
+                  </div>
+
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.telefono) }}
+                      {{ form_widget(edit_form.telefono, {'attr': {'class':'form-control'}}) }}
+                  </div> 
+                  <div class="col-md-5">
+                      {{ form_label(edit_form.email) }}
+                      {{ form_widget(edit_form.email, {'attr': {'class':'form-control'}}) }}
+                  </div> 
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.direccion) }}
+                      {{ form_widget(edit_form.direccion, {'attr': {'class':'form-control'}}) }}
+                  </div> 
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.tipoResponsable) }}
+                      {{ form_widget(edit_form.tipoResponsable, {'attr': {'class':'form-control'}}) }}
+                  </div>
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.usuario) }}
+                      {{ form_widget(edit_form.usuario, {'attr': {'class':'form-control'}}) }}
+                  </div>  
+
+                 <div class="col-md-6 form-group">
+                    {{ form_label(edit_form.alumnos) }}
+                    {{ form_widget(edit_form.alumnos, {'attr': {'class':'form-control'}}) }}
+                </div> 
+                  
+                    <div class="form-group">
+                      <div class="col-md-5">
+                        <label>Agregar Alumno</label>
+                        <select class="ancho form-control" id="alumnos" size="5">
+                          {% for alumno in allAlumnos %}
+                            <option value="{{alumno.id}}">
+                              {{alumno.nombre ~ " " ~ alumno.apellido}} | {{alumno.dni}}
+                            </option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-md-1 margin-top1">
+                        <div id="add" class="btn btn-chico btn-primary btn-chico margin-top1">
+                          <span class="glyphicon glyphicon-plus"></span>
+                          <span class="glyphicon glyphicon-chevron-right"></span>
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <label>Alumnos Agregados</label>
+                        <ul id="listAlumnos" class="list-group">
+                          {% for alumno in misAlumnos %}
+                              <li class='list-group-item' id='list_{{alumno.id}}'>
+                                {{alumno.nombre ~ " " ~ alumno.apellido }} | {{alumno.dni}} 
+                                <span resp-id="{{alumno.id}}" class='badge rmItem remove'>X</span>
+                              </li>
+                          {% endfor %}
+                        </ul>  
+                      </div>
+                    </div>
+                    
+
+                  {{ form_label(edit_form.button) }}
+                  {{ form_widget(edit_form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label' : 'Editar Responsable'}) }}
+ 
+          {{ form_end(edit_form) }}
+
+        </div>
+    </div>
+    
+  
+{% endblock %}
+

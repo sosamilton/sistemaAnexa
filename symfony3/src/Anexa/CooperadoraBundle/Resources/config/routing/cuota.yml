@@ -1,0 +1,24 @@
+cuota_index:
+    path:     /
+    defaults: { _controller: "AnexaCooperadoraBundle:Cuota:index" }
+    methods:  GET
+
+cuota_show:
+    path:     /{id}/show
+    defaults: { _controller: "AnexaCooperadoraBundle:Cuota:show" }
+    methods:  GET
+
+cuota_new:
+    path:     /new
+    defaults: { _controller: "AnexaCooperadoraBundle:Cuota:new" }
+    methods:  [GET, POST]
+
+cuota_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AnexaCooperadoraBundle:Cuota:edit" }
+    methods:  [GET, POST]
+
+cuota_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AnexaCooperadoraBundle:Cuota:delete" }
+    methods:  GET
