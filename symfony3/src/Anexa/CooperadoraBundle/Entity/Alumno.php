@@ -56,8 +56,8 @@ class Alumno {
 	protected $nombre;
 
 	/**
-	* @var datetime
-	* @ORM\Column (name="fechaNacimiento", type="datetime")
+	* @var string
+	* @ORM\Column (name="fechaNacimiento", type="string")
 	*/
 	protected $fechaNacimiento;
 
@@ -118,15 +118,15 @@ class Alumno {
 
 
 	/**
-	* @var datetime
-	* @ORM\Column (name="fechaIngreso", type="datetime")
+	* @var string
+	* @ORM\Column (name="fechaIngreso", type="string")
 	*/
 	protected $fechaIngreso;
 
 
 	/**
-	* @var datetime
-	* @ORM\Column (name="fechaEgreso", type="datetime", nullable=true)
+	* @var string
+	* @ORM\Column (name="fechaEgreso", type="string", nullable=true)
 	*/
 	protected $fechaEgreso;
 
@@ -144,8 +144,8 @@ class Alumno {
 
 
 	/**
-	* @var datetime
-	* @ORM\Column (name="fechaAlta", type="datetime")
+	* @var string
+	* @ORM\Column (name="fechaAlta", type="string")
 	*/
 	protected $fechaAlta;
 
@@ -296,7 +296,7 @@ class Alumno {
 
 	/**
 	* Get fechaNacimiento
-	* @return datetime
+	* @return string
 	*/
 	public function getFechaNacimiento() {
 		return $this->fechaNacimiento;
@@ -379,7 +379,7 @@ class Alumno {
 
 	/**
 	* Get fechaIngreso
-	* @return datetime
+	* @return string
 	*/
 	public function getFechaIngreso() {
 		return $this->fechaIngreso;
@@ -387,7 +387,7 @@ class Alumno {
 
 	/**
 	* Get fechaEgreso
-	* @return datetime
+	* @return string
 	*/
 	public function getFechaEgreso() {
 		return $this->fechaEgreso;
@@ -395,7 +395,7 @@ class Alumno {
 
 	/**
 	* Get fechaAlta
-	* @return datetime
+	* @return string
 	*/
 	public function getFechaAlta() {
 		return $this->fechaAlta;
@@ -477,7 +477,7 @@ public function setNombre($nombre) {
 
 /**
 * Set fechaNacimiento
-* @param datetime $fechaNacimiento
+* @param string $fechaNacimiento
 * @return Alumno
 */
 public function setFechaNacimiento($fechaNacimiento) {
@@ -585,7 +585,7 @@ public function setEmail($email) {
 
 /**
 * Set fechaIngreso
-* @param datetime $fechaIngreso
+* @param string $fechaIngreso
 * @return Alumno
 */
 
@@ -596,7 +596,7 @@ public function setFechaIngreso($fechaIngreso) {
 
 /**
 * Set fechaEgreso
-* @param datetime $fechaEgreso
+* @param string $fechaEgreso
 * @return Alumno
 */
 
@@ -608,7 +608,7 @@ public function setFechaEgreso($fechaEgreso) {
 
 /**
 * Set fechaAlta
-* @param datetime $fechaAlta
+* @param string $fechaAlta
 * @return Alumno
 */
 public function setFechaAlta($fechaAlta) {

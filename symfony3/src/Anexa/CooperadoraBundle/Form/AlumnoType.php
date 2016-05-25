@@ -7,8 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-//use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
@@ -24,7 +23,7 @@ class AlumnoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tipoDNI', 
+            ->add('tipoDNI',
              ChoiceType::class, array(
                                     'choices'  => array(
                                         'DNI' => 'DNI',
@@ -50,26 +49,13 @@ class AlumnoType extends AbstractType
             ->add('pais', TextType::class, array('label' => 'País'))
             ->add('telefono', TextType::class, array('label' => 'Teléfono'))
             ->add('email', TextType::class, array('label' => 'Email'))
-            ->add('latitud', TextType::class, array('label' => 'Latitud'))
-            ->add('longitud', TextType::class, array('label' => 'Longitud'))
-            
-            ->add('fechaNacimiento',DateType::class, array(
-                                                'widget' => 'single_text', 
-                                                'html5' => true, 
-                                                'label' => 'Fecha de Nacimiento'))
-            ->add('fechaAlta',DateType::class, array(
-                                                'widget' => 'single_text', 
-                                                'html5' => true, 
-                                                'label' => 'Fecha de Alta'))
-            ->add('fechaIngreso', DateType::class, array(
-                                                'widget' => 'single_text', 
-                                                'html5' => true, 
-                                                'label' => 'Fecha de Ingreso'))
-            ->add('fechaEgreso',DateType::class, array(
-                                                'required' => false,
-                                                'widget' => 'single_text', 
-                                                'html5' => true, 
-                                                'label' => 'Fecha de Egreso'))
+            ->add('latitud', HiddenType::class, array('label' => 'Latitud'))
+            ->add('longitud', HiddenType::class, array('label' => 'Longitud'))
+
+            ->add('fechaNacimiento',TextType::class, array('label' => 'Fecha de Nacimiento'))
+            ->add('fechaAlta',HiddenType::class)
+            ->add('fechaIngreso', TextType::class, array('label' => 'Fecha de Ingreso'))
+            ->add('fechaEgreso',TextType::class, array('label' => 'Fecha de Egreso'))
             ->add('responsables', EntityType::class, array(
                                                     'class' => 'AnexaCooperadoraBundle:Responsable',
                                                     'multiple' => true,
@@ -77,7 +63,7 @@ class AlumnoType extends AbstractType
                                                     'label' => 'Responsables',
                                                     'query_builder' => function(EntityRepository $er) {
                                                         return $er -> createQueryBuilder('r')
-                                                                    ->where('r.borrado = 0'); 
+                                                                    ->where('r.borrado = 0');
                                                         })
             )
             ->add('button', SubmitType::class)

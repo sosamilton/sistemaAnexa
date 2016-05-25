@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Doctrine\ORM\EntityRepository;
@@ -68,16 +69,8 @@ class ResponsableType extends AbstractType
                                                         }
                                                 )
                 )
-            ->add('usuario', EntityType::class, array(
-                                                    'class' => 'AnexaCooperadoraBundle:User',
-                                                    'multiple' => false,
-                                                    'required' => false,
-                                                    'label' => 'Usuario',
-                                                    'query_builder' => function(EntityRepository $er) {
-                                                        return $er -> createQueryBuilder('u')
-                                                                    -> where('u.borrado = 0');
-                                                    })
-                )
+            ->add('usuario', HiddenType::class)
+
             ->add('button', SubmitType::class)
         ;
     }
