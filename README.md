@@ -1,2 +1,4 @@
-# sistemaAnexa
-sistema realizado para la materia Proyecto de Software de la facultad de informática de la UNLP en MVC usando Doctrine y Twig
+sistemaAnexa
+============
+
+A Symfony project created on February 28, 2016, 10:34 pm.
