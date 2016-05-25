@@ -1,4 +1,4 @@
-{% extends 'InicioBundle:Admin:index.html.twig' %} 
+{% extends 'InicioBundle:Admin:index.html.twig' %}
 {% block form %}
     <div class="row">
         {{ form_start(form) }}
@@ -12,7 +12,7 @@
                 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
                     {{ form_label(form.username)}}
                     {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Nombre de Usuario'}}) }}
-                    
+
                     <div class="form-group {% if form.email.vars.errors[0].message is defined %} has-error{% endif %}">
                         {{ form_label(form.email)}}
                         {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
@@ -40,22 +40,22 @@
                     {{ form_widget(form.direccion, {'attr': {'class': 'form-control', 'placeholder': 'Dirección'}}) }}
                     {{ form_label(form.telefono)}}
                     {{ form_widget(form.telefono, {'attr': {'class': 'form-control', 'placeholder': 'Teléfono'}}) }}
-                    <div class="form-group">                        
+                    <div class="form-group">
                         {{ form_label(form.roles)}}
                         {{ form_widget(form.roles, {'attr': {'class': 'form-control' }, 'multiple':false } ) }}
                     </div>
-                    <div class="form-group">                        
+                    <div class="form-group">
                         {{ form_label(form.sistemas)}}
                         {{ form_widget(form.sistemas, {'attr': {'class': 'form-control' }, 'multiple':true } ) }}
                     </div>
-                    
-                    
+
+
                     {{ form_end(form) }}
-           
-                    
+
+
                     <div>
                         <input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" class="btn btn-primary dropdown-toggle pull-left"/>
-                    
+
                     </div>
                     <a href="{{ path('index') }}">
                         <div class="btn btn-primary dropdown-toggle distanciaa">
@@ -66,7 +66,6 @@
                 </form>
             </div>
         </div>
-        
+
     </div>
 {% endblock %}
-

@@ -16,7 +16,7 @@
 
       {{ form_start(form) }}
         {{ form_errors(form) }}
-        <div class="form-group col-md-12">
+        <div class="col-md-12">
           <div class="col-md-6">
               {{ form_label(form.nombre) }}
               {{ form_widget(form.nombre, {'attr': {'class':'form-control'}}) }}
@@ -24,21 +24,27 @@
           <div class="col-md-6">
               {{ form_label(form.apellido) }}
               {{ form_widget(form.apellido, {'attr': {'class':'form-control'}}) }}
-          </div> 
+          </div>
         </div>
-        <div class="form-group col-md-12">
+        <div class="col-md-12">
           <div class="col-md-4">
-              {{ form_label(form.fechaNacimiento) }}
-              {{ form_widget(form.fechaNacimiento, {'attr': {'class':'form-control'}}) }}
-          </div>  
+							{{ form_label(form.fechaNacimiento) }}
+							<div class='input-group date datetimepicker9'>
+									{{form_widget(form.fechaNacimiento, {'attr': {'class': 'form-control' }} )}}
+									<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar">
+											</span>
+									</span>
+							</div>
+          </div>
           <div class="col-md-4">
               {{ form_label(form.tipoDNI) }}
               {{ form_widget(form.tipoDNI, {'attr': {'class':'form-control'}}) }}
-          </div> 
+          </div>
           <div class="col-md-4">
               {{ form_label(form.dni) }}
               {{ form_widget(form.dni, {'attr': {'class':'form-control'}}) }}
-          </div> 
+          </div>
         </div>
         <div class="form-group col-md-12">
           <div class="col-md-3">
@@ -48,16 +54,16 @@
           <div class="col-md-4">
               {{ form_label(form.telefono) }}
               {{ form_widget(form.telefono, {'attr': {'class':'form-control'}}) }}
-          </div> 
+          </div>
           <div class="col-md-5">
               {{ form_label(form.email) }}
               {{ form_widget(form.email, {'attr': {'class':'form-control'}}) }}
-          </div>               
+          </div>
           <div class="form-group col-md-12">
               <div class="col-md-4">
                   {{ form_label(form.tipoResponsable) }}
                   {{ form_widget(form.tipoResponsable, {'attr': {'class':'form-control'}}) }}
-              </div> 
+              </div>
               <div class="col-md-4">
                   {{ form_label(form.usuario) }}
                   {{ form_widget(form.usuario, {'attr': {'class':'form-control'}}) }}
@@ -66,17 +72,17 @@
                   {{ form_label(form.direccion) }}
                   {{ form_widget(form.direccion, {'attr': {'class':'form-control'}}) }}
               </div>
-          </div>   
+          </div>
               <div class="col-md-4 form-group">
                   {{ form_label(form.alumnos) }}
                   {{ form_widget(form.alumnos, {'attr': {'class':'form-control'}}) }}
-              </div>                 
-    
+              </div>
+
           {# <div class="col-md-6">
               {{ form_label(form.alumnos) }}
               {{ form_widget(form.alumnos, {'attr': {'class':'form-control'}}) }}
-          </div> 
-            
+          </div>
+
               <div class="form-group">
                 <div class="col-md-5">
                   <label>Agregar Alumno</label>
@@ -97,7 +103,7 @@
                 <div class="col-md-5">
                   <label>Alumnos Agregados</label>
                   <ul id="listAlumnos" class="list-group">
-                  </ul>  
+                  </ul>
                 </div>
               </div>
               #}
@@ -111,6 +117,10 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
+				$('.datetimepicker9').datetimepicker({
+					viewMode: 'years',
+					format: 'DD/MM/YYYY'
+				});
         $('#alumnos').selectFilter({
             filterClass: 'filter-bar form-control',
             minimumCharacters: 2,

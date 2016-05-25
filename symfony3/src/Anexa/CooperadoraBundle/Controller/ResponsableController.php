@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Anexa\CooperadoraBundle\Entity\Responsable;
 use Anexa\CooperadoraBundle\Form\ResponsableType;
 use Anexa\CooperadoraBundle\Entity\Alumno;
-use FOS\UserBundle\Doctrine\UserManager
+use FOS\UserBundle\Doctrine\UserManager;
 
 /**
  * Responsable controller.

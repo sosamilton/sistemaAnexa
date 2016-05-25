@@ -28,7 +28,7 @@ class ResponsableType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            
+
             ->add('tipoDNI', ChoiceType::class, array(
                                                     'choices'  => array(
                                                         'DNI' => 'DNI',
@@ -40,11 +40,7 @@ class ResponsableType extends AbstractType
             ->add('dni', TextType::class, array('label' => 'Número de Documento'))
             ->add('apellido', TextType::class, array('label' => 'Apellido'))
             ->add('nombre', TextType::class, array('label' => 'Nombre'))
-            ->add('fechaNacimiento', DateType::class, array(
-                                                'widget' => 'single_text', 
-                                                'html5' => true, 
-                                                'label' => 'Fecha de Nacimiento')
-                )
+            ->add('fechaNacimiento', TextType::class, array('label' => 'Fecha de Nacimiento'))
             ->add('sexo', ChoiceType::class, array(
                                             'choices'  => array(
                                                 'Femenino' => 'F',
@@ -68,7 +64,7 @@ class ResponsableType extends AbstractType
                                                     'label' => 'Alumnos',
                                                     'query_builder' => function(EntityRepository $er) {
                                                         return $er -> createQueryBuilder('a')
-                                                                    ->where('a.borrado = 0'); 
+                                                                    ->where('a.borrado = 0');
                                                         }
                                                 )
                 )
@@ -85,7 +81,7 @@ class ResponsableType extends AbstractType
             ->add('button', SubmitType::class)
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

@@ -16,7 +16,7 @@
 
   {{ form_start(form) }}
     {{ form_errors(form) }}
-    <div class="form-group col-md-12">
+    <div class="col-md-12">
       <div class="col-md-6">
           {{ form_label(form.nombre) }}
           {{ form_widget(form.nombre, {'attr': {'class':'form-control'}}) }}
@@ -24,23 +24,29 @@
       <div class="col-md-6">
           {{ form_label(form.apellido) }}
           {{ form_widget(form.apellido, {'attr': {'class':'form-control'}}) }}
-      </div> 
+      </div>
     </div>
-    <div class="form-group col-md-12">
-      <div class="col-md-4 form-group">
+    <div class="col-md-12">
+      <div class="col-md-4">
           {{ form_label(form.fechaNacimiento) }}
-          {{ form_widget(form.fechaNacimiento, {'attr': {'class':'form-control'}}) }}
-      </div>  
+					<div class='input-group date datetimepicker9'>
+							{{form_widget(form.fechaNacimiento, {'attr': {'class': 'form-control' }} )}}
+							<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar">
+									</span>
+							</span>
+					</div>
+      </div>
       <div class="col-md-4">
           {{ form_label(form.tipoDNI) }}
           {{ form_widget(form.tipoDNI, {'attr': {'class':'form-control'}}) }}
-      </div> 
+      </div>
       <div class="col-md-4">
           {{ form_label(form.dni) }}
           {{ form_widget(form.dni, {'attr': {'class':'form-control'}}) }}
-      </div> 
+      </div>
     </div>
-    <div class="form-group col-md-12">
+    <div class="col-md-12">
       <div class="col-md-3">
           {{ form_label(form.sexo) }}
           {{ form_widget(form.sexo, {'attr': {'class':'form-control'}} )}}
@@ -48,7 +54,7 @@
       <div class="col-md-4">
           {{ form_label(form.telefono) }}
           {{ form_widget(form.telefono, {'attr': {'class':'form-control'}}) }}
-      </div> 
+      </div>
       <div class="col-md-5">
           {{ form_label(form.email) }}
           {{ form_widget(form.email, {'attr': {'class':'form-control'}}) }}
@@ -62,51 +68,51 @@
       <div class="col-md-4">
           {{ form_label(form.fechaIngreso) }}
           {{ form_widget(form.fechaIngreso, {'attr': {'class':'form-control'}}) }}
-      </div> 
+      </div>
       <div class="col-md-4">
           {{ form_label(form.fechaEgreso) }}
           {{ form_widget(form.fechaEgreso, {'attr': {'class':'form-control'}}) }}
-      </div> 
+      </div>
     </div>
-    <div class="form-group col-md-12">  
+    <div class="form-group col-md-12">
         <div class="col-md-4">
             {{ form_label(form.calle) }}
             {{ form_widget(form.calle, {'attr': {'class':'form-control'}}) }}
-        </div> 
+        </div>
 
         <div class="col-md-4">
             {{ form_label(form.numero) }}
             {{ form_widget(form.numero, {'attr': {'class':'form-control'}}) }}
-        </div> 
+        </div>
         <div class="col-md-4">
             {{ form_label(form.codigoPostal) }}
             {{ form_widget(form.codigoPostal, {'attr': {'class':'form-control'}}) }}
-        </div> 
+        </div>
     </div>
     <div class="form-group col-md-12">
         <div class="col-md-4">
             {{ form_label(form.ciudad) }}
             {{ form_widget(form.ciudad, {'attr': {'class':'form-control'}}) }}
-        </div> 
+        </div>
         <div class="col-md-4">
             {{ form_label(form.provincia) }}
             {{ form_widget(form.provincia, {'attr': {'class':'form-control'}}) }}
-        </div> 
+        </div>
         <div class="col-md-4">
             {{ form_label(form.pais) }}
             {{ form_widget(form.pais, {'attr': {'class':'form-control'}}) }}
-        </div> 
+        </div>
     </div>
-    
-    <div class="form-group col-md-12"> 
+
+    <div class="form-group col-md-12">
         <div class="col-md-6">
             {{ form_label(form.latitud) }}
             {{ form_widget(form.latitud, {'attr': {'class':'form-control'}}) }}
-        </div> 
+        </div>
         <div class="col-md-6">
             {{ form_label(form.longitud) }}
             {{ form_widget(form.longitud, {'attr': {'class':'form-control'}}) }}
-        </div> 
+        </div>
     </div>
     <div class="col-md-6 form-group">
         {{ form_label(form.responsables) }}
@@ -116,13 +122,17 @@
         {{ form_label(form.button) }}
         {{ form_widget(form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label': 'Agregar Alumno'}) }}
 
-     
+
 {{ form_end(form) }}
 
       </div>
   </div>
   <script type="text/javascript">
   $(document).ready(function() {
+			$('.datetimepicker9').datetimepicker({
+				viewMode: 'years',
+				format: 'DD/MM/YYYY'
+			});
       $('#responsables').selectFilter({
           filterClass: 'filter-bar form-control',
           minimumCharacters: 2,
