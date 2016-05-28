@@ -4,11 +4,16 @@ namespace Anexa\CooperadoraBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+
 
 use Anexa\CooperadoraBundle\Entity\Responsable;
 use Anexa\CooperadoraBundle\Form\ResponsableType;
 use Anexa\CooperadoraBundle\Entity\Alumno;
 use FOS\UserBundle\Doctrine\UserManager;
+use FOS\UserBundle\Model\UserInterface;
+use LaFuente\UserBundle\Entity\User;
+
 
 /**
  * Responsable controller.
@@ -44,17 +49,21 @@ class ResponsableController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $userManager = $this->get('fos_user.user_manager');
+            $dato = $data = $request->request->all();
+            $user = $userManager->createUser();
+            $user->setUsername($dato['responsable']['dni']);
+            $user->setEmail($dato['responsable']['email']);
+            $user->setPlainPassword($dato['responsable']['dni']);
+            $user->addRole('ROLE_CONSULTA');
+            $user->setEnabled(true);
+            $userManager->updateUser($user);
+            $em->persist($user);
+            $em->flush();
+            $responsable->setUsuario($user);
             $em->persist($responsable);
             $em->flush();
-
-            // $userManager = $container->get('fos_user.user_manager');
-            // $user = $userManager->createUser();
-            // $user->setUsername($username);
-            // $user->setEmail($email);
-            // $user->setPlainPassword($password);
-            // $user->setEnabled(true);
-            // $userManager->updateUser($user);
-
             return $this->redirectToRoute('responsable_show', array('id' => $responsable->getId()));
         }
 

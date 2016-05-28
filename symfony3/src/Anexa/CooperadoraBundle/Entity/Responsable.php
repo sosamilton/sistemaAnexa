@@ -63,8 +63,8 @@ class Responsable {
 	protected $nombre;
 
 	/**
-	* @var datetime
-	* @ORM\Column (name="fechaNacimiento", type="datetime")
+	* @var string
+	* @ORM\Column (name="fechaNacimiento", type="string")
 	*/
 	protected $fechaNacimiento;
 
@@ -118,17 +118,6 @@ class Responsable {
     }
 
 /* ***************** GETTERS ************************* */
-
-    /**
-    * add usuario
-    * @param Usuario $usuario
-    * @return Responsable
-    
-    public function addUsuario($usuario)
-    { 
-        $this->user = $usuario;
-        return $this;
-    } */
 
     /**
     * add alumno
@@ -237,7 +226,7 @@ class Responsable {
     /**
 	* Get fechaNacimiento
 	*
-	* @return date
+	* @return string
 	*/
 	public function getFechaNacimiento()
     {
@@ -401,7 +390,7 @@ class Responsable {
      /**
     * Set fechaNacimiento
     *
-    * @param date $fechaNacimiento
+    * @param string $fechaNacimiento
     * @return Responsable
     */
     public function setFechaNacimiento($fechaNac) {
