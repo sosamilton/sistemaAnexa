@@ -22,32 +22,32 @@ class __TwigTemplate_30c57032fe393712f9b640a86583471fe83780efdea06dea7ddd08d4e6f
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_9d2ba5e11c8e0e83e19381cea32fd364a271363dcc3000542092bf976fdffc2d = $this->env->getExtension("native_profiler");
-        $__internal_9d2ba5e11c8e0e83e19381cea32fd364a271363dcc3000542092bf976fdffc2d->enter($__internal_9d2ba5e11c8e0e83e19381cea32fd364a271363dcc3000542092bf976fdffc2d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "AnexaCooperadoraBundle:pago:index.html.twig"));
+        $__internal_1c3ed5a114b3aef844c27e79ef3b4655c65256efa67ee1045c0cd0283ff97d67 = $this->env->getExtension("native_profiler");
+        $__internal_1c3ed5a114b3aef844c27e79ef3b4655c65256efa67ee1045c0cd0283ff97d67->enter($__internal_1c3ed5a114b3aef844c27e79ef3b4655c65256efa67ee1045c0cd0283ff97d67_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "AnexaCooperadoraBundle:pago:index.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_9d2ba5e11c8e0e83e19381cea32fd364a271363dcc3000542092bf976fdffc2d->leave($__internal_9d2ba5e11c8e0e83e19381cea32fd364a271363dcc3000542092bf976fdffc2d_prof);
+        $__internal_1c3ed5a114b3aef844c27e79ef3b4655c65256efa67ee1045c0cd0283ff97d67->leave($__internal_1c3ed5a114b3aef844c27e79ef3b4655c65256efa67ee1045c0cd0283ff97d67_prof);
 
     }
 
     // line 3
     public function block_title($context, array $blocks = array())
     {
-        $__internal_ba882098035fdd9594c80333fd7e38255e9f34dd3d55d1805d23e3111a5e72ff = $this->env->getExtension("native_profiler");
-        $__internal_ba882098035fdd9594c80333fd7e38255e9f34dd3d55d1805d23e3111a5e72ff->enter($__internal_ba882098035fdd9594c80333fd7e38255e9f34dd3d55d1805d23e3111a5e72ff_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
+        $__internal_22b53d5121b6780371c6321d8fcb6a1a9ea2d750e5c75ffb2c77e88c31f5d4fd = $this->env->getExtension("native_profiler");
+        $__internal_22b53d5121b6780371c6321d8fcb6a1a9ea2d750e5c75ffb2c77e88c31f5d4fd->enter($__internal_22b53d5121b6780371c6321d8fcb6a1a9ea2d750e5c75ffb2c77e88c31f5d4fd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
 
         echo " Administración | Pagos | Listado";
         
-        $__internal_ba882098035fdd9594c80333fd7e38255e9f34dd3d55d1805d23e3111a5e72ff->leave($__internal_ba882098035fdd9594c80333fd7e38255e9f34dd3d55d1805d23e3111a5e72ff_prof);
+        $__internal_22b53d5121b6780371c6321d8fcb6a1a9ea2d750e5c75ffb2c77e88c31f5d4fd->leave($__internal_22b53d5121b6780371c6321d8fcb6a1a9ea2d750e5c75ffb2c77e88c31f5d4fd_prof);
 
     }
 
     // line 5
     public function block_dataAdmin($context, array $blocks = array())
     {
-        $__internal_5406d4a6d41277944bba43e4b1ed86080052a504bea86ed64d002b2cdb93183d = $this->env->getExtension("native_profiler");
-        $__internal_5406d4a6d41277944bba43e4b1ed86080052a504bea86ed64d002b2cdb93183d->enter($__internal_5406d4a6d41277944bba43e4b1ed86080052a504bea86ed64d002b2cdb93183d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "dataAdmin"));
+        $__internal_985e9e180c244102491aa87839fd55a4308cac85d6037d1505f7f8aa1c264fe0 = $this->env->getExtension("native_profiler");
+        $__internal_985e9e180c244102491aa87839fd55a4308cac85d6037d1505f7f8aa1c264fe0->enter($__internal_985e9e180c244102491aa87839fd55a4308cac85d6037d1505f7f8aa1c264fe0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "dataAdmin"));
 
         // line 6
         echo "
@@ -55,7 +55,7 @@ class __TwigTemplate_30c57032fe393712f9b640a86583471fe83780efdea06dea7ddd08d4e6f
         <!-- Default panel contents -->
         <div class=\"panel-heading\">Listado de Alumnos</div>
         <!-- Table -->
-        <div class=\"panel-body\">
+        <div class=\"panel-body\" id=\"paginacion\">
 
             <div class=\"input-group col-md-12\">
                 <div class=\"input-group-addon\">
@@ -111,7 +111,7 @@ class __TwigTemplate_30c57032fe393712f9b640a86583471fe83780efdea06dea7ddd08d4e6f
                       </th>                  
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class='list'>
                     ";
         // line 68
         $context['_parent'] = $context;
@@ -156,26 +156,37 @@ class __TwigTemplate_30c57032fe393712f9b640a86583471fe83780efdea06dea7ddd08d4e6f
         // line 85
         echo "                </tbody>
             </table>
+            <div class=\"col-md-4 col-md-offset-4\">
+                  <ul class=\"pagination\"></ul>
+              </div>
         </div>
     </div>
 
     <script type=\"text/javascript\">
-        
-
-          \$(\".input-busqueda\").keyup(function(){
-              filtros = [];
-              \$(\"input[name='busqueda']:checked\").each(function() {
-                  filtros.push(\$(this).val());
-              });
-              monkeyList.search(\$(this).val(), filtros)
-          });
+      \$( document ).ready(function() {
+          var monkeyList = new List('paginacion', {
+            valueNames: ['id', 'nombre','apellido','dni'],
+            page: ";
+        // line 97
+        echo twig_escape_filter($this->env, (isset($context["paginacion"]) ? $context["paginacion"] : $this->getContext($context, "paginacion")), "html", null, true);
+        echo ",
+            plugins: [ ListPagination({}) ] 
         });
+
+      \$(\".input-busqueda\").keyup(function(){
+          filtros = [];
+          \$(\"input[name='busqueda']:checked\").each(function() {
+              filtros.push(\$(this).val());
+          });
+          monkeyList.search(\$(this).val(), filtros)
+      });
+    });
         
     </script>
 
 ";
         
-        $__internal_5406d4a6d41277944bba43e4b1ed86080052a504bea86ed64d002b2cdb93183d->leave($__internal_5406d4a6d41277944bba43e4b1ed86080052a504bea86ed64d002b2cdb93183d_prof);
+        $__internal_985e9e180c244102491aa87839fd55a4308cac85d6037d1505f7f8aa1c264fe0->leave($__internal_985e9e180c244102491aa87839fd55a4308cac85d6037d1505f7f8aa1c264fe0_prof);
 
     }
 
@@ -191,7 +202,7 @@ class __TwigTemplate_30c57032fe393712f9b640a86583471fe83780efdea06dea7ddd08d4e6f
 
     public function getDebugInfo()
     {
-        return array (  157 => 85,  144 => 78,  137 => 74,  133 => 73,  129 => 72,  125 => 71,  121 => 69,  117 => 68,  53 => 6,  47 => 5,  35 => 3,  11 => 1,);
+        return array (  171 => 97,  157 => 85,  144 => 78,  137 => 74,  133 => 73,  129 => 72,  125 => 71,  121 => 69,  117 => 68,  53 => 6,  47 => 5,  35 => 3,  11 => 1,);
     }
 }
 /* {% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}*/
@@ -204,7 +215,7 @@ class __TwigTemplate_30c57032fe393712f9b640a86583471fe83780efdea06dea7ddd08d4e6f
 /*         <!-- Default panel contents -->*/
 /*         <div class="panel-heading">Listado de Alumnos</div>*/
 /*         <!-- Table -->*/
-/*         <div class="panel-body">*/
+/*         <div class="panel-body" id="paginacion">*/
 /* */
 /*             <div class="input-group col-md-12">*/
 /*                 <div class="input-group-addon">*/
@@ -260,7 +271,7 @@ class __TwigTemplate_30c57032fe393712f9b640a86583471fe83780efdea06dea7ddd08d4e6f
 /*                       </th>                  */
 /*                     </tr>*/
 /*                 </thead>*/
-/*                 <tbody>*/
+/*                 <tbody class='list'>*/
 /*                     {% for alumno in alumnos %}*/
 /*                         <tr>*/
 /*                                                        */
@@ -280,20 +291,28 @@ class __TwigTemplate_30c57032fe393712f9b640a86583471fe83780efdea06dea7ddd08d4e6f
 /*                     {% endfor %}*/
 /*                 </tbody>*/
 /*             </table>*/
+/*             <div class="col-md-4 col-md-offset-4">*/
+/*                   <ul class="pagination"></ul>*/
+/*               </div>*/
 /*         </div>*/
 /*     </div>*/
 /* */
 /*     <script type="text/javascript">*/
-/*         */
-/* */
-/*           $(".input-busqueda").keyup(function(){*/
-/*               filtros = [];*/
-/*               $("input[name='busqueda']:checked").each(function() {*/
-/*                   filtros.push($(this).val());*/
-/*               });*/
-/*               monkeyList.search($(this).val(), filtros)*/
-/*           });*/
+/*       $( document ).ready(function() {*/
+/*           var monkeyList = new List('paginacion', {*/
+/*             valueNames: ['id', 'nombre','apellido','dni'],*/
+/*             page: {{ paginacion}},*/
+/*             plugins: [ ListPagination({}) ] */
 /*         });*/
+/* */
+/*       $(".input-busqueda").keyup(function(){*/
+/*           filtros = [];*/
+/*           $("input[name='busqueda']:checked").each(function() {*/
+/*               filtros.push($(this).val());*/
+/*           });*/
+/*           monkeyList.search($(this).val(), filtros)*/
+/*       });*/
+/*     });*/
 /*         */
 /*     </script>*/
 /* */

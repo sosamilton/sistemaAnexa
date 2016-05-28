@@ -384,27 +384,41 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 }
                 not_listado_index:
 
-                // listado_matriculado
-                if ($pathinfo === '/backend/listado/matriculados') {
+                // listado_matriculados
+                if ($pathinfo === '/backend/listado/matriculasPagas') {
                     if ($this->context->getMethod() != 'POST') {
                         $allow[] = 'POST';
-                        goto not_listado_matriculado;
+                        goto not_listado_matriculados;
                     }
 
-                    return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\ListadoController::matriculadosAction',  '_route' => 'listado_matriculado',);
+                    return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\ListadoController::matriculadosAction',  '_route' => 'listado_matriculados',);
                 }
-                not_listado_matriculado:
+                not_listado_matriculados:
 
-                // listado_pago_becado
-                if ($pathinfo === '/backend/listado/cuotasPagasyBecadas') {
-                    if ($this->context->getMethod() != 'POST') {
-                        $allow[] = 'POST';
-                        goto not_listado_pago_becado;
+                if (0 === strpos($pathinfo, '/backend/listado/cuotas')) {
+                    // listado_pago_becado
+                    if ($pathinfo === '/backend/listado/cuotasPagasyBecadas') {
+                        if ($this->context->getMethod() != 'POST') {
+                            $allow[] = 'POST';
+                            goto not_listado_pago_becado;
+                        }
+
+                        return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\ListadoController::cuotasPagasAction',  '_route' => 'listado_pago_becado',);
                     }
+                    not_listado_pago_becado:
 
-                    return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\ListadoController::matriculadosAction',  '_route' => 'listado_pago_becado',);
+                    // listado_cuotas_impagas
+                    if ($pathinfo === '/backend/listado/cuotasNoPagas') {
+                        if ($this->context->getMethod() != 'POST') {
+                            $allow[] = 'POST';
+                            goto not_listado_cuotas_impagas;
+                        }
+
+                        return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\ListadoController::cuotasNoPagasAction',  '_route' => 'listado_cuotas_impagas',);
+                    }
+                    not_listado_cuotas_impagas:
+
                 }
-                not_listado_pago_becado:
 
             }
 

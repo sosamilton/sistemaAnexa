@@ -22,32 +22,32 @@ class __TwigTemplate_ae3ff6d01869315ba51be66c48089b849ed93eb161f58afdee74cb47527
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_03457c559d86b519d4a8d7f2f41c167305ba7f8fed70a778f97dc764a449542f = $this->env->getExtension("native_profiler");
-        $__internal_03457c559d86b519d4a8d7f2f41c167305ba7f8fed70a778f97dc764a449542f->enter($__internal_03457c559d86b519d4a8d7f2f41c167305ba7f8fed70a778f97dc764a449542f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "AnexaCooperadoraBundle:cuota:index.html.twig"));
+        $__internal_777b14215e34ab134058d325237c4e443829405125b79d71919da8b142d5337c = $this->env->getExtension("native_profiler");
+        $__internal_777b14215e34ab134058d325237c4e443829405125b79d71919da8b142d5337c->enter($__internal_777b14215e34ab134058d325237c4e443829405125b79d71919da8b142d5337c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "AnexaCooperadoraBundle:cuota:index.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_03457c559d86b519d4a8d7f2f41c167305ba7f8fed70a778f97dc764a449542f->leave($__internal_03457c559d86b519d4a8d7f2f41c167305ba7f8fed70a778f97dc764a449542f_prof);
+        $__internal_777b14215e34ab134058d325237c4e443829405125b79d71919da8b142d5337c->leave($__internal_777b14215e34ab134058d325237c4e443829405125b79d71919da8b142d5337c_prof);
 
     }
 
     // line 3
     public function block_title($context, array $blocks = array())
     {
-        $__internal_5fe5590d162c48763c3aa07c679cfdbf0c1e2fdb019b06daff93f8032b76ed7a = $this->env->getExtension("native_profiler");
-        $__internal_5fe5590d162c48763c3aa07c679cfdbf0c1e2fdb019b06daff93f8032b76ed7a->enter($__internal_5fe5590d162c48763c3aa07c679cfdbf0c1e2fdb019b06daff93f8032b76ed7a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
+        $__internal_396bab50a11a822b3a2d7db19bc342597d96072af547e15386f94675ab700d0c = $this->env->getExtension("native_profiler");
+        $__internal_396bab50a11a822b3a2d7db19bc342597d96072af547e15386f94675ab700d0c->enter($__internal_396bab50a11a822b3a2d7db19bc342597d96072af547e15386f94675ab700d0c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
 
         echo " Administración | Cuotas | Listado ";
         
-        $__internal_5fe5590d162c48763c3aa07c679cfdbf0c1e2fdb019b06daff93f8032b76ed7a->leave($__internal_5fe5590d162c48763c3aa07c679cfdbf0c1e2fdb019b06daff93f8032b76ed7a_prof);
+        $__internal_396bab50a11a822b3a2d7db19bc342597d96072af547e15386f94675ab700d0c->leave($__internal_396bab50a11a822b3a2d7db19bc342597d96072af547e15386f94675ab700d0c_prof);
 
     }
 
     // line 5
     public function block_dataAdmin($context, array $blocks = array())
     {
-        $__internal_f329bbbfc8eae48891d6584dfb3c571c4b70e4550af5e24ba35740200ea85bbb = $this->env->getExtension("native_profiler");
-        $__internal_f329bbbfc8eae48891d6584dfb3c571c4b70e4550af5e24ba35740200ea85bbb->enter($__internal_f329bbbfc8eae48891d6584dfb3c571c4b70e4550af5e24ba35740200ea85bbb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "dataAdmin"));
+        $__internal_70cbc698ad1f22812a2524790e1cf142eda7751a5c69a3915e742181360ce7ff = $this->env->getExtension("native_profiler");
+        $__internal_70cbc698ad1f22812a2524790e1cf142eda7751a5c69a3915e742181360ce7ff->enter($__internal_70cbc698ad1f22812a2524790e1cf142eda7751a5c69a3915e742181360ce7ff_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "dataAdmin"));
 
         // line 6
         echo "    ";
@@ -60,7 +60,7 @@ class __TwigTemplate_ae3ff6d01869315ba51be66c48089b849ed93eb161f58afdee74cb47527
         }
         // line 9
         echo "
-    <div class=\"panel panel-primary\">
+    <div class=\"panel panel-primary\" id=\"paginacion\">
       <!-- Default panel contents -->
       <div class=\"panel-heading\">Listado de Cuotas</div>
       <!-- Table -->
@@ -114,7 +114,7 @@ class __TwigTemplate_ae3ff6d01869315ba51be66c48089b849ed93eb161f58afdee74cb47527
                 <th>Acciones</th>
             </tr>
           </thead>
-              <tbody>
+              <tbody class='list'>
                 ";
         // line 65
         $context['_parent'] = $context;
@@ -185,12 +185,28 @@ class __TwigTemplate_ae3ff6d01869315ba51be66c48089b849ed93eb161f58afdee74cb47527
         // line 88
         echo "              </tbody>
             </table>
+            <div class=\"col-md-4 col-md-offset-4\">
+                <ul class=\"pagination\"></ul>
+            </div>
         </div>
     </div>
 
+    <script type=\"text/javascript\">
+        \$( document ).ready(function() {
+            var monkeyList = new List('paginacion', {
+              valueNames: ['numero', 'anio','mes','tipo', 'monto', \"comision\", \"fechaAlta\"],
+              page: ";
+        // line 100
+        echo twig_escape_filter($this->env, (isset($context["paginacion"]) ? $context["paginacion"] : $this->getContext($context, "paginacion")), "html", null, true);
+        echo ",
+              plugins: [ ListPagination({}) ] 
+          });
+        });
+    </script>
+
 ";
         
-        $__internal_f329bbbfc8eae48891d6584dfb3c571c4b70e4550af5e24ba35740200ea85bbb->leave($__internal_f329bbbfc8eae48891d6584dfb3c571c4b70e4550af5e24ba35740200ea85bbb_prof);
+        $__internal_70cbc698ad1f22812a2524790e1cf142eda7751a5c69a3915e742181360ce7ff->leave($__internal_70cbc698ad1f22812a2524790e1cf142eda7751a5c69a3915e742181360ce7ff_prof);
 
     }
 
@@ -206,7 +222,7 @@ class __TwigTemplate_ae3ff6d01869315ba51be66c48089b849ed93eb161f58afdee74cb47527
 
     public function getDebugInfo()
     {
-        return array (  186 => 88,  176 => 83,  173 => 82,  167 => 80,  165 => 79,  160 => 78,  158 => 77,  151 => 73,  147 => 72,  143 => 71,  139 => 70,  135 => 69,  131 => 68,  127 => 67,  124 => 66,  120 => 65,  62 => 9,  56 => 7,  53 => 6,  47 => 5,  35 => 3,  11 => 1,);
+        return array (  200 => 100,  186 => 88,  176 => 83,  173 => 82,  167 => 80,  165 => 79,  160 => 78,  158 => 77,  151 => 73,  147 => 72,  143 => 71,  139 => 70,  135 => 69,  131 => 68,  127 => 67,  124 => 66,  120 => 65,  62 => 9,  56 => 7,  53 => 6,  47 => 5,  35 => 3,  11 => 1,);
     }
 }
 /* {% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}*/
@@ -218,7 +234,7 @@ class __TwigTemplate_ae3ff6d01869315ba51be66c48089b849ed93eb161f58afdee74cb47527
 /*         <a class="btn btn-primary botonAdd" href="{{ path('cuota_new') }}">Agregar Cuota</a>*/
 /*     {% endif %}*/
 /* */
-/*     <div class="panel panel-primary">*/
+/*     <div class="panel panel-primary" id="paginacion">*/
 /*       <!-- Default panel contents -->*/
 /*       <div class="panel-heading">Listado de Cuotas</div>*/
 /*       <!-- Table -->*/
@@ -272,7 +288,7 @@ class __TwigTemplate_ae3ff6d01869315ba51be66c48089b849ed93eb161f58afdee74cb47527
 /*                 <th>Acciones</th>*/
 /*             </tr>*/
 /*           </thead>*/
-/*               <tbody>*/
+/*               <tbody class='list'>*/
 /*                 {% for cuota in cuotas %}*/
 /*                     <tr>                           */
 /*                         <td>{{ cuota.anio }}</td>*/
@@ -298,8 +314,21 @@ class __TwigTemplate_ae3ff6d01869315ba51be66c48089b849ed93eb161f58afdee74cb47527
 /*                 {% endfor %}*/
 /*               </tbody>*/
 /*             </table>*/
+/*             <div class="col-md-4 col-md-offset-4">*/
+/*                 <ul class="pagination"></ul>*/
+/*             </div>*/
 /*         </div>*/
 /*     </div>*/
+/* */
+/*     <script type="text/javascript">*/
+/*         $( document ).ready(function() {*/
+/*             var monkeyList = new List('paginacion', {*/
+/*               valueNames: ['numero', 'anio','mes','tipo', 'monto', "comision", "fechaAlta"],*/
+/*               page: {{paginacion}},*/
+/*               plugins: [ ListPagination({}) ] */
+/*           });*/
+/*         });*/
+/*     </script>*/
 /* */
 /* {% endblock %}*/
 /* */
