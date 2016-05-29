@@ -138,4 +138,59 @@ class ConfiguracionController extends Controller
         }
         return new Response($configuracions);
     }
+
+    public function tituloAction() {
+        $em = $this->getDoctrine()->getManager();
+        $configuracions = $em->getRepository('AnexaCooperadoraBundle:Configuracion')->findOneByClave('titulo');
+        if (!empty($configuracions)) {
+            $configuracions=$configuracions->getValorTextual();
+        } else {
+            $configuracions= "Sistema Anexa";
+        }
+        return new Response($configuracions);
+    }
+
+    public function descripcionAction() {
+        $em = $this->getDoctrine()->getManager();
+        $configuracions = $em->getRepository('AnexaCooperadoraBundle:Configuracion')->findOneByClave('descripcion');
+        if (!empty($configuracions)) {
+            $configuracions=$configuracions->getValorTextual();
+        } else {
+            $configuracions= "Descripción de la Escuela Anexa";
+        }
+        return new Response($configuracions);
+    }
+
+    public function emailAction() {
+        $em = $this->getDoctrine()->getManager();
+        $configuracions = $em->getRepository('AnexaCooperadoraBundle:Configuracion')->findOneByClave('email');
+        if (!empty($configuracions)) {
+            $configuracions=$configuracions->getValorTextual();
+        } else {
+            $configuracions= "info@anexa.unlp.edu.ar";
+        }
+        return new Response($configuracions);
+    }
+
+    public function estadoSitioAction() {
+        $em = $this->getDoctrine()->getManager();
+        $configuracions = $em->getRepository('AnexaCooperadoraBundle:Configuracion')->findOneByClave('estado_sitio');
+        if (!empty($configuracions)) {
+            $configuracions=$configuracions->getValorTextual();
+        } else {
+            $configuracions= true; //está habilitados
+        }
+        return new Response($configuracions);
+    }
+
+    public function msjDeshabilitadoAction() {
+        $em = $this->getDoctrine()->getManager();
+        $configuracions = $em->getRepository('AnexaCooperadoraBundle:Configuracion')->findOneByClave('mensaje_deshabilitado');
+        if (!empty($configuracions)) {
+            $configuracions=$configuracions->getValorTextual();
+        } else {
+            $configuracions= "El sistemas se encuentra deshabilitado por el momento. Disculpe las molestias";
+        }
+        return new Response($configuracions);
+    }
 }

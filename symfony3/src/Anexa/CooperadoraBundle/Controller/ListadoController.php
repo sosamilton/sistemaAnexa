@@ -133,6 +133,7 @@ class ListadoController extends Controller
 				);		
 		
 		$alumnos=array();
+		$datos['hayPagos'] = false;
 		if (!empty($cuota)) {
 			$pagos = $cuota->getPagos();
 			if (count($pagos)>0){
@@ -178,14 +179,14 @@ class ListadoController extends Controller
 						}
 					}
 					if (count($alumnos) == 0) {
-						$datos['msj'] = 'El usuario '.$usuario->getUsername().' no resgistra cobros de esta cuota';
+						$datos['msj'] = 'El usuario '.$usuario->getUsername().' no registra cobros de esta cuota';
 					} else {
 						$datos['hayPagos'] = true;
 						$datos['info'] = 'Alumnos que pagaron la cuota del mes '.$_POST['mes'].' del año '.$_POST['anio'];
 					}
 				}
 			} else {
-				$datos['hayPagos'] = false;
+				
 				$datos['msj'] = 'No hay alumnos que hayan pagado esta cuota';
 			}
 		} else { 
