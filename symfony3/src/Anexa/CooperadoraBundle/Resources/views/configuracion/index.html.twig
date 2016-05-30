@@ -1,0 +1,85 @@
+{% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
+
+{% block title %} Administración | Configuración {% endblock %}
+
+{% block addJS %}
+{% endblock %}
+
+{% block addCSS %}
+{% endblock %}
+
+{% block dataAdmin %}
+      {% if msj is defined %}
+        <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <strong>Atención! </strong>{{msj}}
+        </div>
+      {% endif %}
+      <div class="panel panel-primary">
+          <!-- Default panel contents -->
+          <div class="panel-heading">Configuración</div>
+          <!-- Table -->
+          <div class="panel-body">
+            <form> {# action="{{ path('configuracion_edit')}}" method="post"> #}
+              <div class="form-group">
+                <div class="col-md-12">
+                  <label for="titulo">Título del Sitio</label>
+                  <input type="text" class="form-control" id="titulo" name="dato[5]" required value="{{data[5].valorTextual }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-12">
+                  <label for="descripcion">Descripción del Sitio</label>
+                  <div>
+                  <textarea type="text" class="form-control" id="descripcion" name="dato[0]" rows="5" required>{{data[0].valorTextual }}</textarea></div> 
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-12">
+                  <label for="titulo">Email de Contacto</label>
+                  <input type="email" class="form-control" id="email" name="dato[1]" required value="{{data[1].valorTextual }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-6">
+                  <label for="paginacion">Paginación</label>
+                  <input type="number" class="form-control" id="paginacion" name="dato[4]" required value="{{data[4].valorNumerico }}">
+                </div>
+                <div class="col-md-6">
+                  <label for="password">Estado del Sitio</label>
+                  <div class="btn-group col-md-12" data-toggle="buttons">
+                    <label class="btn btn-primary noselect{% if data[1].valorNumerico == 1 %} active{% endif %}">
+                      <input type="radio" name="dato[1]" id="option1" value="1" autocomplete="off" {% if data[1].valorNumerico == 1 %} checked {% endif %}>
+                      Habilitado
+                    </label>
+                    <label class="btn btn-danger noselect {% if data[1].valorNumerico == 0 %} active{% endif %}">
+                      <input type="radio" name="dato[1]" id="option2" value="0" autocomplete="off" {% if data[1].valorNumerico == 0 %} checked {% endif %}> 
+                      Deshabilitado
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <label for="descripcion">Mensaje del Sitio Deshabilitado</label>
+                    <div>
+                    <textarea type="text" class="form-control" id="descripcion" name="dato[3]" rows="5" required>{{data[3].valorTextual }}</textarea></div> 
+                  </div>
+                </div>
+              </div>
+              
+               <button type="submit" class="btn btn-primary col-md-12">Guardar Configuración</button>
+            </form>
+          </div>
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          $('input[type=radio]').click(function(){
+            $('input[type="radio":checked]').checked = false;
+            $(this).checked=true;
+          });
+        }
+      </script>
+{% endblock %}
+

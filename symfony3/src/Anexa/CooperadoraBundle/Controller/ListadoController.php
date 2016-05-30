@@ -64,6 +64,7 @@ class ListadoController extends Controller
 								);
 		$pagos =array();
 		$alumnos = array();
+		$datos['success'] = false;
 		if (empty($matriculas)) {
 			$datos['msj'] = 'No existe la matrícula buscada';
 		} else {
@@ -75,6 +76,7 @@ class ListadoController extends Controller
 				$datos['msj'] = 'No hay pagos registrados de esta matrícula';
 			} else {
 				$datos['hayPagosMatricula'] = true;
+				$datos['success'] = true;
 				$iterator = $pagos->getIterator();
 				$todosLosPagos = array();
 				while ($iterator->valid()) {
@@ -109,6 +111,7 @@ class ListadoController extends Controller
 				$alumnos[$pago->getAlumno()->getId()]['user']=$pago->getUsuario();
 			}
 			$datos['hayPagosMatricula'] = true;
+			$datos['success'] = true;
 		} else {
 			$datos['msj'] = 'No hay alumnos que hayan pagado esta matrícula';
 		}
@@ -134,6 +137,7 @@ class ListadoController extends Controller
 		
 		$alumnos=array();
 		$datos['hayPagos'] = false;
+		$datos['success'] = false;
 		if (!empty($cuota)) {
 			$pagos = $cuota->getPagos();
 			if (count($pagos)>0){
@@ -168,6 +172,7 @@ class ListadoController extends Controller
 						}
 						$datos['info'] = 'Alumnos a cargo que pagaron la cuota del mes';
 						$datos['hayPagos'] = true;
+						$datos['success'] = true;
 					} else { $datos['msj'] = 'No hay pagos registrados';}
 				} else { #cuotas cobradas por el usuario de gestión logueado */
 					foreach ($pagos as $pago) {
@@ -182,6 +187,7 @@ class ListadoController extends Controller
 						$datos['msj'] = 'El usuario '.$usuario->getUsername().' no registra cobros de esta cuota';
 					} else {
 						$datos['hayPagos'] = true;
+						$datos['success'] = true;
 						$datos['info'] = 'Alumnos que pagaron la cuota del mes '.$_POST['mes'].' del año '.$_POST['anio'];
 					}
 				}
@@ -203,7 +209,8 @@ class ListadoController extends Controller
 	public function cuotasNoPagasAction() 
 	{
 		$em = $this->getDoctrine()->getManager();
-		$datos['hayCuotasImpagas'] = true;
+		$datos['hayCuotasImpagas'] = false;
+		$datos['success'] = false;
 
 		function filtrarPorFecha($alumno,$anioCuota,$mesCuota) {
 		    $fechaIngreso = $alumno->getFechaIngreso();
@@ -286,10 +293,10 @@ class ListadoController extends Controller
 			$alumnosNoPagaronPeroDeberian = array_diff_key($deberianPagar, $alumnosPagaron);
 
 			if (count($alumnosNoPagaronPeroDeberian) == 0) { 
-				$datos['hayCuotasImpagas'] = false;
 				$datos ['msj'] = 'Todos los alumnos pagaron la cuota indicada';
 			} else {
 				$datos['hayCuotasImpagas'] = true;
+				$datos['success'] = true;
 				$datos['alumnos'] = $alumnosNoPagaronPeroDeberian; //todos los alumnos que deberian pagar
 				if ($this->get('security.authorization_checker')->isGranted('ROLE_CONSULTA')) {
 			        $usuario = $em->getRepository('AnexaCooperadoraBundle:User')->findOneById($_SESSION['id']);
@@ -304,6 +311,7 @@ class ListadoController extends Controller
 			        $misAlumnosQueDebenPagar =  array_intersect_key($misAlumnosAux, $alumnosNoPagaronPeroDeberian);
 			        if (count($misAlumnosQueDebenPagar) > 0) {
 			        	$datos['hayCuotasImpagas'] = true;
+			        	$datos['success'] = true;
 						$datos['alumnos'] = $misAlumnosQueDebenPagar;
 			        }     
 				}	

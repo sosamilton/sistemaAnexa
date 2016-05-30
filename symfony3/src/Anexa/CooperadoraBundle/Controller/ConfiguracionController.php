@@ -24,11 +24,11 @@ class ConfiguracionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $configuracions = $em->getRepository('AnexaCooperadoraBundle:Configuracion')->findAll();
+        $configuraciones = $em->getRepository('AnexaCooperadoraBundle:Configuracion')->findAll();
+        $datos['menu'] = 'configuracion';
+        $datos['data'] = $configuraciones;
 
-        return $this->render('configuracion/index.html.twig', array(
-            'configuracions' => $configuracions,
-        ));
+        return $this->render('AnexaCooperadoraBundle:configuracion:index.html.twig', $datos);
     }
 
     /**
@@ -55,20 +55,7 @@ class ConfiguracionController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a Configuracion entity.
-     *
-     */
-    public function showAction(Configuracion $configuracion)
-    {
-        $deleteForm = $this->createDeleteForm($configuracion);
-
-        return $this->render('configuracion/show.html.twig', array(
-            'configuracion' => $configuracion,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
+    
     /**
      * Displays a form to edit an existing Configuracion entity.
      *
