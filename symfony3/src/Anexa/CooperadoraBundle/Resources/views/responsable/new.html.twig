@@ -8,12 +8,6 @@
     <div class="panel-heading">Agregar Responsable</div>
     <!-- Table -->
     <div class="panel-body">
-
-       {# {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <input type="submit" value="Create" />
-        {{ form_end(form) }} #}
-
       {{ form_start(form) }}
         {{ form_errors(form) }}
           <div class="col-md-6">
@@ -26,7 +20,7 @@
           </div>
           <div class="col-md-4">
 							{{ form_label(form.fechaNacimiento) }}
-							<div class='input-group'>
+							<div class='input-group datetimepicker9'>
 									{{form_widget(form.fechaNacimiento, {'attr': {'class': 'form-control' }} )}}
 									<span class="input-group-addon">
 											<span class="glyphicon glyphicon-calendar">
@@ -110,25 +104,25 @@
 					viewMode: 'years',
 					format: 'DD/MM/YYYY'
 				});
-        $('#alumnos').selectFilter({
-            filterClass: 'filter-bar form-control',
-            minimumCharacters: 2,
-            inputPlaceholder: 'Buscar',
-            width: '100%',
-            minimumSelectElementSize: 5,
-            inputLocation: 'above'
-        });
-
-        $('#add').click(function(){
-          if ($("#list_"+$("#alumnos").val()).length == 0) {
-            var txt = "<li class='list-group-item' id='list_"+$('#alumnos').val()+"'>"+$('#alumnos option:selected').text()+" <span class='badge rmItem'>X</span><input name='alumnos[]'  type='hidden' value='"+$('#alumnos').val()+"'/> </li> ";
-            $('#listAlumnos').append(txt);
-            $('.rmItem').click(function(){
-              $(this).parent().remove();
-            });
-
-          };
-        });
+        // $('#alumnos').selectFilter({
+        //     filterClass: 'filter-bar form-control',
+        //     minimumCharacters: 2,
+        //     inputPlaceholder: 'Buscar',
+        //     width: '100%',
+        //     minimumSelectElementSize: 5,
+        //     inputLocation: 'above'
+        // });
+				//
+        // $('#add').click(function(){
+        //   if ($("#list_"+$("#alumnos").val()).length == 0) {
+        //     var txt = "<li class='list-group-item' id='list_"+$('#alumnos').val()+"'>"+$('#alumnos option:selected').text()+" <span class='badge rmItem'>X</span><input name='alumnos[]'  type='hidden' value='"+$('#alumnos').val()+"'/> </li> ";
+        //     $('#listAlumnos').append(txt);
+        //     $('.rmItem').click(function(){
+        //       $(this).parent().remove();
+        //     });
+				//
+        //   };
+        // });
     });
   </script>
 {% endblock %}

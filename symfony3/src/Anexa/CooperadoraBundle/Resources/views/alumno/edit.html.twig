@@ -17,131 +17,106 @@
             {{ form_start(edit_form) }}
                 {{ form_errors(edit_form) }}
 
-                    <div class="col-md-12">
-                      <div class="col-md-6">
-                          {{ form_label(edit_form.nombre) }}
-                          {{ form_widget(edit_form.nombre, {'attr': {'class':'form-control'}}) }}
-                      </div>
-                      <div class="col-md-6">
-                          {{ form_label(edit_form.apellido) }}
-                          {{ form_widget(edit_form.apellido, {'attr': {'class':'form-control'}}) }}
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="col-md-4">
-                          {{ form_label(edit_form.fechaNacimiento) }}
-                          <div class='input-group date datetimepicker9'>
-            									{{form_widget(form.fechaNacimiento, {'attr': {'class': 'form-control' }} )}}
-            									<span class="input-group-addon">
-            											<span class="glyphicon glyphicon-calendar">
-            											</span>
-            									</span>
-            							</div>
-                      </div>
-                      <div class="col-md-4">
-                          {{ form_label(edit_form.tipoDNI) }}
-                          {{ form_widget(edit_form.tipoDNI, {'attr': {'class':'form-control'}}) }}
-                      </div>
-                      <div class="col-md-4">
-                          {{ form_label(edit_form.dni) }}
-                          {{ form_widget(edit_form.dni, {'attr': {'class':'form-control'}}) }}
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                        {{ form_label(edit_form.sexo) }}
-                        {{ form_widget(edit_form.sexo, {'attr': {'class':'form-control'}} )}}
-                    </div>
+                <div class="col-md-6">
+                    {{ form_label(edit_form.nombre) }}
+                    {{ form_widget(edit_form.nombre, {'attr': {'class':'form-control'}}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_label(edit_form.apellido) }}
+                    {{ form_widget(edit_form.apellido, {'attr': {'class':'form-control'}}) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_label(edit_form.fechaNacimiento) }}
+          					<div class='input-group date datetimepicker9'>
+          							{{form_widget(edit_form.fechaNacimiento, {'attr': {'class': 'form-control' }} )}}
+          							<span class="input-group-addon">
+          									<span class="glyphicon glyphicon-calendar">
+          									</span>
+          							</span>
+          					</div>
+                </div>
+                <div class="col-md-4">
+                    {{ form_label(edit_form.tipoDNI) }}
+                    {{ form_widget(edit_form.tipoDNI, {'attr': {'class':'form-control'}}) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_label(edit_form.dni) }}
+                    {{ form_widget(edit_form.dni, {'attr': {'class':'form-control'}}) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_label(edit_form.sexo) }}
+                    {{ form_widget(edit_form.sexo, {'attr': {'class':'form-control'}} )}}
+                </div>
+                <div class="col-md-4">
+                    {{ form_label(edit_form.telefono) }}
+                    {{ form_widget(edit_form.telefono, {'attr': {'class':'form-control'}}) }}
+                </div>
+                <div class="col-md-5">
+                    {{ form_label(edit_form.email) }}
+                    {{ form_widget(edit_form.email, {'attr': {'class':'form-control'}}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_label(edit_form.fechaIngreso) }}
+          					<div class='input-group date datetimepicker9'>
+          							{{form_widget(edit_form.fechaIngreso, {'attr': {'class': 'form-control' }} )}}
+          							<span class="input-group-addon">
+          									<span class="glyphicon glyphicon-calendar">
+          									</span>
+          							</span>
+          					</div>
+                </div>
+                <div class="col-md-6">
+                    {{ form_label(edit_form.fechaEgreso) }}
+          					<div class='input-group date datetimepicker9'>
+          							{{form_widget(edit_form.fechaEgreso, {'attr': {'class': 'form-control' }} )}}
+          							<span class="input-group-addon">
+          									<span class="glyphicon glyphicon-calendar">
+          									</span>
+          							</span>
+          					</div>
+                </div>
+          			<div class="col-md-12 form-group">
+          			<div class="col-md-6">
+                  <div class="col-md-12">
+                      {{ form_label(edit_form.calle) }}
+                      {{ form_widget(edit_form.calle, {'attr': {'class':'form-control direccion'}}) }}
+                  </div>
 
-                    <div class="col-md-4">
-                        {{ form_label(edit_form.telefono) }}
-                        {{ form_widget(edit_form.telefono, {'attr': {'class':'form-control'}}) }}
-                    </div>
-                    <div class="col-md-5">
-                        {{ form_label(edit_form.email) }}
-                        {{ form_widget(edit_form.email, {'attr': {'class':'form-control'}}) }}
-                    </div>
-                    <div class="col-md-4">
-                        {{ form_label(edit_form.fechaAlta) }}
-                        {{ form_widget(edit_form.fechaAlta, {'attr': {'class':'form-control'}}) }}
-                    </div>
-                    <div class="col-md-4">
-                        {{ form_label(edit_form.fechaIngreso) }}
-                        {{ form_widget(edit_form.fechaIngreso, {'attr': {'class':'form-control'}}) }}
-                    </div>
-                    <div class="col-md-4">
-                        {{ form_label(edit_form.fechaEgreso) }}
-                        {{ form_widget(edit_form.fechaEgreso, {'attr': {'class':'form-control'}}) }}
-                    </div>
+                  <div class="col-md-12">
+                      {{ form_label(edit_form.numero) }}
+                      {{ form_widget(edit_form.numero, {'attr': {'class':'form-control direccion'}}) }}
+                  </div>
+                  <div class="col-md-12">
+                      {{ form_label(edit_form.codigoPostal) }}
+                      {{ form_widget(edit_form.codigoPostal, {'attr': {'class':'form-control direccion'}}) }}
+                  </div>
+                  <div class="col-md-12">
+                      {{ form_label(edit_form.ciudad) }}
+                      {{ form_widget(edit_form.ciudad, {'attr': {'class':'form-control direccion'}}) }}
+                  </div>
+                  <div class="col-md-12">
+                      {{ form_label(edit_form.provincia) }}
+                      {{ form_widget(edit_form.provincia, {'attr': {'class':'form-control direccion'}}) }}
+                  </div>
+                  <div class="col-md-12">
+                      {{ form_label(edit_form.pais) }}
+                      {{ form_widget(edit_form.pais, {'attr': {'class':'form-control direccion'}}) }}
+                  </div>
+                  </div>
 
-                    <div class="col-md-4 form-group">
-                        {{ form_label(edit_form.calle) }}
-                        {{ form_widget(edit_form.calle, {'attr': {'class':'form-control'}}) }}
-                    </div>
-
-                    <div class="col-md-4 form-group">
-                        {{ form_label(edit_form.numero) }}
-                        {{ form_widget(edit_form.numero, {'attr': {'class':'form-control'}}) }}
-                    </div>
-                    <div class="col-md-4 form-group">
-                        {{ form_label(edit_form.codigoPostal) }}
-                        {{ form_widget(edit_form.codigoPostal, {'attr': {'class':'form-control'}}) }}
-                    </div>
-                    <div class="col-md-4 form-group">
-                        {{ form_label(edit_form.ciudad) }}
-                        {{ form_widget(edit_form.ciudad, {'attr': {'class':'form-control'}}) }}
-                    </div>
-                    <div class="col-md-4 form-group">
-                        {{ form_label(edit_form.provincia) }}
-                        {{ form_widget(edit_form.provincia, {'attr': {'class':'form-control'}}) }}
-                    </div>
-                    <div class="col-md-4 form-group">
-                        {{ form_label(edit_form.pais) }}
-                        {{ form_widget(edit_form.pais, {'attr': {'class':'form-control'}}) }}
-                    </div>
-
-                    <div class="col-md-6">
-                        {{ form_label(edit_form.latitud) }}
-                        {{ form_widget(edit_form.latitud, {'attr': {'class':'form-control'}}) }}
-                    </div>
-                    <div class="col-md-6">
-                        {{ form_label(edit_form.longitud) }}
-                        {{ form_widget(edit_form.longitud, {'attr': {'class':'form-control'}}) }}
-                    </div>
-                    {# <div class="col-md-6">
-                        {{ form_label(edit_form.responsables) }}
-                        {{ form_widget(edit_form.responsables, {'attr': {'class':'form-control'}}) }}
-                    </div> #}
-
-
-                    <div class="form-group col-md-12">
-                        <div class="col-md-5">
-                          <label>Agregar responsables</label>
-                          <select class="ancho form-control" id="responsables" size="5">
-                            {% for responsable in allResponsables %}
-                              <option value="{{responsable.id}}">
-                                {{responsable.nombre ~ " " ~ responsable.apellido}} | {{responsable.dni}}
-                              </option>
-                            {% endfor %}
-                          </select>
-                        </div>
-                        <div class="col-md-1 margin-top1">
-                          <div id="add" class="btn btn-chico btn-primary btn-chico margin-top1">
-                            <span class="glyphicon glyphicon-plus"></span>
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                          </div>
-                        </div>
-                        <div class="col-md-5">
-                            <label>Responsables Agregados</label>
-                            <ul id="listResponsables" class="list-group">
-                                {% for tutor in responsables %}
-                                  <li class='list-group-item' id='list_{{tutor.id}}'>
-                                    {{tutor.nombre ~ " " ~ tutor.apellido }} | {{tutor.dni}}
-                                    <span resp-id="{{tutor.id}}" class='badge rmItem remove'>X</span>
-                                  </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
+          				<div class="col-md-6 margin-top0">
+          					<div class="col-md-12 form-group">
+          						<select class="form-control" id="resultados">
+          							<option>Selecciones una ubicacion</option>
+          						</select>
+          					</div>
+          					<div id="Map" class="img-thumbnail col-md-12" style="height:250px"></div>
+          				</div>
+          			</div>
+              <div class="col-md-6 form-group">
+                  {{ form_label(edit_form.responsables) }}
+                  {{ form_widget(edit_form.responsables, {'attr': {'class':'form-control'}}) }}
+              </div>
 
                     {{ form_label(edit_form.button) }}
                     {{ form_widget(edit_form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label' : 'Editar Alumno'}) }}
@@ -156,25 +131,6 @@
       $('.datetimepicker9').datetimepicker({
         viewMode: 'years',
         format: 'DD/MM/YYYY'
-      });
-      $('#responsables').selectFilter({
-          filterClass: 'filter-bar form-control',
-          minimumCharacters: 2,
-          inputPlaceholder: 'Buscar',
-          width: '100%',
-          minimumSelectElementSize: 5,
-          inputLocation: 'above'
-      });
-
-      $('#add').click(function(){
-        if ($("#list_"+$("#responsables").val()).length == 0) {
-          var txt = "<li class='list-group-item' id='list_"+$('#responsables').val()+"'>"+$('#responsables option:selected').text()+" <span class='badge rmItem rmItem'>X</span><input name='responsables[]'  type='hidden' value='"+$('#responsables').val()+"'/> </li> ";
-          $('#listResponsables').append(txt);
-          $('.rmItem').click(function(){
-            $(this).parent().remove();
-          });
-
-        };
       });
 
       function loadMaps(){
