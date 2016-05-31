@@ -66,10 +66,7 @@ class AlumnoType extends AbstractType
                                                                     ->where('r.borrado = 0');
                                                         })
             )
-            ->add('button', SubmitType::class)
-
-
-        ;
+            ->add('button', SubmitType::class);
     }
 
     /**
