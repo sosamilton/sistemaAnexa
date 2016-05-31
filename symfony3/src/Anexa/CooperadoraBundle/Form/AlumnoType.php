@@ -53,9 +53,9 @@ class AlumnoType extends AbstractType
             ->add('longitud', HiddenType::class, array('label' => 'Longitud'))
 
             ->add('fechaNacimiento',TextType::class, array('label' => 'Fecha de Nacimiento'))
-            ->add('fechaAlta',HiddenType::class)
+            ->add('fechaAlta',HiddenType::class, array('data' =>  (new \DateTime())->format('d/m/Y H:m:s') ))
             ->add('fechaIngreso', TextType::class, array('label' => 'Fecha de Ingreso'))
-            ->add('fechaEgreso',TextType::class, array('label' => 'Fecha de Egreso'))
+            ->add('fechaEgreso',TextType::class, array('label' => 'Fecha de Egreso', 'required'=>false))
             ->add('responsables', EntityType::class, array(
                                                     'class' => 'AnexaCooperadoraBundle:Responsable',
                                                     'multiple' => true,
