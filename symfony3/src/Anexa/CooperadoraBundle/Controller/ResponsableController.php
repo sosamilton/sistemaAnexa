@@ -102,19 +102,19 @@ class ResponsableController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $alumnos=$editForm->get("alumnos")->getData();
+            var_dump($alumnos);
+            die;
             $em = $this->getDoctrine()->getManager();
+            $dato = $data = $request->request->all();
+            $user= $em->getRepository('AnexaCooperadoraBundle:User')->findOneByUsername($dato['responsable']['dni']);
+            $responsable->setUsuario($user);
             $em->persist($responsable);
             $em->flush();
-
-            //return $this->redirectToRoute('responsable_edit', array('id' => $responsable->getId()));
             return $this->redirectToRoute('responsable_index');
         }
-        $em = $this->getDoctrine()->getManager();
-        $alumnos = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findByBorrado(false);
         return $this->render('AnexaCooperadoraBundle:responsable:edit.html.twig', array(
             'responsable' => $responsable,
-            'allAlumnos' => $alumnos,
-            'misAlumnos' => $responsable->getAlumnos(),
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             "menu" => "responsable"
