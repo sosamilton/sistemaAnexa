@@ -94,12 +94,8 @@ class AlumnoController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $allResponsables = $em->getRepository('AnexaCooperadoraBundle:Responsable')->findByBorrado(false);
-
         return $this->render('AnexaCooperadoraBundle:alumno:edit.html.twig', array(
             'alumno' => $alumno,
-            'allResponsables' => $allResponsables,
-            'responsables' => $alumno->getResponsables(),
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'menu' => "alumno"

@@ -14,7 +14,7 @@
         <input type="submit" value="Create" />
     {{ form_end(form) }} #}
 
-  {{ form_start(form) }}
+  {{ form_start(form,  {'attr': {'id':'form'}}) }}
     {{ form_errors(form) }}
       <div class="col-md-6">
           {{ form_label(form.nombre) }}
@@ -112,13 +112,14 @@
 					<div id="Map" class="img-thumbnail col-md-12" style="height:250px"></div>
 				</div>
 			</div>
-    <div class="col-md-12">
+    <div class="col-md-12 ">
         {{ form_label(form.responsables) }}
         {{ form_widget(form.responsables, {'attr': {'class':'form-control chosen-select'}}) }}
     </div>
-
-        {{ form_label(form.button) }}
-        {{ form_widget(form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label': 'Agregar Alumno'}) }}
+		<div class="col-md-12 form-group">
+				{{ form_label(form.button) }}
+				{{ form_widget(form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label': 'Agregar Alumno'}) }}
+		</div>
 
 
 {{ form_end(form) }}
@@ -132,8 +133,11 @@
 				format: 'DD/MM/YYYY'
 			});
 			$(".chosen-select").chosen({
-			  display_disabled_options: true
+			  display_disabled_options: true,
+				no_results_text: "Oops, No existe responsable con el nombre: ",
+				placeholder_text_multiple: "Seleccione los responsables del alumno"
 			});
+			$("#form").trigger("chosen:updated");
       function loadMaps(){
         var lat            = -34.920797;
         var lon            =  -57.953198;
@@ -243,26 +247,6 @@
 				click.activate();
 
 			});
-
-			// $('#responsables').selectFilter({
-			// 		filterClass: 'filter-bar form-control',
-			// 		minimumCharacters: 2,
-			// 		inputPlaceholder: 'Buscar',
-			// 		width: '100%',
-			// 		minimumSelectElementSize: 5,
-			// 		inputLocation: 'above'
-			// });
-
-			// $('#add').click(function(){
-			// 	if ($("#list_"+$("#responsables").val()).length == 0) {
-			// 		var txt = "<li class='list-group-item' id='list_"+$('#responsables').val()+"'>"+$('#responsables option:selected').text()+" <span class='badge rmItem rmItem'>X</span><input name='responsables[]'  type='hidden' value='"+$('#responsables').val()+"'/> </li> ";
-			// 		$('#listResponsables').append(txt);
-			// 		$('.rmItem').click(function(){
-			// 			$(this).parent().remove();
-			// 		});
-			//
-			// 	};
-			// });
   });
 
   </script>

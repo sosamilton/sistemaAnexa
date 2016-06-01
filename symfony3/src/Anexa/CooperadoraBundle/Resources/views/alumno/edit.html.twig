@@ -14,7 +14,7 @@
         <input type="submit" value="Create" />
     {{ form_end(edit_form) }} #}
 
-            {{ form_start(edit_form) }}
+            {{ form_start(edit_form,  {'attr': {'id':'form'}}) }}
                 {{ form_errors(edit_form) }}
 
                 <div class="col-md-6">
@@ -113,14 +113,14 @@
           					<div id="Map" class="img-thumbnail col-md-12" style="height:250px"></div>
           				</div>
           			</div>
-              <div class="col-md-6 form-group">
+              <div class="col-md-12">
                   {{ form_label(edit_form.responsables) }}
-                  {{ form_widget(edit_form.responsables, {'attr': {'class':'form-control'}}) }}
+                  {{ form_widget(edit_form.responsables, {'attr': {'class':'form-control  chosen-select'}}) }}
               </div>
-
-                    {{ form_label(edit_form.button) }}
-                    {{ form_widget(edit_form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label' : 'Editar Alumno'}) }}
-
+              <div class="col-md-12 form-group">
+          				{{ form_label(edit_form.button) }}
+          				{{ form_widget(edit_form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label': 'Agregar Alumno'}) }}
+          		</div>
             {{ form_end(edit_form) }}
 
         </div>
@@ -132,6 +132,12 @@
         viewMode: 'years',
         format: 'DD/MM/YYYY'
       });
+      $(".chosen-select").chosen({
+        display_disabled_options: true,
+        no_results_text: "Oops, No existe responsable con el nombre: ",
+        placeholder_text_multiple: "Seleccione los responsables del alumno"
+      });
+      $("#form").trigger("chosen:updated");
 
       function loadMaps(){
         var lat            = -34.920797;
@@ -197,7 +203,6 @@
 {% endblock %}
 
 {% block addJS %}
-
 <script src="{{asset("/js/openlayers-master/lib/OpenLayers.js")}}"></script>
-<script src="{{asset("/js/jquery.select-filter.min.js")}}"></script>
+<script type="text/javascript" src="{{ asset('bundles/js/chosen.jquery.min.js') }}"></script>
 {% endblock %}

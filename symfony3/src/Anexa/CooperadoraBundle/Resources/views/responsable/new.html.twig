@@ -8,7 +8,7 @@
     <div class="panel-heading">Agregar Responsable</div>
     <!-- Table -->
     <div class="panel-body">
-      {{ form_start(form) }}
+      {{ form_start(form,  {'attr': {'id':'form'}}) }}
         {{ form_errors(form) }}
           <div class="col-md-6">
               {{ form_label(form.nombre) }}
@@ -56,42 +56,14 @@
               {{ form_label(form.direccion) }}
               {{ form_widget(form.direccion, {'attr': {'class':'form-control'}}) }}
           </div>
-          <div class="col-md-4 form-group">
+          <div class="col-md-12 ">
               {{ form_label(form.alumnos) }}
-              {{ form_widget(form.alumnos, {'attr': {'class':'form-control'}}) }}
+              {{ form_widget(form.alumnos, {'attr': {'class':'form-control chosen-select'}}) }}
           </div>
-
-          {# <div class="col-md-6">
-              {{ form_label(form.alumnos) }}
-              {{ form_widget(form.alumnos, {'attr': {'class':'form-control'}}) }}
-          </div>
-
-              <div class="form-group">
-                <div class="col-md-5">
-                  <label>Agregar Alumno</label>
-                  <select class="ancho form-control" id="alumnos" size="5">
-                    {% for alumno in allAlumnos %}
-                      <option value="{{alumno.id}}">
-                        {{alumno.nombre ~ " " ~ alumno.apellido}} | {{alumno.dni}}
-                      </option>
-                    {% endfor %}
-                  </select>
-                </div>
-                <div class="col-md-1 margin-top1">
-                  <div id="add" class="btn btn-chico btn-primary btn-chico margin-top1">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                  </div>
-                </div>
-                <div class="col-md-5">
-                  <label>Alumnos Agregados</label>
-                  <ul id="listAlumnos" class="list-group">
-                  </ul>
-                </div>
-              </div>
-              #}
-        {{ form_label(form.button) }}
-            {{ form_widget(form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label': 'Agregar Responsable'}) }}
+					<div class="col-md-12 form-group">
+						{{ form_label(form.button) }}
+						{{ form_widget(form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label': 'Agregar Responsable'}) }}
+					</div>
 
       {{ form_end(form) }}
     </div>
@@ -100,29 +72,20 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
-				$('.datetimepicker9').datetimepicker({
-					viewMode: 'years',
-					format: 'DD/MM/YYYY'
-				});
-        // $('#alumnos').selectFilter({
-        //     filterClass: 'filter-bar form-control',
-        //     minimumCharacters: 2,
-        //     inputPlaceholder: 'Buscar',
-        //     width: '100%',
-        //     minimumSelectElementSize: 5,
-        //     inputLocation: 'above'
-        // });
-				//
-        // $('#add').click(function(){
-        //   if ($("#list_"+$("#alumnos").val()).length == 0) {
-        //     var txt = "<li class='list-group-item' id='list_"+$('#alumnos').val()+"'>"+$('#alumnos option:selected').text()+" <span class='badge rmItem'>X</span><input name='alumnos[]'  type='hidden' value='"+$('#alumnos').val()+"'/> </li> ";
-        //     $('#listAlumnos').append(txt);
-        //     $('.rmItem').click(function(){
-        //       $(this).parent().remove();
-        //     });
-				//
-        //   };
-        // });
+			$('.datetimepicker9').datetimepicker({
+				viewMode: 'years',
+				format: 'DD/MM/YYYY'
+			});
+			$(".chosen-select").chosen({
+			  display_disabled_options: true,
+				no_results_text: "Oops, No existe Alumno con el nombre: ",
+				placeholder_text_multiple: "Seleccione los alumnos del Responsable"
+			});
+			$("#form").trigger("chosen:updated");
     });
   </script>
+{% endblock %}
+
+{% block addJS %}
+<script type="text/javascript" src="{{ asset('bundles/js/chosen.jquery.min.js') }}"></script>
 {% endblock %}

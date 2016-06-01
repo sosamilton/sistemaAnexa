@@ -141,6 +141,15 @@ class Responsable {
         $this->alumnos->removeElement($unAlu);
         return $this->alumnos;
     }
+    /**
+    *actualizar alumnos
+    *@param ArrayCollection $alumnos
+    *@return ArrayCollection
+    */
+    public function updateAlumnos($alumnos) {
+        $this->alumnos=$alumnos;
+        return $this->alumnos;
+    }
 
 	/**
 	* Get id
