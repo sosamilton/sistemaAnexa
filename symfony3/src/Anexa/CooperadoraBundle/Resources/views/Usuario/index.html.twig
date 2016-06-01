@@ -1,17 +1,18 @@
-{% extends 'AnexaCooperadoraBundle:backend:inicio.html.twig' %}
-
-{% block title %} Administracion | Usuario{% endblock %}
+{% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
+{% block title %} Administración | Usuario{% endblock %}
 
 {% block dataAdmin %}
       {% if msj is defined %}
         <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <strong>Atenci&oacute;n!</strong>{{msj}}
+          <strong>Atención!</strong>{{msj}}
         </div>
       {% endif %}
-      <a class="btn btn-primary botonAdd" href="{{URL.backend_usuario_agregar}}" role="button">Agregar Usuario</a>
+      {% if is_granted('ROLE_SUPER_ADMIN') %}
+        <a class="btn btn-primary botonAdd" href="{{ path('usuario_new') }}">Agregar usuario</a>
+      {% endif %}
 
-    	<div class="panel panel-primary">
+        <div class="panel panel-primary">
           <!-- Default panel contents -->
           <div class="panel-heading">Listado de Usuarios</div>
           <!-- Table -->
@@ -24,15 +25,15 @@
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="username" checked> 
+                        <input type="checkbox" name="busqueda" value="username" checked>
                         <label>Username</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="estado" checked> 
+                        <input type="checkbox" name="busqueda" value="estado" checked>
                         <label>Estado</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="role" checked> 
+                        <input type="checkbox" name="busqueda" value="role" checked>
                         <label>Rol</label>
                     </li>
                   </ul>
@@ -40,14 +41,14 @@
                 <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
                 <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
 
-            </div>                                      
+            </div>
 
             <table class="table">
               <thead>
                 <tr>
                   <th>
                     <button class="sort btn" data-sort="username">
-                        <span class="glyphicon glyphicon-sort"></span> 
+                        <span class="glyphicon glyphicon-sort"></span>
                     </button>
                     Username
                   </th>
@@ -67,29 +68,30 @@
                 </tr>
               </thead>
               <tbody class="list">
-  	            {% for usuario in usuarios %}
-  	              <tr {% if not usuario.habilitado %} class="deshabilitado" {% endif %}>
-  	                <td class="username">{{usuario.username}}</td>
-  	                <td class="estado">{% if usuario.habilitado %} Habilitado {% else %} Deshabilitado {% endif %}</td>
-  	                <td class="role">{{usuario.rol}}</td>
+
+                {% for usuario in usuarios %}
+                  <tr {% if not usuario.habilitado %} class="deshabilitado" {% endif %}>
+                    <td class="username">{{usuario.username}}</td>
+                    <td class="estado">{% if usuario.habilitado %} Habilitado {% else %} Deshabilitado {% endif %}</td>
+                    <td class="role">{{usuario.rol}}</td>
                     <td>
                         <div class="">
-                            <a class="btn btn-success" href="{{URL.backend_usuario_ver}}?id={{usuario.id}}" title='Ver'>
+                            <a class="btn btn-success" href="{{ path('usuario_show', {'id': usuario.id}) }}" title='Ver'>
                                 <span class='glyphicon glyphicon-eye-open'></span>
                             </a>
-                            <a class="btn btn-warning" href="{{URL.backend_usuario_estado}}?id={{usuario.id}}" title='Deshabilitar'>
+                            <a class="btn btn-warning" href="{{ path('usuario_estado', {'id': usuario.id}) }}" title='Deshabilitar'>
                                 <span class='glyphicon glyphicon-lock'></span>
-                            </a>       
-                            <a class="btn btn-primary" href="{{URL.backend_usuario_editar}}?id={{usuario.id}}" title='Editar'>
+                            </a>
+                            <a class="btn btn-primary" href="{{ path('usuario_edit', {'id': usuario.id}) }}" title='Editar'>
                                 <span class='glyphicon glyphicon-pencil' ></span>
                             </a>
-                            <a class="btn btn-danger" href="{{URL.backend_usuario_eliminar}}?id={{usuario.id}}" title='Eliminar'>
+                            <a class="btn btn-danger" href="{{ path('usuario_delete', {'id': usuario.id}) }}" title='Eliminar'>
                                 <span class='glyphicon glyphicon-remove'></span>
-                            </a>       
-                        </div>               
+                            </a>
+                        </div>
                     </td>
-  	              </tr>
-  	            {% endfor %}
+                  </tr>
+                {% endfor %}
               </tbody>
             </table>
             <div class="col-md-4 col-md-offset-4">
@@ -102,7 +104,7 @@
             var monkeyList = new List('paginacion', {
               valueNames: ['username','estado','role'],
               page: {{paginacion}},
-              plugins: [ ListPagination({}) ] 
+              plugins: [ ListPagination({}) ]
           });
 
           $(".input-busqueda").keyup(function(){
@@ -113,6 +115,6 @@
               monkeyList.search($(this).val(), filtros)
           });
         });
-        
+
     </script>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'AnexaCooperadoraBundle:backend:inicio.html.twig' %}
+{% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
 
 {% block title %} Administracion | Usuario | Agregar{% endblock %}
 
@@ -8,7 +8,13 @@
           <div class="panel-heading">Agregar Usuario</div>
           <!-- Table -->
           <div class="panel-body">
-                <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">              <input type="hidden" name="token" value="{{token}}">
+            {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+                {{ form_widget(form) }}
+                <div>
+                    <input type="submit" value="{{ 'registration.submit'|trans }}" />
+                </div>
+            {{ form_end(form) }}
+                {# <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">              <input type="hidden" name="token" value="{{token}}">
               <div class="form-group">
                 <div class="col-md-4">
                   <label for="username">Nombre de Usuario</label>
@@ -28,7 +34,7 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-primary col-md-12">Agregar Usuario</button>
-            </form>
+            </form> #}
           </div>
       </div>
       <script type="text/javascript">

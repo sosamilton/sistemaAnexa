@@ -88,8 +88,17 @@ class User extends BaseUser
     }
 
     /**
+     * Get boolean
+     * @return model
+     */
+    public function getHabilitado()
+    {
+        return $this->habilitado;
+    }
+
+    /**
      * Get pagos
-     * @return Pago
+     * @return bollean
      */
     public function getPagos()
     {
@@ -122,6 +131,17 @@ class User extends BaseUser
 
     public function getRoles() {
         return $this->roles;
+    }
+
+    public function getRol() {
+        if ($this->roles[0] == "ROLE_SUPER_ADMIN") {
+          $rol="Administrador";
+        }elseif ($this->roles[0] == "ROLE_GESTION") {
+          $rol="Gestion";
+        }else {
+          $rol="Consulta";
+        }
+        return $rol;
     }
 
     public function __toString(){

@@ -171,8 +171,8 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
                 // alumno_delete
                 if (preg_match('#^/backend/alumno/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
-                    if ($this->context->getMethod() != 'DELETE') {
-                        $allow[] = 'DELETE';
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
                         goto not_alumno_delete;
                     }
 
@@ -495,6 +495,79 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             }
 
+            if (0 === strpos($pathinfo, '/backend/usuario')) {
+                // usuario_index
+                if (rtrim($pathinfo, '/') === '/backend/usuario') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_usuario_index;
+                    }
+
+                    if (substr($pathinfo, -1) !== '/') {
+                        return $this->redirect($pathinfo.'/', 'usuario_index');
+                    }
+
+                    return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\UserController::indexAction',  '_route' => 'usuario_index',);
+                }
+                not_usuario_index:
+
+                // usuario_show
+                if (preg_match('#^/backend/usuario/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_usuario_show;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'usuario_show')), array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\UserController::showAction',));
+                }
+                not_usuario_show:
+
+                // usuario_new
+                if ($pathinfo === '/backend/usuario/new') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                        goto not_usuario_new;
+                    }
+
+                    return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\UserController::newAction',  '_route' => 'usuario_new',);
+                }
+                not_usuario_new:
+
+                // usuario_edit
+                if (preg_match('#^/backend/usuario/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                    if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                        goto not_usuario_edit;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'usuario_edit')), array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\UserController::editAction',));
+                }
+                not_usuario_edit:
+
+                // usuario_delete
+                if (preg_match('#^/backend/usuario/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                    if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                        goto not_usuario_delete;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'usuario_delete')), array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\UserController::deleteAction',));
+                }
+                not_usuario_delete:
+
+                // usuario_estado
+                if (preg_match('#^/backend/usuario/(?P<id>[^/]++)/toogle$#s', $pathinfo, $matches)) {
+                    if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                        goto not_usuario_estado;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'usuario_estado')), array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\UserController::estadoAction',));
+                }
+                not_usuario_estado:
+
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/log')) {
@@ -508,16 +581,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array('_route' => 'logout');
             }
 
-        }
+            // login
+            if ($pathinfo === '/login') {
+                return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\UserController::loginAction',  '_route' => 'login',);
+            }
 
-        // user
-        if ($pathinfo === '/Usuarios') {
-            return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\SecurityController::indexAction',  '_route' => 'user',);
-        }
-
-        // login
-        if ($pathinfo === '/login') {
-            return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\SecurityController::loginAction',  '_route' => 'login',);
         }
 
         // paginacion

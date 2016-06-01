@@ -18,16 +18,15 @@ class CuotaController extends Controller
      * Lists all Cuota entities.
      *
      */
-    public function indexAction()
+    public function indexAction($datos=array())
     {
         $em = $this->getDoctrine()->getManager();
 
         $cuotas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findByBorrado(false);
+        $datos['cuotas'] = $cuotas;
+        $datos['menu'] = "cuotas";
 
-        return $this->render('AnexaCooperadoraBundle:cuota:index.html.twig', array(
-            'cuotas' => $cuotas,
-            'menu' => 'cuota'
-        ));
+        return $this->render('AnexaCooperadoraBundle:cuota:index.html.twig', $datos);
     }
 
     /**
@@ -44,8 +43,9 @@ class CuotaController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($cuota);
             $em->flush();
-
-            return $this->redirectToRoute('cuota_index'); //, array('id' => $cuota->getId()));
+        $datos['msj'] = ' La cuota se agregó correctamente!';
+         $datos['success'] = 1;
+             return $this->indexAction($datos); //, array('id' => $cuota->getId()));
         }
 
         return $this->render('AnexaCooperadoraBundle:cuota:new.html.twig', array(
@@ -105,6 +105,9 @@ class CuotaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $cuota->setBorrado(true);
         $em->flush();
+        $datos['msj'] = ' La cuota se eliminó correctamente!';
+        $datos['success'] = 1;
+        return $this->indexAction($datos);
 
         return $this->redirectToRoute('cuota_index');
     }

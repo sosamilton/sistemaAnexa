@@ -21,4 +21,9 @@ usuario_edit:
 usuario_delete:
     path:     /{id}/delete
     defaults: { _controller: "AnexaCooperadoraBundle:User:delete" }
-    methods:  DELETE
+    methods:  [GET, POST]
+
+usuario_estado:
+    path:     /{id}/toogle
+    defaults: { _controller: "AnexaCooperadoraBundle:User:estado" }
+    methods:  [GET, POST]

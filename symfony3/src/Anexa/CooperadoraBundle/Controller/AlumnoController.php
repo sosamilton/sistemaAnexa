@@ -19,16 +19,14 @@ class AlumnoController extends Controller
      * Lists all Alumno entities.
      *
      */
-    public function indexAction()
+    public function indexAction($datos=array())
     {
         $em = $this->getDoctrine()->getManager();
 
         $alumnos = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findByBorrado(false);
-
-        return $this->render('AnexaCooperadoraBundle:alumno:index.html.twig', array(
-            'alumnos' => $alumnos,
-            'menu' => "alumno"
-        ));
+        $datos['alumnos'] = $alumnos;
+        $datos['menu'] = "alumno";
+        return $this->render('AnexaCooperadoraBundle:alumno:index.html.twig', $datos);
     }
 
     /**
@@ -65,11 +63,13 @@ class AlumnoController extends Controller
     public function showAction(Alumno $alumno)
     {
         $deleteForm = $this->createDeleteForm($alumno);
+        $em = $this->getDoctrine()->getManager();
+        $misResponsables = $alumno->getResponsables();
 
         return $this->render('AnexaCooperadoraBundle:alumno:show.html.twig', array(
-        //return $this->render('alumno/show.html.twig', array(
             'alumno' => $alumno,
             'delete_form' => $deleteForm->createView(),
+            'responsables'=>$misResponsables,
             'menu' => 'alumno'
         ));
     }
@@ -112,8 +112,11 @@ class AlumnoController extends Controller
         $em = $this->getDoctrine()->getManager();
         $alumno->setBorrado(true);
         $em->flush();
+        $datos['msj'] = " El alumno ".$alumno->getApellido().' '.$alumno->getNombre().' fue eliminado correctamente!';
+        $datos['success'] = 1;
 
-        return $this->redirectToRoute('alumno_index');
+        //return $this->redirectToRoute('alumno_index');
+        return $this->indexAction($datos);
     }
 
     /**

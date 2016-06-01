@@ -21,4 +21,4 @@ alumno_edit:
 alumno_delete:
     path:     /{id}/delete
     defaults: { _controller: "AnexaCooperadoraBundle:Alumno:delete" }
-    methods:  DELETE
+    methods:  GET
