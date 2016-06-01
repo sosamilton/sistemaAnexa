@@ -56,23 +56,42 @@ class UserController extends Controller
         ));
     }
 
+    public function showAction(User $user, $visitors = null)
+    {
+        return $this->render('AnexaCooperadoraBundle:Usuario:ver.html.twig', array(
+            'usuario' => $user,
+            'menu' => 'usuario'
+        ));
+    }
 
     public function editAction(Request $request, User $user)
     {
-              $form = $this->createForm("Anexa\CooperadoraBundle\Form\UserType", $user);
-              $form->handleRequest($request);
+        $error = null;
+        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
+        $formFactory = $this->get('fos_user.profile.form.factory');
 
-              if ($form->isSubmitted() && $form->isValid()) {
-                  $userManager = $this->get('fos_user.user_manager');
-                  $userManager->updateUser($user);
-                  return $this->redirectToRoute('usuario_index');
-              }
+        $editForm = $this->createForm("Anexa\CooperadoraBundle\Form\UserType", $user);
+        $editForm->setData($user);
+        $editForm->handleRequest($request);
 
-              return $this->render('AnexaCooperadoraBundle:Usuario:agregar.html.twig', array(
-                  'form' => $form->createView(),
-                  'menu' => "usuario"
-              ));
+
+        if ($editForm->isValid() && $editForm->isValid()) {
+            /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+            $userManager = $this->get('fos_user.user_manager');
+
+            $em = $this->getDoctrine()->getManager();
+
+            $userManager->updateUser($user);
+            return $this->redirectToRoute('usuario_index');
+        }
+
+        return $this->render('AnexaCooperadoraBundle:Usuario:editar.html.twig', array(
+          'edit_form' => $editForm->createView(),
+          'edit_user' => $user,
+          'menu' => "usuario"
+        ));
     }
+
 
     public function loginAction(Request $request)
     {

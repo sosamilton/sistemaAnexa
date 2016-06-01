@@ -35,8 +35,7 @@ class UserType extends AbstractType
             ))
             ->add('gender', GenderType::class, array(
                 'label' => 'Sexo'
-            ))
-        ;
+            ));
     }
 
     public function getParent()
