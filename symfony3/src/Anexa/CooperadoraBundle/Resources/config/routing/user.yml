@@ -1,0 +1,19 @@
+usuario_index:
+    path:     /
+    defaults: { _controller: "AnexaCooperadoraBundle:Usuario:index" }
+    methods:  GET
+
+usuario_new:
+    path:     /new
+    defaults: { _controller: "AnexaCooperadoraBundle:Usuario:new" }
+    methods:  [GET, POST]
+
+usuario_ver:
+    path:     /{id}/ver
+    defaults: { _controller: "AnexaCooperadoraBundle:Usuario:ver" }
+    methods:  GET
+
+usuario_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AnexaCooperadoraBundle:Usuario:delete" }
+    methods:  GET

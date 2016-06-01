@@ -30,6 +30,10 @@ anexa_cooperadora_configuracion:
     prefix:     /backend/configuracion
     resource: "@AnexaCooperadoraBundle/Resources/config/routing/configuracion.yml"
 
+anexa_cooperadora_usuario:
+    prefix:     /backend/usuario
+    resource: "@AnexaCooperadoraBundle/Resources/config/routing/user.yml"
+
 login_check:
     path: /login_check
 

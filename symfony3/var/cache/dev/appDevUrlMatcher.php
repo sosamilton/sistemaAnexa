@@ -171,8 +171,8 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
                 // alumno_delete
                 if (preg_match('#^/backend/alumno/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
-                    if ($this->context->getMethod() != 'DELETE') {
-                        $allow[] = 'DELETE';
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
                         goto not_alumno_delete;
                     }
 
@@ -492,6 +492,57 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     return $this->mergeDefaults(array_replace($matches, array('_route' => 'configuracion_delete')), array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\ConfiguracionController::deleteAction',));
                 }
                 not_configuracion_delete:
+
+            }
+
+            if (0 === strpos($pathinfo, '/backend/usuario')) {
+                // usuario_index
+                if (rtrim($pathinfo, '/') === '/backend/usuario') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_usuario_index;
+                    }
+
+                    if (substr($pathinfo, -1) !== '/') {
+                        return $this->redirect($pathinfo.'/', 'usuario_index');
+                    }
+
+                    return array (  '_controller' => 'AnexaCooperadoraBundle:Usuario:index',  '_route' => 'usuario_index',);
+                }
+                not_usuario_index:
+
+                // usuario_new
+                if ($pathinfo === '/backend/usuario/new') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                        goto not_usuario_new;
+                    }
+
+                    return array (  '_controller' => 'AnexaCooperadoraBundle:Usuario:new',  '_route' => 'usuario_new',);
+                }
+                not_usuario_new:
+
+                // usuario_ver
+                if (preg_match('#^/backend/usuario/(?P<id>[^/]++)/ver$#s', $pathinfo, $matches)) {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_usuario_ver;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'usuario_ver')), array (  '_controller' => 'AnexaCooperadoraBundle:Usuario:ver',));
+                }
+                not_usuario_ver:
+
+                // usuario_delete
+                if (preg_match('#^/backend/usuario/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_usuario_delete;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'usuario_delete')), array (  '_controller' => 'AnexaCooperadoraBundle:Usuario:delete',));
+                }
+                not_usuario_delete:
 
             }
 

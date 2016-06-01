@@ -3,6 +3,12 @@
 {% block title %} Administración | Alumnos | Listado{% endblock %}
 
 {% block dataAdmin %}
+  {% if msj is defined %}
+        <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <strong>Atención!</strong>{{msj}}
+        </div>
+  {% endif %}
     {% if is_granted('ROLE_SUPER_ADMIN') %}
       <a class="btn btn-primary botonAdd" href="{{ path('alumno_new') }}">Agregar Alumno</a>
     {% endif %}

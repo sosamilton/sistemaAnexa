@@ -22,43 +22,62 @@ class __TwigTemplate_ccde943cd270475644a2d6c2d58ca1ad949322a902d1398cf4f75c229fa
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_91a389a5fc618315f6c5112e2b9fb26ed9964e615e91547ddc3590df9e82e167 = $this->env->getExtension("native_profiler");
-        $__internal_91a389a5fc618315f6c5112e2b9fb26ed9964e615e91547ddc3590df9e82e167->enter($__internal_91a389a5fc618315f6c5112e2b9fb26ed9964e615e91547ddc3590df9e82e167_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "AnexaCooperadoraBundle:alumno:index.html.twig"));
+        $__internal_78cb9517e38659c681a88467e358816285bdeb663831872cec8cc63d44707bcf = $this->env->getExtension("native_profiler");
+        $__internal_78cb9517e38659c681a88467e358816285bdeb663831872cec8cc63d44707bcf->enter($__internal_78cb9517e38659c681a88467e358816285bdeb663831872cec8cc63d44707bcf_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "AnexaCooperadoraBundle:alumno:index.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_91a389a5fc618315f6c5112e2b9fb26ed9964e615e91547ddc3590df9e82e167->leave($__internal_91a389a5fc618315f6c5112e2b9fb26ed9964e615e91547ddc3590df9e82e167_prof);
+        $__internal_78cb9517e38659c681a88467e358816285bdeb663831872cec8cc63d44707bcf->leave($__internal_78cb9517e38659c681a88467e358816285bdeb663831872cec8cc63d44707bcf_prof);
 
     }
 
     // line 3
     public function block_title($context, array $blocks = array())
     {
-        $__internal_5ed9e88d1a12394ac7e09d312f322c6ed2d9dad441a0c1d792d7411599a2a8e6 = $this->env->getExtension("native_profiler");
-        $__internal_5ed9e88d1a12394ac7e09d312f322c6ed2d9dad441a0c1d792d7411599a2a8e6->enter($__internal_5ed9e88d1a12394ac7e09d312f322c6ed2d9dad441a0c1d792d7411599a2a8e6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
+        $__internal_be74e4ff19b63e834096f0785b7cb44581f4f1b56e9df0c7e562c3bc98bfbba5 = $this->env->getExtension("native_profiler");
+        $__internal_be74e4ff19b63e834096f0785b7cb44581f4f1b56e9df0c7e562c3bc98bfbba5->enter($__internal_be74e4ff19b63e834096f0785b7cb44581f4f1b56e9df0c7e562c3bc98bfbba5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
 
         echo " Administración | Alumnos | Listado";
         
-        $__internal_5ed9e88d1a12394ac7e09d312f322c6ed2d9dad441a0c1d792d7411599a2a8e6->leave($__internal_5ed9e88d1a12394ac7e09d312f322c6ed2d9dad441a0c1d792d7411599a2a8e6_prof);
+        $__internal_be74e4ff19b63e834096f0785b7cb44581f4f1b56e9df0c7e562c3bc98bfbba5->leave($__internal_be74e4ff19b63e834096f0785b7cb44581f4f1b56e9df0c7e562c3bc98bfbba5_prof);
 
     }
 
     // line 5
     public function block_dataAdmin($context, array $blocks = array())
     {
-        $__internal_d9b634725ac3358c7327b1b9ab147a212c4eda7bb026f34a269e64527dd35504 = $this->env->getExtension("native_profiler");
-        $__internal_d9b634725ac3358c7327b1b9ab147a212c4eda7bb026f34a269e64527dd35504->enter($__internal_d9b634725ac3358c7327b1b9ab147a212c4eda7bb026f34a269e64527dd35504_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "dataAdmin"));
+        $__internal_6a3c184dbf2cc6e96e2084031f43a64313cd27185f0ef189bc1a9a1c8ca8bf39 = $this->env->getExtension("native_profiler");
+        $__internal_6a3c184dbf2cc6e96e2084031f43a64313cd27185f0ef189bc1a9a1c8ca8bf39->enter($__internal_6a3c184dbf2cc6e96e2084031f43a64313cd27185f0ef189bc1a9a1c8ca8bf39_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "dataAdmin"));
 
         // line 6
+        echo "  ";
+        if (array_key_exists("msj", $context)) {
+            // line 7
+            echo "        <div class=\"alert alert-";
+            if ((isset($context["success"]) ? $context["success"] : $this->getContext($context, "success"))) {
+                echo "success";
+            } else {
+                echo "danger";
+            }
+            echo " alert-dismissible fade in\" role=\"alert\">
+          <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button>
+          <strong>Atención!</strong>";
+            // line 9
+            echo twig_escape_filter($this->env, (isset($context["msj"]) ? $context["msj"] : $this->getContext($context, "msj")), "html", null, true);
+            echo "
+        </div>
+  ";
+        }
+        // line 12
         echo "    ";
         if ($this->env->getExtension('security')->isGranted("ROLE_SUPER_ADMIN")) {
-            // line 7
+            // line 13
             echo "      <a class=\"btn btn-primary botonAdd\" href=\"";
             echo $this->env->getExtension('routing')->getPath("alumno_new");
             echo "\">Agregar Alumno</a>
     ";
         }
-        // line 9
+        // line 15
         echo "
     <div class=\"panel panel-primary\">
         <!-- Default panel contents -->
@@ -123,58 +142,58 @@ class __TwigTemplate_ccde943cd270475644a2d6c2d58ca1ad949322a902d1398cf4f75c229fa
                 </thead>
                 <tbody class=\"list\">
                     ";
-        // line 72
+        // line 78
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["alumnos"]) ? $context["alumnos"] : $this->getContext($context, "alumnos")));
         foreach ($context['_seq'] as $context["_key"] => $context["alumno"]) {
-            // line 73
+            // line 79
             echo "                        <tr>
                                                        
                           <td>";
-            // line 75
+            // line 81
             echo twig_escape_filter($this->env, $this->getAttribute($context["alumno"], "id", array()), "html", null, true);
             echo "</td>
                           <td class=\"dni\">";
-            // line 76
+            // line 82
             echo twig_escape_filter($this->env, $this->getAttribute($context["alumno"], "dni", array()), "html", null, true);
             echo "</td>
                           <td class=\"apellido\">";
-            // line 77
+            // line 83
             echo twig_escape_filter($this->env, $this->getAttribute($context["alumno"], "apellido", array()), "html", null, true);
             echo "</td>
                           <td class=\"nombre\">";
-            // line 78
+            // line 84
             echo twig_escape_filter($this->env, $this->getAttribute($context["alumno"], "nombre", array()), "html", null, true);
             echo "</td>
                           <td>
                               <div class=\"\">
                                   
                                 <a class=\"btn btn-success\" href=\"";
-            // line 82
+            // line 88
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("alumno_show", array("id" => $this->getAttribute($context["alumno"], "id", array()))), "html", null, true);
             echo "\" title=\"Ver\"><span class='glyphicon glyphicon-eye-open'></span></a>
 
                                 ";
-            // line 84
+            // line 90
             if (($this->env->getExtension('security')->isGranted("ROLE_SUPER_ADMIN") || $this->env->getExtension('security')->isGranted("ROLE_GESTION"))) {
-                // line 85
+                // line 91
                 echo "                                  <a class=\"btn btn-primary\" href=\"";
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("alumno_edit", array("id" => $this->getAttribute($context["alumno"], "id", array()))), "html", null, true);
                 echo "\" title=\"Editar\"><span class='glyphicon glyphicon-pencil' ></span></a>
                                   ";
-                // line 86
+                // line 92
                 if ($this->env->getExtension('security')->isGranted("ROLE_SUPER_ADMIN")) {
-                    // line 87
+                    // line 93
                     echo "                                    <a class=\"btn btn-danger\" href=\"";
                     echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("alumno_delete", array("id" => $this->getAttribute($context["alumno"], "id", array()))), "html", null, true);
                     echo "\" title='Eliminar'><span class='glyphicon glyphicon-remove'></span></a>
                                   ";
                 }
-                // line 88
+                // line 94
                 echo "   
                                 ";
             }
-            // line 89
+            // line 95
             echo "   
                               </div>
 
@@ -185,7 +204,7 @@ class __TwigTemplate_ccde943cd270475644a2d6c2d58ca1ad949322a902d1398cf4f75c229fa
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['alumno'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 95
+        // line 101
         echo "                </tbody>
             </table>
             <div class=\"col-md-4 col-md-offset-4\">
@@ -199,7 +218,7 @@ class __TwigTemplate_ccde943cd270475644a2d6c2d58ca1ad949322a902d1398cf4f75c229fa
           var monkeyList = new List('paginacion', {
             valueNames: ['id', 'nombre','apellido','dni'],
             page: '";
-        // line 107
+        // line 113
         echo $this->env->getExtension('http_kernel')->renderFragment($this->env->getExtension('routing')->getUrl("paginacion"));
         echo "',
             plugins: [ ListPagination({}) ] 
@@ -218,7 +237,7 @@ class __TwigTemplate_ccde943cd270475644a2d6c2d58ca1ad949322a902d1398cf4f75c229fa
 
 ";
         
-        $__internal_d9b634725ac3358c7327b1b9ab147a212c4eda7bb026f34a269e64527dd35504->leave($__internal_d9b634725ac3358c7327b1b9ab147a212c4eda7bb026f34a269e64527dd35504_prof);
+        $__internal_6a3c184dbf2cc6e96e2084031f43a64313cd27185f0ef189bc1a9a1c8ca8bf39->leave($__internal_6a3c184dbf2cc6e96e2084031f43a64313cd27185f0ef189bc1a9a1c8ca8bf39_prof);
 
     }
 
@@ -234,7 +253,7 @@ class __TwigTemplate_ccde943cd270475644a2d6c2d58ca1ad949322a902d1398cf4f75c229fa
 
     public function getDebugInfo()
     {
-        return array (  203 => 107,  189 => 95,  178 => 89,  174 => 88,  168 => 87,  166 => 86,  161 => 85,  159 => 84,  154 => 82,  147 => 78,  143 => 77,  139 => 76,  135 => 75,  131 => 73,  127 => 72,  62 => 9,  56 => 7,  53 => 6,  47 => 5,  35 => 3,  11 => 1,);
+        return array (  222 => 113,  208 => 101,  197 => 95,  193 => 94,  187 => 93,  185 => 92,  180 => 91,  178 => 90,  173 => 88,  166 => 84,  162 => 83,  158 => 82,  154 => 81,  150 => 79,  146 => 78,  81 => 15,  75 => 13,  72 => 12,  66 => 9,  56 => 7,  53 => 6,  47 => 5,  35 => 3,  11 => 1,);
     }
 }
 /* {% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}*/
@@ -242,6 +261,12 @@ class __TwigTemplate_ccde943cd270475644a2d6c2d58ca1ad949322a902d1398cf4f75c229fa
 /* {% block title %} Administración | Alumnos | Listado{% endblock %}*/
 /* */
 /* {% block dataAdmin %}*/
+/*   {% if msj is defined %}*/
+/*         <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">*/
+/*           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>*/
+/*           <strong>Atención!</strong>{{msj}}*/
+/*         </div>*/
+/*   {% endif %}*/
 /*     {% if is_granted('ROLE_SUPER_ADMIN') %}*/
 /*       <a class="btn btn-primary botonAdd" href="{{ path('alumno_new') }}">Agregar Alumno</a>*/
 /*     {% endif %}*/
