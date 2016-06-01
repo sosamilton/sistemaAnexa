@@ -44,6 +44,10 @@ login:
     path: /login
     defaults: { _controller: AnexaCooperadoraBundle:User:login }
 
+register:
+    path: /register/
+    defaults: { _controller: AnexaCooperadoraBundle:User:new }
+
 paginacion:
     path: /paginacion
     defaults: { _controller: AnexaCooperadoraBundle:Configuracion:paginacion }

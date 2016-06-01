@@ -33,57 +33,45 @@ class UserController extends Controller
       ));
 
     }
-    public function newAction(Request $request)
+
+    public function newAction(Request $request, User $user=null)
     {
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->get('fos_user.registration.form.factory');
-        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-        $userManager = $this->get('fos_user.user_manager');
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
-
-        $user = $userManager->createUser();
-        $user->setEnabled(true);
-
-        $event = new GetResponseUserEvent($user, $request);
-        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
-
-        if (null !== $event->getResponse()) {
-            return $event->getResponse();
+        if (!isset($user)) {
+          $user= new User();
         }
-
-        $form = $formFactory->createForm();
-        $form->add('roles', ChoiceType::class, array(
-                    'multiple'=> true,
-                    'choices' => array(
-                        'Administrador' => 'ROLE_ADMIN',
-                        'Gestion'  => 'ROLE_GESTION',
-                        'Consulta'  => 'ROLE_CONSULTA'
-                    )));
-        $form->setData($user);
+        $form = $this->createForm("Anexa\CooperadoraBundle\Form\UserType", $user);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $event = new FormEvent($form, $request);
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-
-            $userManager->updateUser($user);
-
-            if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('fos_user_registration_confirmed');
-                $response = new RedirectResponse($url);
-            }
-
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-            return $response;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('usuario_index');
         }
 
         return $this->render('AnexaCooperadoraBundle:Usuario:agregar.html.twig', array(
             'form' => $form->createView(),
             'menu' => "usuario"
         ));
+    }
+
+
+    public function editAction(Request $request, User $user)
+    {
+              $form = $this->createForm("Anexa\CooperadoraBundle\Form\UserType", $user);
+              $form->handleRequest($request);
+
+              if ($form->isSubmitted() && $form->isValid()) {
+                  $userManager = $this->get('fos_user.user_manager');
+                  $userManager->updateUser($user);
+                  return $this->redirectToRoute('usuario_index');
+              }
+
+              return $this->render('AnexaCooperadoraBundle:Usuario:agregar.html.twig', array(
+                  'form' => $form->createView(),
+                  'menu' => "usuario"
+              ));
     }
 
     public function loginAction(Request $request)

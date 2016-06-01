@@ -9,32 +9,36 @@
           <!-- Table -->
           <div class="panel-body">
             {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-                {{ form_widget(form) }}
-                <div>
-                    <input type="submit" value="{{ 'registration.submit'|trans }}" />
-                </div>
-            {{ form_end(form) }}
-                {# <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">              <input type="hidden" name="token" value="{{token}}">
-              <div class="form-group">
-                <div class="col-md-4">
-                  <label for="username">Nombre de Usuario</label>
-                  <input type="text" class="form-control" id="username" name="username" placeholder="Nombre de Usuario" required>
-                </div>
-                <div class="col-md-4">
-                  <label for="password">Contrase&ntilde;a</label>
-                  <input type="password" class="form-control" id="password" name="pass" placeholder="Contraseña" required>
-                </div>
-                <div class="col-md-4">
-                  <label for="rol">Rol</label>
-                  <select class="form-control" name="rol" required>
-                    {% for rol in roles %}
-                      <option value="{{rol.id}}">{{rol.nombre}}</option>
-                    {% endfor %}
-                  </select>
-                </div>
+            <div class="col-md-6">
+              <div class="col-md-12">
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username, {'attr': {'class':'form-control'}}) }}
               </div>
+              <div class="col-md-12">
+                {{ form_label(form.plainPassword.first) }}
+                {{ form_widget(form.plainPassword.first, {'attr': {'class':'form-control'}}) }}
+              </div>
+              <div class="col-md-12">
+                {{ form_label(form.plainPassword.second) }}
+                {{ form_widget(form.plainPassword.second, {'attr': {'class':'form-control'}}) }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="col-md-12">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email, {'attr': {'class':'form-control'}}) }}
+              </div>
+              <div class="col-md-12">
+                  {{ form_label(form.roles) }}
+                  {{ form_widget(form.roles, {'attr': {'class':'form-control'}}) }}
+              </div>
+            </div>
+
+            <div class="form-group col-md-12">
               <button type="submit" class="btn btn-primary col-md-12">Agregar Usuario</button>
-            </form> #}
+            </div>
+            {{ form_end(form) }}
+            </div>
           </div>
       </div>
       <script type="text/javascript">

@@ -1,0 +1,119 @@
+{% extends 'InicioBundle:Admin:index.html.twig' %}
+{% block form %}
+    <form method="post" action="{{path('usuarioUpdate')}}">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+
+                <input type="hidden"  name="idUser" value="{{entity.id}}">
+                <input type="hidden"  name="rolViejo" value="{{rol}}">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-lock"></span>
+                    Editar Usuario {{entity.username}}
+                </div>    
+                <div class="panel-body distancia">
+                    <div class="form-group ">
+                        <label class="required">Nombre de usuario:</label>
+                        <input type="text" value="{{entity.username}}" name="username" required="required" pattern=".{2,}" class="form-control" placeholder="Nombre de Usuario">
+                    </div>  
+                    <div class="form-group ">
+                        <label class="required">Nombre:</label>
+                        <input type="text" value="{{entity.nombre}}" name="nombre" required="required" pattern=".{2,}" class="form-control" placeholder="Nombre">
+                    </div> 
+                    
+                    <div class="form-group ">
+                        <label class="required">Apellido:</label>
+                        <input type="text" value="{{entity.apellido}}" name="apellido" required="required" pattern=".{2,}" class="form-control" placeholder="Apellido">
+                    </div> 
+                    
+                    <div class="form-group ">
+                        <label class="required">DNI:</label>
+                        <input type="text" value="{{entity.dni}}" name="dni" required="required" pattern=".{2,}" class="form-control" placeholder="DNI">
+                    </div>  
+                    
+                    <div class="form-group ">
+                        <label class="required">Fecha de Nacimiento:</label>
+                        <input type="datetime" value="{{entity.fechaNacimiento | date('Y-m-d')}}" name="fechaNacimiento" required="required" pattern=".{2,}" class="form-control" placeholder="Fecha de Nacimiento">
+                    </div>  
+                    
+                    <div class="form-group ">
+                        <label class="required">Email:</label>
+                        <input type="email" value="{{entity.email}}" name="email" required="required" class="form-control" placeholder="Email">
+                    </div>
+                    
+                   <div class="form-group ">
+                        <label class="required">Teléfono:</label>
+                        <input type="text" value="{{entity.telefono}}" name="telefono" required="required" pattern=".{2,}" class="form-control" placeholder="Teléfono">
+                    </div>
+                    
+                    <div class="form-group ">
+                        <label class="required">Dirección:</label>
+                        <input type="text" value="{{entity.direccion}}" name="direccion" required="required" pattern=".{2,}" class="form-control" placeholder="Dirección">
+                    </div>  
+                    
+                    <div class="form-group ">
+                        <label class="required">Carrera:</label>
+                        <input type="text" value="{{entity.carrera}}" name="carrera" required="required" pattern=".{2,}" class="form-control" placeholder="Carrera">
+                    </div>  
+                    {%if rol != 'ROLE_SUPER_ADMIN' %}
+                    <div class="form-group">                        
+                        <label class="required">Roles</label>
+                        <select name="role" class="form-control">
+                            <option value="ROLE_ADMIN" {% if rol == 'ROLE_SUPER_ADMIN'%} selected {% endif %}>Administración</option>
+                            <option value="ROLE_USER" {% if rol == 'ROLE_USER'%} selected {% endif %}>Edición y carga</option>
+                            <option value="ROLE_VIEW" {% if rol == 'ROLE_VIEW'%} selected {% endif %}>Solo lectura</option>
+                        </select>
+                    </div>
+                    {% endif %}
+                    <div>
+                        <input type="submit" value="Actualizar" class="btn btn-primary dropdown-toggle pull-left">
+                    </div>
+                </form>
+
+                   {#  <button type="button" class="btn btn-primary pull-left dropdown-toggle distanciaa" data-toggle="modal" data-target="#myModal">
+                      Cambiar Contraseña
+                    </button> #}
+                    <a href="{{path('user')}}">
+                        <div class="btn btn-primary dropdown-toggle distanciaa">
+                            <span class="glyphicon glyphicon-share-alt"></span>
+                        </div>
+                    </a>
+                    <a class="btn btn-primary" href="{{ path('fos_user_change_password') }}">Cambiar contraseña</a>
+{# 
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top: 12%;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Cambiar Contraseña</h4>
+                              </div>
+                              <div class="modal-body">
+                                    {{ form_start(form) }}
+                                    {{ form_widget(form._token) }}
+                                    <div class="form-group"> 
+                                        {{ form_label(form.current_password)}}
+                                        {{ form_widget(form.current_password, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                    <div class="form-group"> 
+                                        {{ form_label(form.new.first)}}
+                                        {{ form_widget(form.new.first, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                    <div class="form-group"> 
+                                        {{ form_label(form.new.second)}}
+                                        {{ form_widget(form.new.second, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-success" value="{{ 'change_password.submit'|trans({}, 'FOSUserBundle') }}" />
+                              </div>
+                              {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div> #}
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+
+
