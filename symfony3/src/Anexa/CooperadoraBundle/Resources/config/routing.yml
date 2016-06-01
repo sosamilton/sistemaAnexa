@@ -36,13 +36,13 @@ login_check:
 logout:
     path: /logout
 
-user:
-    path: /Usuarios
-    defaults: { _controller: AnexaCooperadoraBundle:Security:index }
+anexa_cooperadora_usuario:
+    path: /backend/usuario
+    resource: "@AnexaCooperadoraBundle/Resources/config/routing/user.yml"
 
 login:
     path: /login
-    defaults: { _controller: AnexaCooperadoraBundle:Security:login }
+    defaults: { _controller: AnexaCooperadoraBundle:User:login }
 
 paginacion:
     path: /paginacion

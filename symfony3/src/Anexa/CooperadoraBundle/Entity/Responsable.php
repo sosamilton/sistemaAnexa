@@ -129,7 +129,7 @@ class Responsable {
         if (!$this->alumnos->contains($alumno)){
             $this->alumnos[] = $alumno;
         }
-        return $this->getAlumnosACargo();
+        return $this->alumnos;
     }
 
     /**
@@ -143,11 +143,11 @@ class Responsable {
     }
     /**
     *actualizar alumnos
-    *@param ArrayCollection $alumnos
+    *
     *@return ArrayCollection
     */
-    public function updateAlumnos($alumnos) {
-        $this->alumnos=$alumnos;
+    public function eliminarAlumnos() {
+        $this->alumnos=new ArrayCollection();
         return $this->alumnos;
     }
 
@@ -417,26 +417,6 @@ class Responsable {
         $this->user = $user;
         return $this;
     }
-
-    /**
-* Set alumnos
-* @param ArrayCollection $alu
-* @return Responsable
-*/
-public function setAlumnosACargo($alu) {
-    $this->alumnos = $alu;
-    return $this;
-}
-
- /**
-* Set alumnos
-* @param ArrayCollection $alu
-* @return Responsable
-*/
-public function setAlumnos($alu) {
-    $this->alumnos = $alu;
-    return $this;
-}
 
 /**
 * Set alumnos

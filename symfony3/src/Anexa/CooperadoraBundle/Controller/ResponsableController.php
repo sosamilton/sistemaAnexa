@@ -102,10 +102,24 @@ class ResponsableController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $alumnos=$editForm->get("alumnos")->getData();
-            var_dump($alumnos);
-            die;
             $em = $this->getDoctrine()->getManager();
+            $alumnos=($editForm->get("alumnos")->getData())->toArray();
+            $alumnosResponsable=$responsable->getAlumnos()->toArray();
+            foreach ($alumnosResponsable as $alum) {
+              $alum->removeResponsable($responsable);
+              $responsable->removeAlumnoACargo($alum);
+              $em->persist($responsable);
+              $em->persist($alum);
+            }
+
+            foreach ($alumnos as $alumno) {
+              if (! ($alumno->getResponsables())->contains($responsable)) {
+                $alumno->addResponsable($responsable);
+                $responsable->addAlumnoACargo($alumno);
+                $em->persist($responsable);
+                $em->persist($alumno);
+              }
+            }
             $dato = $data = $request->request->all();
             $user= $em->getRepository('AnexaCooperadoraBundle:User')->findOneByUsername($dato['responsable']['dni']);
             $responsable->setUsuario($user);

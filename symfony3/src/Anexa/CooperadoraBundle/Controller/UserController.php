@@ -1,24 +1,58 @@
 <?php
 
-/*
- * This file is part of the FOSUserBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Anexa\CooperadoraBundle\Controller;
+
+use Anexa\CooperadoraBundle\Entity\User;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\AccountStatusException;
+use Symfony\Component\Security\Core\Role\Role;
+use FOS\UserBundle\Model\UserInterface;
 
-class SecurityController extends Controller
+class UserController extends Controller
 {
+    public function indexAction(){
+      $em = $this->getDoctrine()->getManager();
+
+      $usuarios = $em->getRepository('AnexaCooperadoraBundle:User')->findByBorrado(false);
+
+      return $this->render('AnexaCooperadoraBundle:usuario:index.html.twig', array(
+          'usuarios' => $usuarios,
+          'menu' => "usuario"
+      ));
+
+    }
+
+    public function newAction()
+    {
+        $form = $this->container->get('fos_user.registration.form');
+        $formHandler = $this->container->get('fos_user.registration.form.handler');
+        $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');
+
+        $process = $formHandler->process($confirmationEnabled);
+        if ($process) {
+            $user = $form->getData();
+
+            $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
+            $route = 'user';
+
+            $this->setFlash('fos_user_success', 'registration.flash.user_created');
+            $url = $this->container->get('router')->generate($route);
+            $response = new RedirectResponse($url);
+
+            return $response;
+        }
+
+        return $this->container->get('templating')->renderResponse('certificadoBundle:Usuario:register.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
     public function loginAction(Request $request)
     {
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
@@ -90,5 +124,19 @@ class SecurityController extends Controller
     public function logoutAction()
     {
         throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
+    }
+
+    /**
+     * @param string $action
+     * @param string $value
+     */
+    protected function setFlash($action, $value)
+    {
+        $this->container->get('session')->getFlashBag()->set($action, $value);
+    }
+
+    protected function getEngine()
+    {
+        return $this->container->getParameter('fos_user.template.engine');
     }
 }
