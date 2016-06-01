@@ -2,8 +2,7 @@
 parameters:
     database_host: 127.0.0.1
     database_port: null
-    database_name: sistemaAnexa
-    #database_name: symfony
+    database_name: symfony
     database_user: root
     database_password: 1yOn2CL_
     #database_password: mayra10087/3

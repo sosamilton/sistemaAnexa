@@ -21,8 +21,7 @@ class UserType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options){
       $builder
           ->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
           ->add('username', TextType::class, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
@@ -43,13 +42,19 @@ class UserType extends AbstractType
                       )));
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
+     public function getParent()
+     {
+         return 'FOS\UserBundle\Form\Type\RegistrationFormType';
+     }
+
+     /**
+      * @param OptionsResolver $resolver
+      */
      public function configureOptions(OptionsResolver $resolver)
      {
          $resolver->setDefaults(array(
-             'data_class' => 'Anexa\CooperadoraBundle\Entity\User'
+           'data_class' => 'Anexa\CooperadoraBundle\Entity\User'
          ));
      }
+
 }
