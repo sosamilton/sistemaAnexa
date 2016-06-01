@@ -103,7 +103,7 @@ class ResponsableController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $alumnos=($editForm->get("alumnos")->getData())->toArray();
+            $alumnos=$editForm->get("alumnos")->getData()->toArray();
             $alumnosResponsable=$responsable->getAlumnos()->toArray();
             foreach ($alumnosResponsable as $alum) {
               $alum->removeResponsable($responsable);
@@ -113,7 +113,7 @@ class ResponsableController extends Controller
             }
 
             foreach ($alumnos as $alumno) {
-              if (! ($alumno->getResponsables())->contains($responsable)) {
+              if (! $alumno->getResponsables()->contains($responsable)) {
                 $alumno->addResponsable($responsable);
                 $responsable->addAlumnoACargo($alumno);
                 $em->persist($responsable);

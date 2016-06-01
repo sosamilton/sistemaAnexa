@@ -64,6 +64,7 @@ class ListadoController extends Controller
 								);
 		$pagos =array();
 		$alumnos = array();
+		$datos['hayPagosMatricula'] = false;
 		$datos['success'] = false;
 		if (empty($matriculas)) {
 			$datos['msj'] = 'No existe la matrícula buscada';
