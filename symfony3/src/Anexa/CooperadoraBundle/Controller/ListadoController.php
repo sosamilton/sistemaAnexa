@@ -64,6 +64,7 @@ class ListadoController extends Controller
 								);
 		$pagos =array();
 		$alumnos = array();
+		$todosLosPagos = array();
 		$datos['hayPagosMatricula'] = false;
 		$datos['success'] = false;
 		if (empty($matriculas)) {
@@ -87,10 +88,11 @@ class ListadoController extends Controller
 			}
 		}
 
-		if ($this->get('security.authorization_checker')->isGranted('ROLE_CONSULTA')) {
-                $usuario = $em->getRepository('AnexaCooperadoraBundle:User')->findOneById($_SESSION['id']);
+		 if ($this->getUser()->getRol()=='Consulta'){
+				
+				$usuario = $this->getUser();
                 $responsable = $em->getRepository("AnexaCooperadoraBundle:Responsable")->findOneByUser($usuario);
-                $misAlumnos = $responsable->getAlumnosACargo();
+                $misAlumnos = $responsable->getAlumnos();
     			$pagosMisAlumnos=array();
 		        foreach ($misAlumnos as $alumno) {
 		        	$iterator = $alumno->getPagos()->getIterator();
@@ -151,9 +153,11 @@ class ListadoController extends Controller
 					$iterator->next();
 				}
 				/* Un usuario de consulta sólo puede ver los pagos de los alumnos que tiene a cargo */
-				if ($this->get('security.authorization_checker')->isGranted('ROLE_CONSULTA')) {
-					$responsable = $em->getRepository('AnexaCooperadoraBundle:Responsable')->findOneByUsuario($_SESSION['id']);
-					$misAlumnos = $responsable->getAlumnosACargo();
+				 if ($this->getUser()->getRol()=='Consulta') {
+
+					$usuario = $this->getUser();
+					$responsable = $em->getRepository('AnexaCooperadoraBundle:Responsable')->findOneByUser($usuario);
+					$misAlumnos = $responsable->getAlumnos();
 
 					$pagosMisAlumnos = array();
 					foreach ($misAlumnos as $alumno) {
@@ -170,28 +174,38 @@ class ListadoController extends Controller
 							$alumnos[$pago->getAlumno()->getId()] = array();
 							$alumnos[$pago->getAlumno()->getId()]['data'] = $pago->getAlumno();
 							$alumnos[$pago->getAlumno()->getId()]['beca'] =$pago;
-							$alumnos[$pago->getAlumno()->getId()]['user'] = $pago->getUsuario();
+							$alumnos[$pago->getAlumno()->getId()]['user'] = $pago->getUser();
 
 						}
-						$datos['info'] = 'Alumnos a cargo que pagaron la cuota del mes';
+						$datos['info'] = 'Alumnos a cargo que pagaron la cuota del mes '.$fecha['mes'].' del año '.$fecha['anio'];
 						$datos['hayPagos'] = true;
 						$datos['success'] = true;
 					} else { $datos['msj'] = 'No hay pagos registrados';}
 				} else { #cuotas cobradas por el usuario de gestión logueado */
-					foreach ($pagos as $pago) {
-						if ( /*todos or */$pago->getUsuario()->getUsername() == $usuario->getUsername()) {
-							$alumnos[$pago->getAlumno()->getId()]=array();
-							$alumnos[$pago->getAlumno()->getId()]['data']=$pago->getAlumno();
-							$alumnos[$pago->getAlumno()->getId()]['beca']=$pago;
-							$alumnos[$pago->getAlumno()->getId()]['user']=$pago->getUsuario();
+					 if ($this->getUser()->getRol()=='Gestion') { 
+					 	$usuario = $this->getUser();
+						foreach ($pagos as $pago) {
+							if ( /*todos or */$pago->getUser()->getUsername() == $usuario->getUsername()) {
+								$alumnos[$pago->getAlumno()->getId()]=array();
+								$alumnos[$pago->getAlumno()->getId()]['data']=$pago->getAlumno();
+								$alumnos[$pago->getAlumno()->getId()]['beca']=$pago;
+								$alumnos[$pago->getAlumno()->getId()]['user']=$pago->getUser();
+							}
 						}
+					}
+					else {
+						$alumnos[$pago->getAlumno()->getId()]=array();
+								$alumnos[$pago->getAlumno()->getId()]['data']=$pago->getAlumno();
+								$alumnos[$pago->getAlumno()->getId()]['beca']=$pago;
+								$alumnos[$pago->getAlumno()->getId()]['user']=$pago->getUser();
+
 					}
 					if (count($alumnos) == 0) {
 						$datos['msj'] = 'El usuario '.$usuario->getUsername().' no registra cobros de esta cuota';
 					} else {
 						$datos['hayPagos'] = true;
 						$datos['success'] = true;
-						$datos['info'] = 'Alumnos que pagaron la cuota del mes '.$_POST['mes'].' del año '.$_POST['anio'];
+						$datos['info'] = 'Alumnos que pagaron la cuota del mes '.$fecha['mes'].' del año '.$fecha['anio'];
 					}
 				}
 			} else {
@@ -279,7 +293,7 @@ class ListadoController extends Controller
 			}
 			$deberianPagarAux = array();
 			foreach ($alumnos as $alumno) {
-				if (filtrarPorFecha($alumno,(int)$_POST['anio'],(int)$_POST['mes'])) {					
+				if (filtrarPorFecha($alumno,(int)$fecha['anio'],(int)$fecha['mes'])) {					
 					$deberianPagarAux[$alumno->getId()] = $alumno;
 				} 					
 			}
@@ -300,10 +314,10 @@ class ListadoController extends Controller
 				$datos['hayCuotasImpagas'] = true;
 				$datos['success'] = true;
 				$datos['alumnos'] = $alumnosNoPagaronPeroDeberian; //todos los alumnos que deberian pagar
-				if ($this->get('security.authorization_checker')->isGranted('ROLE_CONSULTA')) {
-			        $usuario = $em->getRepository('AnexaCooperadoraBundle:User')->findOneById($_SESSION['id']);
-			        $responsable = $em->getRepository("AnexaCooperadoraBundle:Responsable")->findOneByUsuario($usuario);
-			        $misAlumnos = $responsable->getAlumnosACargo();
+				 if ($this->getUser()->getRol()=='Consulta') {
+			        $usuario = $this->getUser();
+			        $responsable = $em->getRepository("AnexaCooperadoraBundle:Responsable")->findOneByUser($usuario);
+			        $misAlumnos = $responsable->getAlumnos();
 	    			$misAlumnosAux=array();
 			        $iterator = $misAlumnos->getIterator();
 			    	while($iterator->valid()){
@@ -323,9 +337,9 @@ class ListadoController extends Controller
 		}			
 							
 		$datos['menu'] = 'listado';
-		$datos['anio'] = $_POST['anio'];
-		$datos['mes'] = $_POST['mes'];
-		$datos['info'] = 'Alumnos que no pagaron la cuota del mes '.$_POST['mes'].' del año '.$_POST['anio'];
+		$datos['anio'] = $fecha['anio'];
+		$datos['mes'] = $fecha['mes'];
+		$datos['info'] = 'Alumnos que no pagaron la cuota del mes '.$fecha['mes'].' del año '.$fecha['anio'];
 
 		return $this->render('AnexaCooperadoraBundle:listado:cuotasNoPagas.html.twig',$datos);
 	} //fin cuotasImpagas

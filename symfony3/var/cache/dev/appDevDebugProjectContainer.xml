@@ -86,10 +86,10 @@
         <parameter>ROLE_USER</parameter>
       </parameter>
       <parameter key="ROLE_GESTION" type="collection">
-        <parameter>ROLE_USER</parameter>
+        <parameter>ROLE_CONSULTA</parameter>
       </parameter>
       <parameter key="ROLE_SUPER_ADMIN" type="collection">
-        <parameter>ROLE_ADMIN</parameter>
+        <parameter>ROLE_GESTION</parameter>
       </parameter>
     </parameter>
     <parameter key="security.access.denied_url">null</parameter>
@@ -1913,7 +1913,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>574e94f7e5e7a2.58999921</argument>
+            <argument>574f58625adff7.40580336</argument>
           </service>
         </argument>
       </argument>
@@ -1970,10 +1970,10 @@
           <argument>ROLE_USER</argument>
         </argument>
         <argument key="ROLE_GESTION" type="collection">
-          <argument>ROLE_USER</argument>
+          <argument>ROLE_CONSULTA</argument>
         </argument>
         <argument key="ROLE_SUPER_ADMIN" type="collection">
-          <argument>ROLE_ADMIN</argument>
+          <argument>ROLE_GESTION</argument>
         </argument>
       </argument>
     </service>
@@ -2068,11 +2068,55 @@
                 <call method="add">
                   <argument type="service">
                     <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-                      <argument>^/backend/</argument>
+                      <argument>^/backend/responsable/</argument>
                     </service>
                   </argument>
                   <argument type="collection">
                     <argument>ROLE_ADMIN</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/backend/configuracion/</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_ADMIN</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/backend/usuario/</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_ADMIN</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/backend/listado/</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_CONSULTA</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/backend/pago/</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_USER</argument>
                   </argument>
                   <argument>null</argument>
                 </call>
@@ -2205,7 +2249,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>574e94f7e5e7a2.58999921</argument>
+            <argument>574f58625adff7.40580336</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -2253,11 +2297,55 @@
                 <call method="add">
                   <argument type="service">
                     <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-                      <argument>^/backend/</argument>
+                      <argument>^/backend/responsable/</argument>
                     </service>
                   </argument>
                   <argument type="collection">
                     <argument>ROLE_ADMIN</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/backend/configuracion/</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_ADMIN</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/backend/usuario/</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_ADMIN</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/backend/listado/</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_CONSULTA</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/backend/pago/</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_USER</argument>
                   </argument>
                   <argument>null</argument>
                 </call>

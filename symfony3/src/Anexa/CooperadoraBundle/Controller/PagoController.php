@@ -23,8 +23,15 @@ class PagoController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        if ($this->getUser()->getRol()=='Consulta') {
+                    $usuario = $this->getUser();
+                    $responsable = $em->getRepository("AnexaCooperadoraBundle:Responsable")->findOneByUser($usuario);
+                    $alumnos = $responsable->getAlumnos();
+        } else {
 
-        $alumnos = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findByBorrado(false);
+            $alumnos = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findByBorrado(false);
+        }
+
 
         return $this->render('AnexaCooperadoraBundle:pago:index.html.twig', array(
                                                                         'alumnos' => $alumnos,
@@ -230,7 +237,7 @@ class PagoController extends Controller
           $usuario = $em->getRepository('AnexaCooperadoraBundle:User')->findOneById($data['userId']);
         } 
         elseif ($this->get('security.authorization_checker')->isGranted('ROLE_GESTION')){
-              $usuario = $em->getRepository('AnexaCooperadoraBundle:User')->findOneById($_SESSION['id']);
+              $usuario = $this->getUser();
         }       
 
         if (isset($data['alumnoId'])){

@@ -82,7 +82,7 @@
                             <a class="btn btn-warning" href="{{ path('usuario_estado', {'id': usuario.id}) }}" title='Deshabilitar'>
                                 <span class='glyphicon glyphicon-lock'></span>
                             </a>
-                            <a class="btn btn-primary" href="{{ path('usuario_edit', {'id': usuario.id}) }}" title='Editar'>
+                            <a class="btn btn-primary" href="{{ path('usuario_edit', {'user': usuario.id}) }}" title='Editar'>
                                 <span class='glyphicon glyphicon-pencil' ></span>
                             </a>
                             <a class="btn btn-danger" href="{{ path('usuario_delete', {'id': usuario.id}) }}" title='Eliminar'>

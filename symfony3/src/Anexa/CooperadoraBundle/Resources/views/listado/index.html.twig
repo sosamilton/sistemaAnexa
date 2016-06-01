@@ -107,18 +107,7 @@
     </div>     
   </div> {# end panel de cuotas impagas #}
 
-  {% if is_granted('ROLE_GESTION') %}
-      <div class="panel panel-primary">
-        <div class="panel-heading">Listado de comisión </div>
-        <div class="panel-body" id="paginacion">                                 
-          <div class="col-md-6"> Monto total de comisión de las cuotas cobradas </div>                
-              <div class="col-md-4">
-                <label for="buscar">Ver</label>
-                <a class="btn btn-primary col-md-12" id="buscar" href="{{ path('anexa_cooperadora_backend', {'anio':'año','mes':'mes'}) }}"><span class="glyphicon glyphicon-search"></span></a>
-              </div>           
-        </div>
-      </div>
-    {% endif %}
+  
 <script>
   $('#consulta1').click(function(){
     $.ajax({

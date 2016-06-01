@@ -12,7 +12,7 @@
     {% if msjPagas is defined %}
         <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <strong>Atenci&oacute;n! </strong>{{msjPagas}}           
+          <strong>Atención! </strong>{{msjPagas}}           
         </div>
     {% endif %}
   
@@ -92,9 +92,11 @@
                     </button>
                     Monto
                   </th>
-                  
-                  <th>Pagar</th>
-                  <th>Becar</th>
+                  {# {% if not(is_granted('ROLE_CONSULTA')) %} #}
+                  {% if not(app.user.rol == 'Consulta') %}
+                    <th>Pagar</th>
+                    <th>Becar</th>
+                  {% endif %}
                 </tr>
               </thead>
               <tbody class="list">
@@ -105,6 +107,7 @@
                     <td class="numero">{{cuota.numero}}</td>
                     <td class="tipo">{{cuota.tipo}}</td>
                     <td class="monto">{{cuota.monto}}</td>
+                    {% if not(app.user.rol =='Consulta') %}
                     <td>
                         <div class="pagar btn btn-primary" id="pagar_{{cuota.id}}" cuota-id="{{cuota.id}}" title='pagar'>
                             <span class='glyphicon glyphicon-ok' ></span>
@@ -115,6 +118,7 @@
                             <span class='glyphicon glyphicon-ok' ></span>
                         </div>      
                     </td>
+                    {% endif %}
   	              </tr>
   	            {% endfor %}
               </tbody>
@@ -123,6 +127,7 @@
                 <ul class="pagination"></ul>
             </div>
           </div>
+          {# {% if not(is_granted('ROLE_CONSULTA')) %} #}
           <div class="panel-footer">
 
             <div class="col-md-4">
@@ -159,6 +164,7 @@
                
             </div>
           </form>
+          {# {% endif %} #}
       </div>
     {% endif %}
     

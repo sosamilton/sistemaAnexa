@@ -93,7 +93,6 @@ class AlumnoController extends Controller
             return $this->redirectToRoute('alumno_index');
         }
 
-        $em = $this->getDoctrine()->getManager();
         return $this->render('AnexaCooperadoraBundle:alumno:edit.html.twig', array(
             'alumno' => $alumno,
             'edit_form' => $editForm->createView(),

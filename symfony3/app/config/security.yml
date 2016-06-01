@@ -5,8 +5,8 @@ security:
 
     role_hierarchy:
         ROLE_CONSULTA:    ROLE_USER
-        ROLE_GESTION:     ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_GESTION:     ROLE_CONSULTA
+        ROLE_SUPER_ADMIN: ROLE_GESTION
 
     providers:
         fos_userbundle:
@@ -29,4 +29,8 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/backend/, role: ROLE_ADMIN }
+        - { path: ^/backend/responsable/, role: ROLE_ADMIN }
+        - { path: ^/backend/configuracion/, role: ROLE_ADMIN }
+        - { path: ^/backend/usuario/, role: ROLE_ADMIN }
+        - { path: ^/backend/listado/, role: ROLE_CONSULTA }
+        - { path: ^/backend/pago/, role: ROLE_USER }

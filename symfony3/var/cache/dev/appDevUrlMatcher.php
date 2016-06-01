@@ -534,7 +534,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 not_usuario_new:
 
                 // usuario_edit
-                if (preg_match('#^/backend/usuario/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                if (preg_match('#^/backend/usuario/(?P<user>[^/]++)/edit$#s', $pathinfo, $matches)) {
                     if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
                         $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
                         goto not_usuario_edit;
@@ -586,6 +586,15 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\UserController::loginAction',  '_route' => 'login',);
             }
 
+        }
+
+        // register
+        if (rtrim($pathinfo, '/') === '/register') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'register');
+            }
+
+            return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\UserController::newAction',  '_route' => 'register',);
         }
 
         // paginacion

@@ -14,7 +14,7 @@ usuario_new:
     methods:  [GET, POST]
 
 usuario_edit:
-    path:     /{id}/edit
+    path:     /{user}/edit
     defaults: { _controller: "AnexaCooperadoraBundle:User:edit" }
     methods:  [GET, POST]
 
