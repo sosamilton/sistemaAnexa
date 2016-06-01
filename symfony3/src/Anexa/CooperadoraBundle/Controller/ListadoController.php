@@ -124,15 +124,17 @@ class ListadoController extends Controller
 
 	} # fin matriculados
 
-	public function cuotasPagasAction()
+	public function cuotasPagasAction(Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
 		/* falta control de usuarios, ya sea de consulta (sólo listar los pagos de los alumnos a su cargo), admin (elige un usuario de gestión para ver las cuotas que cobro del año y mes seleccionados antes, esto es de la tercer entrega) o gestión (se asocia a si mismo con el cobro de la cuota ) */
 		
+		$fecha= $request->request->all();
+		
 		$cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneBy
 				(array('borrado'=>'false',
-					'anio'=>$_POST['anio'], 
-					'mes'=>$_POST['mes'])
+					'anio'=>$fecha['anio'], 
+					'mes'=>$fecha['mes'])
 				);		
 		
 		$alumnos=array();
@@ -206,7 +208,7 @@ class ListadoController extends Controller
 
 	} // end cuotasPagas
 
-	public function cuotasNoPagasAction() 
+	public function cuotasNoPagasAction(Request $request) 
 	{
 		$em = $this->getDoctrine()->getManager();
 		$datos['hayCuotasImpagas'] = false;
@@ -214,8 +216,8 @@ class ListadoController extends Controller
 
 		function filtrarPorFecha($alumno,$anioCuota,$mesCuota) {
 		    $fechaIngreso = $alumno->getFechaIngreso();
-		    $anioIngreso = (int)($fechaIngreso->format('Y')); //obtengo el año
-		    $mesIngreso = (int)($fechaIngreso->format('m')); //obtengo el mes
+		    $anioIngreso= (int)(substr($fechaIngreso,0,4)); //obtengo el año
+            $mesIngreso = (int)(substr($fechaIngreso,5,2)); //obtengo el mes
 
 		    $fechaEgreso = $alumno->getFechaEgreso();	    
 		    if ($fechaEgreso == null) {
@@ -230,13 +232,10 @@ class ListadoController extends Controller
 		          	return false;}
 		        
 		    } else {
-		    	$anioEgreso = (int)($fechaEgreso->format('Y'));
-		    	$mesEgreso = (int)($fechaEgreso->format('m'));
+		    	$anioEgreso= (int)(substr($fechaEgreso,0,4));
+                $mesEgreso= (int)(substr($fechaEgreso,5,2));
 		    	if ($anioCuota < $anioEgreso) {
 		        	if ($anioCuota > $anioIngreso) {
-		        		var_dump($anioCuota);
-		        		var_dump($anioIngreso);
-		        		
 		        		return true;
 		        	}
 		        	elseif ($anioCuota < $anioIngreso) {
@@ -259,10 +258,12 @@ class ListadoController extends Controller
 		} // fin filtrar
 		
 		$alumnos = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findByBorrado('false');
-		$cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneBy(
-					array('anio'=>$_POST['anio'],
-						'mes' =>$_POST['mes'],
-						'borrado'=>'false',)
+		$fecha= $request->request->all();
+		
+		$cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneBy
+				(array('borrado'=>'false',
+					'anio'=>$fecha['anio'], 
+					'mes'=>$fecha['mes'])
 				);
 		$alumnosPagaron = array();
 		$deberianPagar = array();

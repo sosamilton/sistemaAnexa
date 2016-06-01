@@ -88,6 +88,15 @@ class User extends BaseUser
     }
 
     /**
+     * Get pagos
+     * @return Pago
+     */
+    public function getPagos()
+    {
+        return $this->pagos;
+    }
+
+    /**
      * Set habilitado
      *
      *

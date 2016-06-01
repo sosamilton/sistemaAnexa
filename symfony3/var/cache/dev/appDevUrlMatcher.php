@@ -322,16 +322,27 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 }
                 not_pago_index:
 
-                // pago_show
-                if (preg_match('#^/backend/pago/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                // pago_mostrar
+                if (preg_match('#^/backend/pago/(?P<id>[^/]++)/listarPagos$#s', $pathinfo, $matches)) {
                     if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
                         $allow = array_merge($allow, array('GET', 'HEAD'));
-                        goto not_pago_show;
+                        goto not_pago_mostrar;
                     }
 
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'pago_show')), array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\PagoController::showAction',));
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'pago_mostrar')), array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\PagoController::verPagosAction',));
                 }
-                not_pago_show:
+                not_pago_mostrar:
+
+                // pago_seleccionado
+                if ($pathinfo === '/backend/pago/pago_seleccionado') {
+                    if ($this->context->getMethod() != 'POST') {
+                        $allow[] = 'POST';
+                        goto not_pago_seleccionado;
+                    }
+
+                    return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\PagoController::pagoSeleccionadoAction',  '_route' => 'pago_seleccionado',);
+                }
+                not_pago_seleccionado:
 
                 // pago_new
                 if ($pathinfo === '/backend/pago/new') {
@@ -460,16 +471,16 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 }
                 not_configuracion_new:
 
-                // configuracion_edit
-                if (preg_match('#^/backend/configuracion/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                // configuracion_editar
+                if ($pathinfo === '/backend/configuracion/edit') {
                     if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
                         $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
-                        goto not_configuracion_edit;
+                        goto not_configuracion_editar;
                     }
 
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'configuracion_edit')), array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\ConfiguracionController::editAction',));
+                    return array (  '_controller' => 'Anexa\\CooperadoraBundle\\Controller\\ConfiguracionController::editAction',  '_route' => 'configuracion_editar',);
                 }
-                not_configuracion_edit:
+                not_configuracion_editar:
 
                 // configuracion_delete
                 if (preg_match('#^/backend/configuracion/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {

@@ -22,32 +22,32 @@ class __TwigTemplate_30c57032fe393712f9b640a86583471fe83780efdea06dea7ddd08d4e6f
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_3a7c5fd71c37316b11e04e061be7d78ce685c31dca3639f9e6283a15c0179b67 = $this->env->getExtension("native_profiler");
-        $__internal_3a7c5fd71c37316b11e04e061be7d78ce685c31dca3639f9e6283a15c0179b67->enter($__internal_3a7c5fd71c37316b11e04e061be7d78ce685c31dca3639f9e6283a15c0179b67_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "AnexaCooperadoraBundle:pago:index.html.twig"));
+        $__internal_7ae0da20646684e673a751ae4d3bc94165a45e3d008877fd26eb547d20fd1791 = $this->env->getExtension("native_profiler");
+        $__internal_7ae0da20646684e673a751ae4d3bc94165a45e3d008877fd26eb547d20fd1791->enter($__internal_7ae0da20646684e673a751ae4d3bc94165a45e3d008877fd26eb547d20fd1791_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "AnexaCooperadoraBundle:pago:index.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_3a7c5fd71c37316b11e04e061be7d78ce685c31dca3639f9e6283a15c0179b67->leave($__internal_3a7c5fd71c37316b11e04e061be7d78ce685c31dca3639f9e6283a15c0179b67_prof);
+        $__internal_7ae0da20646684e673a751ae4d3bc94165a45e3d008877fd26eb547d20fd1791->leave($__internal_7ae0da20646684e673a751ae4d3bc94165a45e3d008877fd26eb547d20fd1791_prof);
 
     }
 
     // line 3
     public function block_title($context, array $blocks = array())
     {
-        $__internal_4416f4d8d2e456d6064cfbc7c03f491186ecd14fff464ad58e8150c9a390352a = $this->env->getExtension("native_profiler");
-        $__internal_4416f4d8d2e456d6064cfbc7c03f491186ecd14fff464ad58e8150c9a390352a->enter($__internal_4416f4d8d2e456d6064cfbc7c03f491186ecd14fff464ad58e8150c9a390352a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
+        $__internal_104830d423d9dde6e0a861baa0a550a77fcda9c5119e86d14cc9cfac671e5b6c = $this->env->getExtension("native_profiler");
+        $__internal_104830d423d9dde6e0a861baa0a550a77fcda9c5119e86d14cc9cfac671e5b6c->enter($__internal_104830d423d9dde6e0a861baa0a550a77fcda9c5119e86d14cc9cfac671e5b6c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
 
         echo " Administración | Pagos | Listado";
         
-        $__internal_4416f4d8d2e456d6064cfbc7c03f491186ecd14fff464ad58e8150c9a390352a->leave($__internal_4416f4d8d2e456d6064cfbc7c03f491186ecd14fff464ad58e8150c9a390352a_prof);
+        $__internal_104830d423d9dde6e0a861baa0a550a77fcda9c5119e86d14cc9cfac671e5b6c->leave($__internal_104830d423d9dde6e0a861baa0a550a77fcda9c5119e86d14cc9cfac671e5b6c_prof);
 
     }
 
     // line 5
     public function block_dataAdmin($context, array $blocks = array())
     {
-        $__internal_c8c7ee1c5f345292d7f1b45cc21332f2f1b51fb88b4c984875b4da8b8e6415ff = $this->env->getExtension("native_profiler");
-        $__internal_c8c7ee1c5f345292d7f1b45cc21332f2f1b51fb88b4c984875b4da8b8e6415ff->enter($__internal_c8c7ee1c5f345292d7f1b45cc21332f2f1b51fb88b4c984875b4da8b8e6415ff_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "dataAdmin"));
+        $__internal_a5c71c7dc413345ba3651e45be6f4b2e14bbfdd969736ca610d98415a5c74aaf = $this->env->getExtension("native_profiler");
+        $__internal_a5c71c7dc413345ba3651e45be6f4b2e14bbfdd969736ca610d98415a5c74aaf->enter($__internal_a5c71c7dc413345ba3651e45be6f4b2e14bbfdd969736ca610d98415a5c74aaf_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "dataAdmin"));
 
         // line 6
         echo "
@@ -141,8 +141,8 @@ class __TwigTemplate_30c57032fe393712f9b640a86583471fe83780efdea06dea7ddd08d4e6f
                                   
                                 <a class=\"btn btn-success\" href=\"";
             // line 78
-            echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("alumno_show", array("id" => $this->getAttribute($context["alumno"], "id", array()))), "html", null, true);
-            echo "\" title=\"Ver\"><span class='glyphicon glyphicon-eye-open'></span></a>
+            echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pago_mostrar", array("id" => $this->getAttribute($context["alumno"], "id", array()))), "html", null, true);
+            echo "\" title=\"Ver Pagos\"><span class='glyphicon glyphicon-eye-open'></span></a>
                                  
                               </div>
 
@@ -186,7 +186,7 @@ class __TwigTemplate_30c57032fe393712f9b640a86583471fe83780efdea06dea7ddd08d4e6f
 
 ";
         
-        $__internal_c8c7ee1c5f345292d7f1b45cc21332f2f1b51fb88b4c984875b4da8b8e6415ff->leave($__internal_c8c7ee1c5f345292d7f1b45cc21332f2f1b51fb88b4c984875b4da8b8e6415ff_prof);
+        $__internal_a5c71c7dc413345ba3651e45be6f4b2e14bbfdd969736ca610d98415a5c74aaf->leave($__internal_a5c71c7dc413345ba3651e45be6f4b2e14bbfdd969736ca610d98415a5c74aaf_prof);
 
     }
 
@@ -282,7 +282,7 @@ class __TwigTemplate_30c57032fe393712f9b640a86583471fe83780efdea06dea7ddd08d4e6f
 /*                           <td>*/
 /*                               <div class="">*/
 /*                                   */
-/*                                 <a class="btn btn-success" href="{{ path('alumno_show', { 'id': alumno.id }) }}" title="Ver"><span class='glyphicon glyphicon-eye-open'></span></a>*/
+/*                                 <a class="btn btn-success" href="{{ path('pago_mostrar', { 'id': alumno.id }) }}" title="Ver Pagos"><span class='glyphicon glyphicon-eye-open'></span></a>*/
 /*                                  */
 /*                               </div>*/
 /* */

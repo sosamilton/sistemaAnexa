@@ -20,7 +20,7 @@
           <div class="panel-heading">Configuración</div>
           <!-- Table -->
           <div class="panel-body">
-            <form> {# action="{{ path('configuracion_edit')}}" method="post"> #}
+            <form action="{{ path('configuracion_editar')}}" method="post"> 
               <div class="form-group">
                 <div class="col-md-12">
                   <label for="titulo">Título del Sitio</label>
@@ -49,11 +49,11 @@
                   <label for="password">Estado del Sitio</label>
                   <div class="btn-group col-md-12" data-toggle="buttons">
                     <label class="btn btn-primary noselect{% if data[1].valorNumerico == 1 %} active{% endif %}">
-                      <input type="radio" name="dato[1]" id="option1" value="1" autocomplete="off" {% if data[1].valorNumerico == 1 %} checked {% endif %}>
+                      <input type="radio" name="dato[2]" id="option1" value="1" autocomplete="off" {% if data[2].valorNumerico == 1 %} checked {% endif %}>
                       Habilitado
                     </label>
-                    <label class="btn btn-danger noselect {% if data[1].valorNumerico == 0 %} active{% endif %}">
-                      <input type="radio" name="dato[1]" id="option2" value="0" autocomplete="off" {% if data[1].valorNumerico == 0 %} checked {% endif %}> 
+                    <label class="btn btn-danger noselect {% if data[2].valorNumerico == 0 %} active{% endif %}">
+                      <input type="radio" name="dato[2]" id="option2" value="0" autocomplete="off" {% if data[2].valorNumerico == 0 %} checked {% endif %}> 
                       Deshabilitado
                     </label>
                   </div>

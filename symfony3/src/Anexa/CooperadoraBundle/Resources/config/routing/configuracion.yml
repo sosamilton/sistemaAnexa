@@ -13,8 +13,8 @@ configuracion_new:
     defaults: { _controller: "AnexaCooperadoraBundle:Configuracion:new" }
     methods:  [GET, POST]
 
-configuracion_edit:
-    path:     /{id}/edit
+configuracion_editar:
+    path:     /edit
     defaults: { _controller: "AnexaCooperadoraBundle:Configuracion:edit" }
     methods:  [GET, POST]
 

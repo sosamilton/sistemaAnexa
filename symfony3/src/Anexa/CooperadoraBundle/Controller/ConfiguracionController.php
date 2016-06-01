@@ -20,7 +20,7 @@ class ConfiguracionController extends Controller
      * Lists all Configuracion entities.
      *
      */
-    public function indexAction()
+    public function indexAction($datos = array())
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -30,56 +30,26 @@ class ConfiguracionController extends Controller
 
         return $this->render('AnexaCooperadoraBundle:configuracion:index.html.twig', $datos);
     }
+   
 
-    /**
-     * Creates a new Configuracion entity.
-     *
-     */
-    public function newAction(Request $request)
+    public function editAction (Request $request)
     {
-        $configuracion = new Configuracion();
-        $form = $this->createForm('Anexa\CooperadoraBundle\Form\ConfiguracionType', $configuracion);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($configuracion);
-            $em->flush();
-
-            return $this->redirectToRoute('configuracion_show', array('id' => $configuracion->getId()));
+        $data= $request->request->all();
+       
+        $em = $this->getDoctrine()->getManager();
+        $configuraciones = $em->getRepository('AnexaCooperadoraBundle:Configuracion')->findAll();
+      
+        for ($i = 0; $i < sizeof($data['dato']); $i++) {      
+            $configuraciones[$i]->setValorNumerico((int)$data['dato'][$i]);
+            $configuraciones[$i]->setValorTextual($data['dato'][$i]); 
+            $em->persist($configuraciones[$i]);   
         }
+        $em->flush();
+        
+        $datos['menu']='configuracion';
+        return $this->indexAction($datos);
 
-        return $this->render('configuracion/new.html.twig', array(
-            'configuracion' => $configuracion,
-            'form' => $form->createView(),
-        ));
-    }
-
-    
-    /**
-     * Displays a form to edit an existing Configuracion entity.
-     *
-     */
-    public function editAction(Request $request, Configuracion $configuracion)
-    {
-        $deleteForm = $this->createDeleteForm($configuracion);
-        $editForm = $this->createForm('Anexa\CooperadoraBundle\Form\ConfiguracionType', $configuracion);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($configuracion);
-            $em->flush();
-
-            return $this->redirectToRoute('configuracion_edit', array('id' => $configuracion->getId()));
-        }
-
-        return $this->render('configuracion/edit.html.twig', array(
-            'configuracion' => $configuracion,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
+    } // fin editar
 
     /**
      * Deletes a Configuracion entity.
