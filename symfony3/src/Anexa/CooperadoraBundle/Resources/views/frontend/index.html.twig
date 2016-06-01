@@ -1,7 +1,7 @@
 {% extends 'AnexaCooperadoraBundle::base.html.twig' %}
 
 {% block page %}
-	{# if data.1.valorNumerico == 1 #}
+	{% if data.2.valorNumerico == 1 %}
 
 		{% block menu %}
 			{% include 'AnexaCooperadoraBundle:frontend:nav.html.twig' %}
@@ -12,9 +12,9 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Descripción</div>
 				  	<div class="panel-body">
-				  	<p>{#{data.0.valorTextual }#}</p>
+				  	<p>{{data.0.valorTextual }}</p>
 				  	<div class="thumbnail">
-				      <img src="{{asset('/img/slider.jpg')}}" alt="Foto de la Anexa">
+				      <img src="{{asset('bundles/img/slider.jpg')}}" alt="Foto de la Anexa">
 				    </div>
 				  	</div>
 				</div>
@@ -46,7 +46,7 @@
 				</div>
 			</div>
 		{% endblock cuerpo%}
-	{# else %}
+	{% else %}
 		<div class="container">
 	        <div class="row">
 				<div class="margin-top2 margin-left">
@@ -54,20 +54,30 @@
 						<div class="panel panel-danger">
 							<div class="panel-heading">
 								<span class="glyphicon glyphicon-lock">
-									Atencion!!!
+									Atención!!!
 								</span>
 							</div>
+<<<<<<< HEAD
 							<div class="panel-body">
 								{{ data.3.valorTextual }}
 							</div>
 							<div class="panel-footer">
 								Intente ingresar más tarde
 							</div>
+=======
+							
+								<div class="panel-body">
+									{{ data.3.valorTextual }}
+								</div>
+								<div class="panel-footer">
+									Intente ingresar más tarde
+								</div>
+>>>>>>> 2c2fb773a451638d108d9681aa1e83ca254a704d
 						</div>
 					</div>
 				</div>
 	        </div>
 	  	</div>
-	{ endif #}
+	{% endif %}
 
 {% endblock %}
