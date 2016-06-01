@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use FOS\UserBundle\Util\LegacyFormHelper;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -21,11 +22,8 @@ class UserType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options){
       $builder
-          ->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
-          ->add('username', TextType::class, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
           ->add('plainPassword', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\RepeatedType'), array(
               'type' => LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'),
               'required' => false,
@@ -35,21 +33,31 @@ class UserType extends AbstractType
               'invalid_message' => 'fos_user.password.mismatch',
           ))
           ->add('roles', ChoiceType::class, array(
-                      'multiple'=> true,
-                      'choices' => array(
-                          'Administrador' => 'ROLE_ADMIN',
-                          'Gestion'  => 'ROLE_GESTION',
-                          'Consulta'  => 'ROLE_CONSULTA'
-                      )));
+                'multiple'=> true,
+                'choices' => array(
+                    'Administrador' => 'ROLE_ADMIN',
+                    'Gestion'  => 'ROLE_GESTION',
+                    'Consulta'  => 'ROLE_CONSULTA'
+                )))
+          ->add('habilitado', CheckboxType::class, array(
+              'label'    => 'Habilitado',
+              'required' => false,
+          ));
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
+     public function getParent()
+     {
+         return 'FOS\UserBundle\Form\Type\RegistrationFormType';
+     }
+
+     /**
+      * @param OptionsResolver $resolver
+      */
      public function configureOptions(OptionsResolver $resolver)
      {
          $resolver->setDefaults(array(
-             'data_class' => 'Anexa\CooperadoraBundle\Entity\User'
+           'data_class' => 'Anexa\CooperadoraBundle\Entity\User'
          ));
      }
+
 }

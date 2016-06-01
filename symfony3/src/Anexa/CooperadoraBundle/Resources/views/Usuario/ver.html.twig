@@ -1,11 +1,11 @@
-{% extends 'AnexaCooperadoraBundle:backend:inicio.html.twig' %}
+{% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
 
 {% block title %} Administracion | Usuario | Ver{% endblock %}
 
 {% block dataAdmin %}
       <div class="panel panel-primary">
           <!-- Default panel contents -->
-          <div class="panel-heading">Ver Usuario: {{usuario.nombre}}</div>
+          <div class="panel-heading">Ver Usuario: {{usuario.username}}</div>
           <!-- Table -->
           <div class="panel-body">
             <div>
@@ -13,6 +13,10 @@
                 <div class="col-md-4">
                   <label for="username">Nombre de Usuario</label>
                   <div class="form-control" >{{usuario.username}}</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="username">Email</label>
+                  <div class="form-control" >{{usuario.email}}</div>
                 </div>
                 <div class="col-md-4">
                   <label for="password">Contraseña</label>
@@ -29,4 +33,3 @@
       <script type="text/javascript">
       </script>
 {% endblock %}
-

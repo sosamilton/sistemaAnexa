@@ -5,8 +5,13 @@ security:
 
     role_hierarchy:
         ROLE_CONSULTA:    ROLE_USER
+<<<<<<< HEAD
         ROLE_GESTION:     ROLE_CONSULTA
         ROLE_SUPER_ADMIN: ROLE_GESTION
+=======
+        ROLE_GESTION:     ROLE_ADMIN
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+>>>>>>> d5cde9e47d0ed6f8210ebdc0761afbdbab2894a0
 
     providers:
         fos_userbundle:
