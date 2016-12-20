@@ -1,0 +1,141 @@
+{% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
+{% block title %} Administración | Listados {% endblock %}
+
+{% block dataAdmin %}
+  <div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Listado de Matrículas Pagas</div>
+    <!-- Table -->
+    <div class="panel-body" id="paginacion">                                 
+      <div class="col-md-6"> Seleccione un año para ver los alumnos que pagaron la matrícula</div>
+      <form id="idForm1" method="post" action="{{ path('listado_matriculados')}}">
+        <div class="col-md-6"> 
+          <div class="col-md-6">
+            <label for="anio"> Año</label>
+            <select class="form-control cunsulta1" name="anio">
+                {% for año in anios_matriculas %}
+                  <option value="{{año}}">{{año}}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="buscar"> Buscar</label>
+            <button class="btn btn-primary col-md-12" title="Buscar" id="consulta1"><span class="glyphicon glyphicon-search"></span></button>
+            
+          </div>
+        </div>
+      </form>
+    </div>    
+  </div> {# fin panel de matricula #}
+
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">Listado de cuotas becadas o pagas</div>
+    <div class="panel-body" id="paginacion">            
+      <div class="col-md-4"> Seleccione año y mes para ver los alumnos con la cuota paga</div>
+      <form id="idForm2" action="{{ path('listado_pago_becado')}}" method="post">
+        <div class="col-md-8"> 
+                
+          <div class="col-md-4">
+              <label for="anio">Año</label>
+              <select class="form-control cunsulta2" name="anio">
+                  {% for año in anios %}
+                      <option value="{{año}}">{{año}}</option>
+                  {% endfor %}
+              </select>
+          </div>
+          <div class="col-md-4">
+              <label for="mes">Mes</label>
+              <select class="form-control cunsulta2" name="mes">
+                  {% for mes in meses %}
+                      <option value="{{mes}}">{{mes}}</option>
+                  {% endfor %}               
+              </select>
+          </div>
+          {# {% if is_granted('ROLE_SUPER_ADMIN') %}
+              <div class="col-md-4">
+                  <label for="user">Usuarios de Gestión</label>
+                  <select class="form-control cunsulta2" id="user" name="userId" required>
+                      <option value="0">Todos</option>
+                      {% for user in usuariosGestion %}    
+                          <option value="{{user.id}}">{{user.username}}</option>
+                      {% endfor %}
+                  </select>
+              </div> 
+              {% else %}
+              {% endif %}
+          #}  
+          <div class="col-md-4">
+            <label for="buscar">Buscar</label>
+            <button class="btn btn-primary col-md-12" id="cunsulta2"><span class="glyphicon glyphicon-search"></span></button>                       
+          </div>  
+        </div>                          
+      </form>
+    </div>
+  </div> {# end panel de cuotas pagas/becadas #}
+
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">Listado de cuotas impagas</div>
+    <div class="panel-body" id="paginacion">                                 
+      <div class="col-md-6"> Seleccione un año y mes para ver los alumnos que no pagaron la cuota</div>
+      <form id="idForm2" action="{{ path('listado_cuotas_impagas')}}" method="post">
+        <div class="col-md-6"> 
+        
+          <div class="col-md-4">
+            <label for="anio">Año</label>
+            <select class="form-control cunsulta2" name="anio">
+                {% for año in anios %}
+                  <option value="{{año}}">{{año}}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="mes">Mes</label>
+            <select class="form-control cunsulta2" name="mes">
+                {% for mes in meses %}
+                  <option value="{{mes}}">{{mes}}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="buscar">Buscar</label>
+            <button class="btn btn-primary col-md-12" id="cunsulta2"><span class="glyphicon glyphicon-search"></span></button> 
+          </div>
+        </div>
+      </form> 
+    </div>     
+  </div> {# end panel de cuotas impagas #}
+
+  {% if is_granted('ROLE_GESTION') %}
+      <div class="panel panel-primary">
+        <div class="panel-heading">Listado de comisión </div>
+        <div class="panel-body" id="paginacion">                                 
+          <div class="col-md-6"> Monto total de comisión de las cuotas cobradas </div>                
+              <div class="col-md-4">
+                <label for="buscar">Ver</label>
+                <a class="btn btn-primary col-md-12" id="buscar" href="{{ path('anexa_cooperadora_backend', {'anio':'año','mes':'mes'}) }}"><span class="glyphicon glyphicon-search"></span></a>
+              </div>           
+        </div>
+      </div>
+    {% endif %}
+<script>
+  $('#consulta1').click(function(){
+    $.ajax({
+      data: $("#idForm1").serialize()
+    })
+    .done(function( html ) {
+      $('html').parent().html(html);
+
+    });
+  });  
+  $('#consulta2').click(function(){
+    $.ajax({
+      data: $("#idForm2").serialize()
+    })
+    .done(function( html ) {
+      $('html').parent().html(html);
+    });
+  });
+</script>
+{% endblock %}

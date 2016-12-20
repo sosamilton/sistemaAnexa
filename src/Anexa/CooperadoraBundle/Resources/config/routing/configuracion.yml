@@ -1,0 +1,24 @@
+configuracion_index:
+    path:     /
+    defaults: { _controller: "AnexaCooperadoraBundle:Configuracion:index" }
+    methods:  GET
+
+configuracion_show:
+    path:     /{id}/show
+    defaults: { _controller: "AnexaCooperadoraBundle:Configuracion:show" }
+    methods:  GET
+
+configuracion_new:
+    path:     /new
+    defaults: { _controller: "AnexaCooperadoraBundle:Configuracion:new" }
+    methods:  [GET, POST]
+
+configuracion_editar:
+    path:     /edit
+    defaults: { _controller: "AnexaCooperadoraBundle:Configuracion:edit" }
+    methods:  [GET, POST]
+
+configuracion_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AnexaCooperadoraBundle:Configuracion:delete" }
+    methods:  DELETE

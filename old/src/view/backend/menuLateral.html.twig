@@ -1,0 +1,29 @@
+<ul class="nav nav-pills nav-stacked">
+  <li role="presentation" {% if menu == "inicio" %}class="active"{% endif %}><a href="{{URL.backend_index}}">Inicio</a></li>
+  <li role="presentation" {% if menu == "alumno" %}class="active"{% endif %}><a href="{{URL.backend_alumno}}">Alumnos</a></li>
+  <li role="presentation" {% if menu == "listado" %}class="active"{% endif %}><a href="{{URL.backend_listado}}">Listados</a></li>
+  {% if session.rol != "Consulta" %}
+  <li role="presentation"  {% if menu == "pago" %}class="active"{% endif %}><a href="{{URL.backend_pago}}">Pagos</a></li>
+  <li role="presentation" {% if menu == "cuota" %}class="active"{% endif %}><a href="{{URL.backend_cuota}}">Cuotas</a></li>
+<li role="presentation" {% if menu == "estadistica" %}class="active"{% endif %}><a href="{{URL.backend_estadisticas}}">Estadísticas</a></li>
+    {% if session.rol == "Administracion" %}
+      <li role="presentation" {% if menu == "responsable" %}class="active"{% endif %}><a href="{{URL.backend_responsable}}">Responsables</a></li>
+      <li role="presentation" {% if menu == "usuario" %}class="active"{% endif %}><a href="{{URL.backend_usuario}}">Usuarios</a></li>
+      <li role="presentation" {% if menu == "recorrido" %}class="active"{% endif %}><a href="{{URL.backend_recorrido}}">Recorrido</a></li>
+      
+      <li role="presentation" {% if menu == "configuracion" %}class="active"{% endif %}><a href="{{URL.backend_configuracion}}">Configuración</a></li>
+    {% endif %}
+
+  {% endif %}
+{#   
+  <li role="presentation" class="dropdown"  {% if menu == "listado" %} class="active" {% endif %} >
+        <a id="listados" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+          Listados
+          <span class="caret"></span>
+        </a>
+        <ul id="menu1" class="dropdown-menu" aria-labelledby="listados">
+          <li><a href="#">Otro Listado</a></li>
+          <li><a href="#">Otro Listado</a></li>
+        </ul>
+      </li> #}
+</ul>

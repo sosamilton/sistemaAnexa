@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% endblock %}
+
+{% block header %}
+    
+      <h2>Escuela Anexa - Listados</h2>
+
+{% endblock %}
+
+{% block cuerpo %}
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">{{info}}</div>
+        <div class="panel-body">
+            <table class="table">
+               <thead>
+                  <tr>
+                      <th>
+                        DNI
+                     </th>
+                     <th>
+                        Nombre
+                     </th>
+                     <th>
+                        Apellido
+                     </th>
+                     <th>
+                         Becado
+                     </th>
+                    <th>
+                         Cobrador
+                     </th>
+
+                 </tr>
+               </thead>
+
+               <tbody class="list">
+                   {% for alumno in alumnos %}
+                       <tr>
+                        <!-- <th scope="row" class="id">{{alumno.id}}</th> -->
+                           <td class="dni">{{alumno.data.dni}}</td>
+                           <td class="nombre">{{alumno.data.nombre}}</td>
+                           <td class="apellido">{{alumno.data.apellido}}</td>
+                           <td class="becado">{% if alumno.beca.becado %} si {% else %} no {% endif %}</td>
+                           <td class="cobrador">{{alumno.user.username}}</td>
+
+                        </tr>
+                   {% endfor %}
+               </tbody>
+           </table>
+       </div>
+</div>
+{% endblock %}

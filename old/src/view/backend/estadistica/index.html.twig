@@ -1,0 +1,37 @@
+{% extends 'backend/index.html.twig' %}
+{% block title %} Administración | Estadísticas {% endblock %}
+
+{% block dataAdmin %}
+  <div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Estadística de ingresos por año</div>
+    <!-- Table -->
+    <div class="panel-body" id="paginacion">                                 
+      <div class="col-md-4"> Seleccione un año para ver los ingresos totales por mes</div>
+      <div class="col-md-8"> 
+        <form action="{{URL.backend_estadistica_graficos}}" method="post">
+          <div class="col-md-4">
+            <label for="anio"> Año</label>
+            <select class="form-control" name="anio" id="anio">
+                {% for año in anios %}
+                  <option value="{{año}}">{{año}}</option>
+                {% endfor %}
+            </select>
+          </div>
+            
+        <div class="col-md-4">
+            <label for="anio"> Tipo de Gráfico </label>
+            <select class="form-control" name="grafico" required>
+                <option value="lineal">Lineal</option>
+                <option value="barra">Barra</option>
+          </select>
+          </div>
+          <div class="col-md-4">
+            <label for="buscar">Ver Gráfico</label>
+            <button type="submit" class="btn btn-primary col-md-12" id="buscar"><span class="glyphicon glyphicon-search"></span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

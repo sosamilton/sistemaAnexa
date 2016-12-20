@@ -1,0 +1,184 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.margin-top{
+  margin-top: 7%;
+}
+.margin-top1{
+  margin-top: 3%;
+}
+.botonAdd{
+  margin-bottom: 1%;
+  display: block;
+}
+.rol{
+  position: absolute;
+  top: 31px;
+  font-size: 0.7em;
+  left: -5px;
+  color: #888;
+}
+
+.text-muted{
+  margin-top: 1.5%;
+}
+
+.width70{
+  width: 70%!important
+}
+
+.form-group{
+  overflow: auto;
+  margin-top: 8px;
+}
+
+
+.noOverflow{
+  overflow: none!important;
+  height: 100%;
+}
+
+.sort{
+  font-size: 0.7em;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.nav-edit{
+    position: fixed;
+    bottom: -11px;
+    left: 0;
+    z-index: 999;
+}
+.margin-top{
+  margin-top: 1%;
+}
+.margin-top0{
+  margin-top: 3%;
+}
+.margin-top1{
+  margin-top: 7%;
+}
+.margin-top2{
+  margin-top: 15%;
+}
+.margin-top3{
+  margin-top: 25%;
+}
+.margin-left{
+  margin-left: 6%;
+}
+.filter-bar{
+  margin-bottom: 3px;
+}
+
+.rmItem{
+  cursor: pointer;
+  background-color: #c9302c;
+}
+
+.noselect{
+    background-color: rgba(0, 0, 0, 0.28);
+    color: #000;
+    border-color: #000;
+}
+
+.panel-footer{
+  overflow: auto;
+}
+
+.deshabilitado{
+  background-color: rgba(153, 153, 153, 0.08);
+}
+
+.padding0{
+  padding: 0px;
+}
+#leyenda {
+  position: fixed;
+  top: 166px;
+  right: 0px;
+  padding: 6px;
+  padding-top: 14px;
+  background-color: rgba(0, 0, 0, 0.72);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 600;
+}
+#leyenda ul li{
+  list-style: none;
+  padding-top: 5px;
+}
+#leyenda ul{
+  padding-left: 0;
+}
+.circulo{
+  height: 15px;
+  width: 15px;
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+  top: 2px;
+}
+.matricula{
+  background-color: rgba(151,187,205,1);
+}
+.mensual{
+  background-color: rgba(220,220,220,1);
+}
+
+.imagenFull{
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  min-width: 200px;
+  position: relative;
+}

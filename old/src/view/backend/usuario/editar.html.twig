@@ -1,0 +1,37 @@
+{% extends 'backend/index.html.twig' %}
+{% block title %} Administraci&oacute;n | Usuario | Editar{% endblock %}
+
+{% block dataAdmin %}
+      <div class="panel panel-primary">
+          <!-- Default panel contents -->
+          <div class="panel-heading">Editar Usuario</div>
+          <!-- Table -->
+          <div class="panel-body">
+            <form action="{{URL.backend_usuario_editar}}?id={{usuario.id}}" method="post">
+              <input type="hidden" name="token" value="{{token}}">
+              <div class="form-group">
+                <div class="col-md-4">
+                  <label for="username">Nombre de Usuario</label>
+                  <input type="text" class="form-control" id="username" name="username" placeholder="Nombre de Usuario" required value="{{usuario.username}}">
+                </div>
+                <div class="col-md-4">
+                  <label for="password">Nueva Contraseña</label>
+                  <input type="password" class="form-control" id="password" name="pass" placeholder="Contraseña" >
+                </div>
+                <div class="col-md-4">
+                  <label for="rol">Rol</label>
+                  <select class="form-control" name="rol" required>
+                    {% for rol in roles %}
+                      <option value="{{rol.id}}" {% if usuario.rol.id == rol.id %}selected{% endif %}>{{rol.nombre}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary col-md-12">Editar Usuario</button>
+            </form>
+          </div>
+      </div>
+      <script type="text/javascript">
+      </script>
+{% endblock %}
+

@@ -1,0 +1,25 @@
+host: https://grupo_57.proyecto2015.linti.unlp.edu.ar
+
+driver: pdo_mysql
+
+### Servidor
+db_user: grupo_57
+db_pass: Wr49sxfB20TBBS6G   
+
+
+db_name: grupo_57
+
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     xvfb-run /usr/bin/wkhtmltopdf
+        options:
+            lowquality: false
+            margin-bottom: 0
+            margin-top: 0
+            margin-left: 0
+            margin-right: 0
+    image:
+        enabled:    true
+        binary:     xvfb-run /usr/bin/wkhtmltoimage
+        options:    []

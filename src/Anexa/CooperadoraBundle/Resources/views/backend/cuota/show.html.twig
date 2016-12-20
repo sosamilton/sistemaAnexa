@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Cuota</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ cuotum.id }}</td>
+            </tr>
+            <tr>
+                <th>Borrado</th>
+                <td>{% if cuotum.borrado %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Anio</th>
+                <td>{{ cuotum.anio }}</td>
+            </tr>
+            <tr>
+                <th>Mes</th>
+                <td>{{ cuotum.mes }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ cuotum.numero }}</td>
+            </tr>
+            <tr>
+                <th>Monto</th>
+                <td>{{ cuotum.monto }}</td>
+            </tr>
+            <tr>
+                <th>Tipo</th>
+                <td>{{ cuotum.tipo }}</td>
+            </tr>
+            <tr>
+                <th>Comisioncobrador</th>
+                <td>{{ cuotum.comisionCobrador }}</td>
+            </tr>
+            <tr>
+                <th>Fechaalta</th>
+                <td>{% if cuotum.fechaAlta %}{{ cuotum.fechaAlta|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('cuota_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('cuota_edit', { 'id': cuotum.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

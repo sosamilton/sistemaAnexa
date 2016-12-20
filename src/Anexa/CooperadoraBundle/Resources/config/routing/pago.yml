@@ -1,0 +1,29 @@
+pago_index:
+    path:     /
+    defaults: { _controller: "AnexaCooperadoraBundle:Pago:index" }
+    methods:  GET
+
+pago_mostrar:
+    path:     /{id}/listarPagos
+    defaults: { _controller: "AnexaCooperadoraBundle:Pago:verPagos" }
+    methods:  GET
+
+pago_seleccionado:
+    path:      /pago_seleccionado
+    defaults: {_controller: "AnexaCooperadoraBundle:Pago:pagoSeleccionado"}
+    methods: POST
+
+pago_new:
+    path:     /new
+    defaults: { _controller: "AnexaCooperadoraBundle:Pago:new" }
+    methods:  [GET, POST]
+
+pago_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AnexaCooperadoraBundle:Pago:edit" }
+    methods:  [GET, POST]
+
+pago_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AnexaCooperadoraBundle:Pago:delete" }
+    methods:  GET

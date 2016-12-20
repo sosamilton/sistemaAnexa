@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Configuracion list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Clave</th>
+                <th>Valornumerico</th>
+                <th>Valortextual</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for configuracion in configuracions %}
+            <tr>
+                <td><a href="{{ path('configuracion_show', { 'id': configuracion.clave }) }}">{{ configuracion.clave }}</a></td>
+                <td>{{ configuracion.valorNumerico }}</td>
+                <td>{{ configuracion.valorTextual }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configuracion_show', { 'id': configuracion.clave }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configuracion_edit', { 'id': configuracion.clave }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configuracion_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

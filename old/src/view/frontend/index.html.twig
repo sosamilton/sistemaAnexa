@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block page %}
+	{% if data.1.valorNumerico == 1 %}
+
+		{% block menu %}
+			{% include 'frontend/nav.html.twig' %}
+		{% endblock %}
+
+		{% block cuerpo %}
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-heading">Descripción</div>
+				  	<div class="panel-body">
+				  	<p>{{data.0.valorTextual }}</p>
+				  	<div class="thumbnail">
+				      <img src="{{resource}}/img/slider.jpg" alt="Foto de la Anexa">
+				    </div>
+				  	</div>
+				</div>
+			</div>
+			<div class="col-md-offset-1 col-md-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">Contacto</div>
+				  	<div class="panel-body">
+						<form action="{{URL.sendMail}}">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Nombre</label>
+								<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">E-Mail</label>
+								<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Telefono</label>
+								<input type="tel" class="form-control" id="exampleInputEmail1" placeholder="(0221) - 44XXXX">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Comentario</label>
+								<textarea class="form-control" name="comentario" rows="4"></textarea>
+							</div>
+							<button type="submit" class=" col-md-12 btn btn-default">Enviar</button>
+						</form>
+				  	</div>
+				</div>
+			</div>
+		{% endblock %}
+	{% else %}
+		<div class="container">
+	        <div class="row">
+				<div class="margin-top2 margin-left">
+					<div class="col-md-5 col-md-offset-3">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<span class="glyphicon glyphicon-lock">  
+									Atencion!!!
+								</span>
+							</div>
+							<div class="panel-body">
+								{{ data.3.valorTextual }}
+							</div>
+							<div class="panel-footer">
+								Intentelo ingresar mas tarde
+							</div>
+						</div>
+					</div>
+				</div>
+	        </div>
+	  	</div>
+	{% endif %}
+
+{% endblock %}
