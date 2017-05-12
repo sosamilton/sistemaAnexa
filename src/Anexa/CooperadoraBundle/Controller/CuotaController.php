@@ -20,12 +20,17 @@ class CuotaController extends Controller
      */
     public function indexAction($datos=array())
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $cuotas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findByBorrado(false);
+        if (count($cuotas) == 0) {
+            $datos['msj'] = 'No hay cuotas registradas aún';
+            $datos['success'] = false;
+        } else {
         $datos['cuotas'] = $cuotas;
+        }
         $datos['menu'] = "cuotas";
-
         return $this->render('AnexaCooperadoraBundle:cuota:index.html.twig', $datos);
     }
 

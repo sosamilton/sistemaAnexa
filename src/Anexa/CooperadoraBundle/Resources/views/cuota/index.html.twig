@@ -6,12 +6,13 @@
   {% if msj is defined %}
         <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <strong>Atención!</strong>{{msj}}
+          <strong>Atención!</strong> {{msj}}
         </div>
   {% endif %}
     {% if is_granted('ROLE_SUPER_ADMIN') %}
         <a class="btn btn-primary botonAdd" href="{{ path('cuota_new') }}">Agregar Cuota</a>
     {% endif %}
+{% if cuotas is defined %}
 
     <div class="panel panel-primary" id="paginacion">
       <!-- Default panel contents -->
@@ -33,12 +34,6 @@
                       <span class="glyphicon glyphicon-sort"></span>
                   </button>
                   Mes
-                </th>
-                <th>
-                  <button class="sort btn" data-sort="numero">
-                      <span class="glyphicon glyphicon-sort"></span>
-                  </button>
-                  Número
                 </th>
                 <th>
                   <button class="sort btn" data-sort="tipo">
@@ -72,10 +67,9 @@
                     <tr>                           
                         <td>{{ cuota.anio }}</td>
                         <td>{{ cuota.mes }}</td>
-                        <td>{{ cuota.numero }}</td>
                         <td>{{ cuota.tipo }}</td>
                         <td>{{ cuota.monto }}</td>
-                        <td>{{ cuota.comisionCobrador }}</td>
+                        <td>{{ cuota.comisionCobrador }}%</td>
                         <td>{{ cuota.fechaAlta | date("d-m-Y") }}</td>
                         <td>
                             <div class="">
@@ -98,12 +92,13 @@
             </div>
         </div>
     </div>
+{% endif %}
 
     <script type="text/javascript">
         $( document ).ready(function() {
             var monkeyList = new List('paginacion', {
               valueNames: ['numero', 'anio','mes','tipo', 'monto', "comision", "fechaAlta"],
-              page: {{paginacion}},
+              page: '{{ render(url('paginacion')) }}',
               plugins: [ ListPagination({}) ] 
           });
         });

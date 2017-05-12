@@ -100,7 +100,7 @@
         $( document ).ready(function() {
             var monkeyList = new List('paginacion', {
               valueNames: ['username','estado','role'],
-              page: {{paginacion}},
+              page: '{{ render(url('paginacion')) }}',
               plugins: [ ListPagination({}) ]
           });
 

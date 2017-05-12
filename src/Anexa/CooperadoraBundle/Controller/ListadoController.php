@@ -5,9 +5,9 @@ namespace Anexa\CooperadoraBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session; 
+use Symfony\Component\HttpFoundation\Response;
 
 use Anexa\CooperadoraBundle\Entity\Alumno;
-use Anexa\CooperadoraBundle\Entity\Responsable;
 use Anexa\CooperadoraBundle\Entity\Cuota;
 use Anexa\CooperadoraBundle\Entity\User;
 use ArrayObject;
@@ -29,7 +29,7 @@ class ListadoController extends Controller
 			'borrado'=>false),
 		array(
 			'anio'=>'DESC',
-			'mes'=>'DESC'
+			'mes'=>'ASC'
 			));
 		$anios = array();
 		$meses = array();
@@ -54,61 +54,45 @@ class ListadoController extends Controller
         	));
 	} // end index
 
-
 	public function matriculadosAction(Request $request)
 	{
+		
 		$em = $this->getDoctrine()->getManager();
 		$matriculas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findBy(
 								array('borrado'=>'false','tipo'=>'matricula',
-									'anio'=>$request)
+									'anio'=>$request->request->get('anio'))
 								);
 		$pagos =array();
 		$alumnos = array();
 		$datos['success'] = false;
-		if (empty($matriculas)) {
-			$datos['msj'] = 'No existe la matrícula buscada';
+		$datos['hayPagosMatricula'] = false;
+		
+		$todospagos = array();
+		foreach ($matriculas as $matricula) {
+			$pagos=$matricula->getPagos();
+		}
+
+		if (count($pagos) == 0) {
+			$datos['msj'] = 'No hay pagos registrados de esta matrícula';
 		} else {
-			$todospagos = array();
-			foreach ($matriculas as $matricula) {
-				$pagos=$matricula->getPagos();
-			}
-			if (count($pagos) == 0) {
-				$datos['msj'] = 'No hay pagos registrados de esta matrícula';
-			} else {
-				$datos['hayPagosMatricula'] = true;
-				$datos['success'] = true;
-				$iterator = $pagos->getIterator();
-				$todosLosPagos = array();
-				while ($iterator->valid()) {
-					$todosLosPagos[$iterator->current()->getId()] = $iterator->current();
-					$iterator->next();
-				}
+			$datos['hayPagosMatricula'] = true;
+			$datos['success'] = true;
+			$iterator = $pagos->getIterator();
+			$todosLosPagos = array();
+			while ($iterator->valid()) {
+				$todosLosPagos[$iterator->current()->getId()] = $iterator->current();
+				$iterator->next();
 			}
 		}
-
-		if ($this->get('security.authorization_checker')->isGranted('ROLE_CONSULTA')) {
-                $usuario = $em->getRepository('AnexaCooperadoraBundle:User')->findOneById($_SESSION['id']);
-                $responsable = $em->getRepository("AnexaCooperadoraBundle:Responsable")->findOneByUser($usuario);
-                $misAlumnos = $responsable->getAlumnosACargo();
-    			$pagosMisAlumnos=array();
-		        foreach ($misAlumnos as $alumno) {
-		        	$iterator = $alumno->getPagos()->getIterator();
-			    	while($iterator->valid()){
-					    $pagosMisAlumnos[$iterator->current()->getId()] = $iterator->current();
-						$iterator->next();
-				  	}
-		        }
-
-				$pagosAux = array_intersect_key($pagosMisAlumnos, $todosLosPagos);
-				$pagos = $pagosAux;             
-		}
+		
 		
 		if (count($pagos) > 0) {
 			foreach ($pagos as $key => $pago) {
 				$alumnos[$pago->getAlumno()->getId()]=array();
 				$alumnos[$pago->getAlumno()->getId()]['data']=$pago->getAlumno();
 				$alumnos[$pago->getAlumno()->getId()]['beca']=$pago;
-				$alumnos[$pago->getAlumno()->getId()]['user']=$pago->getUsuario();
+				$alumnos[$pago->getAlumno()->getId()]['user']=$pago->getUser()->getUsername();
+				
 			}
 			$datos['hayPagosMatricula'] = true;
 			$datos['success'] = true;
@@ -118,7 +102,7 @@ class ListadoController extends Controller
 		$datos['alumnos'] = $alumnos;
 		$datos['menu'] = 'listado';
 		$datos['anio'] = $request;
-		$datos['info'] = 'Alumnos con matrícula paga del año '.$request;
+		$datos['info'] = 'Alumnos con matrícula paga del año '.$request->request->get('anio');
 
 		return $this->render('AnexaCooperadoraBundle:listado:matriculasPagas.html.twig',$datos);
 
@@ -127,7 +111,6 @@ class ListadoController extends Controller
 	public function cuotasPagasAction(Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
-		/* falta control de usuarios, ya sea de consulta (sólo listar los pagos de los alumnos a su cargo), admin (elige un usuario de gestión para ver las cuotas que cobro del año y mes seleccionados antes, esto es de la tercer entrega) o gestión (se asocia a si mismo con el cobro de la cuota ) */
 		
 		$fecha= $request->request->all();
 		
@@ -150,61 +133,40 @@ class ListadoController extends Controller
 					$iterator->next();
 				}
 				/* Un usuario de consulta sólo puede ver los pagos de los alumnos que tiene a cargo */
-				if ($this->get('security.authorization_checker')->isGranted('ROLE_CONSULTA')) {
-					$responsable = $em->getRepository('AnexaCooperadoraBundle:Responsable')->findOneByUsuario($_SESSION['id']);
-					$misAlumnos = $responsable->getAlumnosACargo();
-
-					$pagosMisAlumnos = array();
-					foreach ($misAlumnos as $alumno) {
-						$iterator = $alumno->getPagos()->getIterator();
-						while ($iterator->valid()) {
-							$pagosMisAlumnos[$iterator->current()->getId()] = $iterator->current();
-							$iterator->next();
-						}
-					}
-					$pagosAux = array_intersect_key($pagosMisAlumnos, $todosLosPagos);
-
-					if (count($pagosAux) > 0) {
-						foreach ($pagosAux as $pago) {
-							$alumnos[$pago->getAlumno()->getId()] = array();
-							$alumnos[$pago->getAlumno()->getId()]['data'] = $pago->getAlumno();
-							$alumnos[$pago->getAlumno()->getId()]['beca'] =$pago;
-							$alumnos[$pago->getAlumno()->getId()]['user'] = $pago->getUsuario();
-
-						}
-						$datos['info'] = 'Alumnos a cargo que pagaron la cuota del mes';
-						$datos['hayPagos'] = true;
-						$datos['success'] = true;
-					} else { $datos['msj'] = 'No hay pagos registrados';}
-				} else { #cuotas cobradas por el usuario de gestión logueado */
-					foreach ($pagos as $pago) {
-						if ( /*todos or */$pago->getUsuario()->getUsername() == $usuario->getUsername()) {
-							$alumnos[$pago->getAlumno()->getId()]=array();
-							$alumnos[$pago->getAlumno()->getId()]['data']=$pago->getAlumno();
-							$alumnos[$pago->getAlumno()->getId()]['beca']=$pago;
-							$alumnos[$pago->getAlumno()->getId()]['user']=$pago->getUsuario();
-						}
-					}
-					if (count($alumnos) == 0) {
-						$datos['msj'] = 'El usuario '.$usuario->getUsername().' no registra cobros de esta cuota';
-					} else {
-						$datos['hayPagos'] = true;
-						$datos['success'] = true;
-						$datos['info'] = 'Alumnos que pagaron la cuota del mes '.$_POST['mes'].' del año '.$_POST['anio'];
+				
+				foreach ($pagos as $pago) {
+					//if ( /*todos or */$pago->getUser()->getUsername() == $usuario->getUsername()) { 
+						$alumnos[$pago->getAlumno()->getId()]=array();
+						$alumnos[$pago->getAlumno()->getId()]['data']=$pago->getAlumno();
+						$alumnos[$pago->getAlumno()->getId()]['beca']=$pago;
+						$alumnos[$pago->getAlumno()->getId()]['user']=$pago->getUser()->getUsername();
+					//}
+				}
+				if (count($alumnos) == 0) {
+					$datos['msj'] = 'El usuario '.$usuario->getUsername().' no registra cobros de esta cuota';
+				} else {
+					$datos['hayPagos'] = true;
+					$datos['success'] = true;
+					switch ($fecha['mes']) {
+						case 'Matricula':
+						    $datos['info'] = 'Alumnos que pagaron la matrícula del año '.$fecha['anio'];
+						    break;
+						default:
+						    $datos['info'] = 'Alumnos que pagaron la cuota de '.$fecha['mes'].' del año '.$fecha['anio'];
+						    break;
 					}
 				}
 			} else {
-				
-				$datos['msj'] = 'No hay alumnos que hayan pagado esta cuota';
-			}
-		} else { 
+			
+			$datos['msj'] = 'No hay alumnos que hayan pagado esta cuota';
+		}
+	} else { 
 			$datos['msj'] = 'La cuota no existe';
 		}
+	$datos['alumnos'] = $alumnos; 
+	$datos['menu'] = 'listado'; 
 
-		$datos['alumnos'] = $alumnos; 
-		$datos['menu'] = 'listado'; 
-
-		return $this->render('AnexaCooperadoraBundle:listado:cuotasPagasyBecadas.html.twig',$datos);
+	return $this->render('AnexaCooperadoraBundle:listado:cuotasPagasyBecadas.html.twig',$datos);
 
 	} // end cuotasPagas
 
@@ -213,49 +175,6 @@ class ListadoController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$datos['hayCuotasImpagas'] = false;
 		$datos['success'] = false;
-
-		function filtrarPorFecha($alumno,$anioCuota,$mesCuota) {
-		    $fechaIngreso = $alumno->getFechaIngreso();
-		    $anioIngreso= (int)(substr($fechaIngreso,0,4)); //obtengo el año
-            $mesIngreso = (int)(substr($fechaIngreso,5,2)); //obtengo el mes
-
-		    $fechaEgreso = $alumno->getFechaEgreso();	    
-		    if ($fechaEgreso == null) {
-		      	
-		        if ( $anioCuota > $anioIngreso) {
-		          return true;
-		         }elseif ($anioCuota < $anioIngreso) {
-		         	return false;
-		        } elseif ($mesCuota >= $mesIngreso) {
-		            return true;
-		          } else {
-		          	return false;}
-		        
-		    } else {
-		    	$anioEgreso= (int)(substr($fechaEgreso,0,4));
-                $mesEgreso= (int)(substr($fechaEgreso,5,2));
-		    	if ($anioCuota < $anioEgreso) {
-		        	if ($anioCuota > $anioIngreso) {
-		        		return true;
-		        	}
-		        	elseif ($anioCuota < $anioIngreso) {
-		        		return false;
-
-		        	} elseif ($mesCuota >= $mesIngreso) {
-		        		return true;
-		        		} else {
-		        			return false;
-		        		}
-		    	} elseif ($anioCuota > $anioEgreso){
-		        	return false;
-		        	}  elseif ($mesCuota <= $mesEgreso) {
-		        		return true;
-		        		} else {
-		        			return false;
-		        		}	
-		    }	              
-		              
-		} // fin filtrar
 		
 		$alumnos = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findByBorrado('false');
 		$fecha= $request->request->all();
@@ -298,35 +217,86 @@ class ListadoController extends Controller
 			} else {
 				$datos['hayCuotasImpagas'] = true;
 				$datos['success'] = true;
-				$datos['alumnos'] = $alumnosNoPagaronPeroDeberian; //todos los alumnos que deberian pagar
-				if ($this->get('security.authorization_checker')->isGranted('ROLE_CONSULTA')) {
-			        $usuario = $em->getRepository('AnexaCooperadoraBundle:User')->findOneById($_SESSION['id']);
-			        $responsable = $em->getRepository("AnexaCooperadoraBundle:Responsable")->findOneByUsuario($usuario);
-			        $misAlumnos = $responsable->getAlumnosACargo();
-	    			$misAlumnosAux=array();
-			        $iterator = $misAlumnos->getIterator();
-			    	while($iterator->valid()){
-					    $misAlumnosAux[$iterator->current()->getId()] = $iterator->current();
-						$iterator->next();
-				  	}
-			        $misAlumnosQueDebenPagar =  array_intersect_key($misAlumnosAux, $alumnosNoPagaronPeroDeberian);
-			        if (count($misAlumnosQueDebenPagar) > 0) {
-			        	$datos['hayCuotasImpagas'] = true;
-			        	$datos['success'] = true;
-						$datos['alumnos'] = $misAlumnosQueDebenPagar;
-			        }     
-				}	
+				$datos['alumnos'] = $alumnosNoPagaronPeroDeberian; //todos los alumnos que deberian pagar	
 			}	
 		} else {
 			$datos ['msj'] = 'No existe la cuota indicada';
 		}			
 							
 		$datos['menu'] = 'listado';
-		$datos['anio'] = $_POST['anio'];
-		$datos['mes'] = $_POST['mes'];
-		$datos['info'] = 'Alumnos que no pagaron la cuota del mes '.$_POST['mes'].' del año '.$_POST['anio'];
+		$datos['anio'] = $fecha['anio'];
+		switch ($fecha['mes']) {
+			case 'Matricula':
+			    $datos['info'] = 'Alumnos que no pagaron la matrícula del año '.$fecha['anio'];
+			    break;
+			default:
+			    $datos['info'] = 'Alumnos que no pagaron la cuota de '.$fecha['mes'].' del año '.$fecha['anio'];
+			    break;
+		}		
 
 		return $this->render('AnexaCooperadoraBundle:listado:cuotasNoPagas.html.twig',$datos);
 	} //fin cuotasImpagas
+
+	public function todosPagosAlumnosAux($anio)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$alumnos = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findByBorrado(false);
+		$cuotas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findBy
+				(array('borrado'=>'false',
+					'anio'=>$anio 
+					)
+				);
+		$meses = array();
+		$i = 0;
+		foreach ($cuotas as $cuota) {
+			$meses[$i] = $cuota->getMes();
+			$i++;
+		}
+		
+		$result = array();
+		
+		foreach ($alumnos as $key => $alumno) 
+		{
+        	$result[$alumno->getDni()] = array();
+        	$result[$alumno->getDni()]['alumno'] = $alumno;
+        	$aux = $em->getRepository('AnexaCooperadoraBundle:Cuota')->CuotasAlumnosPorAnio($anio, $alumno);       	
+        	
+        	foreach (array_keys($meses) as $i) {
+        		if ($aux[$i]['pago']) {
+        			$result[$alumno->getDni()]['mes'][$i] = 'Si';
+        		} else {
+        			$result[$alumno->getDni()]['mes'][$i] = 'No';
+        		}
+        	} 
+		}		
+        return $datos=array('pagos' =>$result, 'meses' => array_values($meses));
+
+	} //fin todosPagosAlumnosAux
+
+	public function todosPagosAlumnosAction(Request $request)
+	{
+		$datos = $this->todosPagosAlumnosAux($request->request->get('anio'));
+		$datos['menu'] = 'listado';
+		$datos['info'] = 'Listado de cuotas pagas del año '.$request->request->get('anio');
+		$datos['anio'] = $request->request->get('anio');
+		return $this->render('AnexaCooperadoraBundle:listado:listadoTotal.html.twig', $datos);
+
+	}// fin todosPagosAlumnosAction
+
+	public function todosPagosAlumnosPdfAction(Request $request){
+		
+		$datos = $this->todosPagosAlumnosAux($request->get('anio'));
+		$datos['info'] = 'Listado de cuotas pagas del año '.$request->get('anio');
+		$date = (new \DateTime())->format('Y-m-d');
+		$snappy = $this->get('knp_snappy.pdf');
+
+		$html = $this->renderView('AnexaCooperadoraBundle:listado:listadoTotalPdf.html.twig', $datos);
+		$filename='ListadoTotalDePagosAl_"'.$date.'.pdf"';
+		return new Response($snappy->getOutPutFromHtml($html, array('orientation'=>'Landscape')), 200,
+			array(
+				'Content-Type'	=> 'application/pdf',
+				'Content-Disposition'	=>'inline; filename="'.$filename. '.pdf"')); 
+
+	} // fin todospagosAlumnosAction
 
 } //end listadoController

@@ -30,7 +30,7 @@
 
 
   <div class="panel panel-primary">
-    <div class="panel-heading">Listado de cuotas becadas o pagas</div>
+    <div class="panel-heading">Listado de cuotas becadas o pagas por mes</div>
     <div class="panel-body" id="paginacion">            
       <div class="col-md-4"> Seleccione año y mes para ver los alumnos con la cuota paga</div>
       <form id="idForm2" action="{{ path('listado_pago_becado')}}" method="post">
@@ -48,7 +48,7 @@
               <label for="mes">Mes</label>
               <select class="form-control cunsulta2" name="mes">
                   {% for mes in meses %}
-                      <option value="{{mes}}">{{mes}}</option>
+                     <option value="{{mes}}">{{ mes }}</option>
                   {% endfor %}               
               </select>
           </div>
@@ -78,9 +78,9 @@
   <div class="panel panel-primary">
     <div class="panel-heading">Listado de cuotas impagas</div>
     <div class="panel-body" id="paginacion">                                 
-      <div class="col-md-6"> Seleccione un año y mes para ver los alumnos que no pagaron la cuota</div>
+      <div class="col-md-4"> Seleccione un año y mes para ver los alumnos que no pagaron la cuota</div>
       <form id="idForm2" action="{{ path('listado_cuotas_impagas')}}" method="post">
-        <div class="col-md-6"> 
+        <div class="col-md-8"> 
         
           <div class="col-md-4">
             <label for="anio">Año</label>
@@ -94,7 +94,7 @@
             <label for="mes">Mes</label>
             <select class="form-control cunsulta2" name="mes">
                 {% for mes in meses %}
-                  <option value="{{mes}}">{{mes}}</option>
+                  <option value="{{mes}}">{{ mes }}</option>
                 {% endfor %}
             </select>
           </div>
@@ -106,6 +106,33 @@
       </form> 
     </div>     
   </div> {# end panel de cuotas impagas #}
+
+
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Listado Completo de Pagos</div>
+    <!-- Table -->
+    <div class="panel-body" id="paginacion">                                 
+      <div class="col-md-6"> Seleccione un año para ver los pagos de todas las cuotas</div>
+      <form id="idForm1" method="post" action="{{ path('listado_total')}}">
+        <div class="col-md-6"> 
+          <div class="col-md-6">
+            <label for="anio"> Año</label>
+            <select class="form-control cunsulta1" name="anio">
+                {% for año in anios %}
+                  <option value="{{año}}">{{año}}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="buscar"> Buscar</label>
+            <button class="btn btn-primary col-md-12" title="Buscar" id="consulta1"><span class="glyphicon glyphicon-search"></span></button>
+            
+          </div>
+        </div>
+      </form>
+    </div>    
+  </div> {# fin panel de pagos totales #}
 
   {% if is_granted('ROLE_GESTION') %}
       <div class="panel panel-primary">

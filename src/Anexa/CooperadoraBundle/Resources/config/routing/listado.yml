@@ -18,4 +18,14 @@ listado_cuotas_impagas:
     defaults: { _controller: "AnexaCooperadoraBundle:Listado:cuotasNoPagas" }
     methods:  POST
 
+listado_total:
+    path: /listadoTotal
+    defaults: {_controller: "AnexaCooperadoraBundle:Listado:todosPagosAlumnos"}
+    methods:    POST
+
+listado_total_pdf:
+    path: /listadoTotalPdf
+    defaults: {_controller: "AnexaCooperadoraBundle:Listado:todosPagosAlumnosPdf"}
+    methods: [GET, POST]
+
 

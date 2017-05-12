@@ -23,22 +23,33 @@ class CuotaType extends AbstractType
     {
         $builder
             ->add('anio', IntegerType::class, array('label' => 'Año'))
-            ->add('mes', IntegerType::class, array('label' => 'Mes'))
-            ->add('numero', IntegerType::class, array('label' => 'Número de Cuota'))
+            ->add('mes', ChoiceType::class, array(
+                                    'choices' => array(
+                                        'Matrícula' => 'Matricula',
+                                        'Enero' => 'Enero',
+                                        'Febrero' => 'Febrero',
+                                        'Marzo' => 'Marzo',
+                                        'Abril' => 'Abril',
+                                        'Mayo' => 'Mayo',
+                                        'Junio' => 'Junio',
+                                        'Julio' => 'Julio',
+                                        'Agosto' => 'Agosto',
+                                        'Septiembre' => 'Septiembre',
+                                        'Octubre' => 'Octubre',
+                                        'Noviembre' => 'Noviembre',
+                                        'Diciembre' => 'Diciembre'),
+                                        'label' => 'Mes')
+                 )
             ->add('monto', NumberType::class, array('label' =>'Monto'))
+            ->add('orden', NumberType::class, array('label'=> 'Orden'))
             ->add('tipo', ChoiceType::class, array(
                                     'choices'  => array(
                                         'Mensual' => 'mensual',
                                         'Matrícula' => 'matricula'),
                                     'label' => 'Tipo')
                 )
-            ->add('comisionCobrador', NumberType::class, array(
-                                                            'label' =>'Comisión del Cobrador',
-                                                             'scale' => 1))
-            ->add('fechaAlta',DateType::class, array(
-                                                'widget' => 'single_text', 
-                                                'html5' => true, 
-                                                'label' => 'Fecha de Alta'))
+            
+            
             ->add('button', SubmitType::class)
         ;
     }

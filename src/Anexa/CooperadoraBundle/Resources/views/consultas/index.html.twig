@@ -1,0 +1,74 @@
+{% extends 'AnexaCooperadoraBundle:frontend:index.html.twig' %}
+
+{% block cuerpo %}
+<div class="container" >
+<div class="panel panel-default">
+    <div class="panel-heading">Consultar Por DNI y Año las Cuotas Pagas</div>
+    <div class="panel-body" id="paginacion">                                 
+      <form method="post" action="{{ path('consulta')}}">
+          <div class="col-md-5">
+            <label for="anio"> Año</label>
+            <input class="form-control" type="text" name="anio" />
+          </div>
+          <div class="col-md-5">
+            <label for="anio"> DNI</label>
+            <input class="form-control" type="text" name="dni" />
+          </div>
+          <div class="col-md-2">
+            <label for="buscar"> Buscar</label>
+            <button class="btn btn-default col-md-12" title="Buscar" id="consulta1"><span class="glyphicon glyphicon-search"></span></button>
+          </div>
+      </form>
+    </div>    
+  </div>
+ 	{% if informacion is defined %}
+ 		{% if informacion.status %}      
+ 			<div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">{{ informacion.info }}</div>
+                <!-- Table -->
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                DNI
+                                </th>
+                                
+                                {% for mes in informacion.meses %}
+                                    <th>  {{ mes }} </th>
+                                {% endfor %} 
+                                
+                            </tr>
+                        </thead>
+                        
+                         <tbody class="list">
+                             <tr> 
+                                 <td class="dni">{{dni}}</td>
+                                
+                                {% for pago in informacion.pagos %}
+                                                                                                         
+                                    <td class="pago"> {{pago}}</td>                                       
+                                
+                             {% endfor %}
+                            </tr>
+                        </tbody> 
+                    </table>
+                </div>
+
+        </div> 
+ 		{% else %}
+ 			{% if informacion.msj is defined %}
+
+        <div class="alert alert-{% if informacion.status %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <strong>Atención!   </strong>{{informacion.msj}}
+        </div>
+
+    {% endif %}
+ 		{% endif %}
+	
+    {% endif %}
+  </div>
+
+{% endblock %}

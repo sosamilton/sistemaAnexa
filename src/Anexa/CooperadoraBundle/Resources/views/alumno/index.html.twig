@@ -1,6 +1,6 @@
 {% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
 
-{% block title %} Administración | Alumnos | Listado{% endblock %}
+{% block title %} Administración | Alumnos | Listado {% endblock %}
 
 {% block dataAdmin %}
   {% if msj is defined %}
@@ -87,11 +87,9 @@
                                   
                                 <a class="btn btn-success" href="{{ path('alumno_show', { 'id': alumno.id }) }}" title="Ver"><span class='glyphicon glyphicon-eye-open'></span></a>
 
-                                {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_GESTION') %}
+                                {% if is_granted('ROLE_SUPER_ADMIN') %}
                                   <a class="btn btn-primary" href="{{ path('alumno_edit', { 'id': alumno.id }) }}" title="Editar"><span class='glyphicon glyphicon-pencil' ></span></a>
-                                  {% if is_granted('ROLE_SUPER_ADMIN') %}
-                                    <a class="btn btn-danger" href="{{path('alumno_delete', { 'id': alumno.id })}}" title='Eliminar'><span class='glyphicon glyphicon-remove'></span></a>
-                                  {% endif %}   
+                                  <a class="btn btn-danger" href="{{path('alumno_delete', { 'id': alumno.id })}}" title='Eliminar'><span class='glyphicon glyphicon-remove'></span></a>  
                                 {% endif %}   
                               </div>
 

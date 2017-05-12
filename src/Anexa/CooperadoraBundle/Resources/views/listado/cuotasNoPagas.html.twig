@@ -47,12 +47,12 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>
+                                {#<th>
                                     <button class="sort btn" data-sort="id">
                                         <span class="glyphicon glyphicon-sort"></span>
                                     </button>
                                 #
-                                </th>
+                                </th>#}
                                 <th>
                                     <button class="sort btn" data-sort="dni">
                                         <span class="glyphicon glyphicon-sort"></span>
@@ -79,7 +79,7 @@
                         <tbody class="list">
                             {% for alumno in alumnos %}
                                 <tr>
-                                    <th scope="row" class="id">{{alumno.id}}</th>
+                                    {#<th scope="row" class="id">{{alumno.id}}</th>#}
                                     <td class="dni">{{alumno.dni}}</td>
                                     <td class="nombre">{{alumno.nombre}}</td>
                                     <td class="apellido">{{alumno.apellido}}</td>

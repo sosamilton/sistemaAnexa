@@ -1,0 +1,4 @@
+api_consulta:
+    path:     /consulta/
+    defaults: { _controller: "AnexaCooperadoraBundle:AlumnoRest:index" }
+    methods:  GET, POST

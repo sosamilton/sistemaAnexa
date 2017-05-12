@@ -28,12 +28,6 @@ class Alumno {
 	*/
 	protected $borrado = false;
 
-	/**
-	* @var string
-	* @ORM\Column (name="tipoDNI", type="string", length=255)
-	*/
-	protected $tipoDNI;
-
 
 	/**
 	* @var integer
@@ -61,49 +55,6 @@ class Alumno {
 	*/
 	protected $fechaNacimiento;
 
-
-	/**
-	* @var string
-	* @ORM\Column (name="sexo", type="string", length=1)
-	*/
-	protected $sexo;
-
-	/**
-	* @var string
-	* @ORM\Column (name="calle", type="string", length=255)
-	*/
-	protected $calle;
-
-	/**
-	* @var string
-	* @ORM\Column (name="numero", type="string", length=255)
-	*/
-	protected $numero;
-
-	/**
-	* @var string
-	* @ORM\Column (name="ciudad", type="string", length=255)
-	*/
-	protected $ciudad;
-
-	/**
-	* @var string
-	* @ORM\Column (name="provincia", type="string", length=255)
-	*/
-	protected $provincia;
-
-	/**
-	* @var string
-	* @ORM\Column (name="codigoPostal", type="string", length=255)
-	*/
-	protected $codigoPostal;
-
-	/**
-	* @var string
-	* @ORM\Column (name="pais", type="string", length=255)
-	*/
-	protected $pais;
-
 	/**
 	* @var string
 	* @ORM\Column (name="telefono", type="string", length=255)
@@ -112,50 +63,46 @@ class Alumno {
 
 	/**
 	* @var string
+	* @ORM\Column (name="direccion", type="string", length=1)
+	*/
+	protected $direccion;
+
+	/**
+	* @var string
 	* @ORM\Column (name="email", type="string", length=255)
 	*/
 	protected $email;
 
-
 	/**
 	* @var string
-	* @ORM\Column (name="fechaIngreso", type="string")
+	* @ORM\Column (name="contacto", type="text")
 	*/
-	protected $fechaIngreso;
-
-
-	/**
-	* @var string
-	* @ORM\Column (name="fechaEgreso", type="string", nullable=true)
-	*/
-	protected $fechaEgreso;
-
-	/**
-	* @var float
-	* @ORM\Column (name="latitud", type="float", nullable=true)
-	*/
-	protected $latitud;
-
-	/**
-	* @var float
-	* @ORM\Column (name="longitud", type="float", nullable=true)
-	*/
-	protected $longitud;
+	protected $contacto;
 
 
 	/**
 	* @var string
-	* @ORM\Column (name="fechaAlta", type="string")
+	* @ORM\Column (name="comentario", type="text")
 	*/
-	protected $fechaAlta;
-
+	protected $comentario;
 
 	/**
-	* @ORM\ManyToMany(targetEntity="Responsable", inversedBy="alumnos")
-	* @ORM\JoinTable(name="Responsables_Alumnos")
-    */
-    protected $responsables;
+	* @var string
+	* @ORM\Column (name="nivel", type="string", length=255)
+	*/
+	protected $nivel;
 
+	/**
+	* @var integer
+	* @ORM\Column (name="curso", type="integer")
+	*/
+	protected $curso;
+
+	/**
+	* @var string
+	* @ORM\Column (name="division", type="string", length=1)
+	*/
+	protected $division;
 
     /**
     * @ORM\OneToMany(targetEntity="Pago", mappedBy="alumno")
@@ -163,7 +110,6 @@ class Alumno {
     protected $pagos;
 
    	public function __construct(){
-   		$this->responsables = new ArrayCollection();
    		$this->pagos = new ArrayCollection();
    	}
 
@@ -193,25 +139,6 @@ class Alumno {
 		return $this->pagos;
 	}
 
-	/**
-	* Add responsable
-	* @param Responsable $unResponsable
-	* @return ArrayCollection
-	*/
-	public function addResponsable($unResponsable) {
-		return $this->responsables[] = $unResponsable;
-		return $this->responsables;
-	}
-
-	/**
-	*remove responsable
-	*@param Responsable $unRes
-	*@return ArrayCollection
-	*/
-	public function removeResponsable($unRes) {
-		$this->responsables->removeElement($unRes);
-		return $this->responsables;
-	}
 
 /** ************************** GETTERS ***************************** */
 
@@ -234,23 +161,6 @@ class Alumno {
 		return $this->borrado;
 	}
 
-	/**
-	* toogle borrado
-	* @return model
-	*/
-	public function toogle()
-	{
-		return $this->borrado = true;
-	}
-
-	/**
-	* Get tipoDNI
-	* @return string
-	*/
-
-	public function getTipoDni() {
-		return $this->tipoDNI;
-	}
 
 	/**
 	* Get DNI
@@ -279,83 +189,11 @@ class Alumno {
 	}
 
 	/**
-	* Get latitud
-	* @return float
-	*/
-	public function getLatitud() {
-		return $this->latitud;
-	}
-
-	/**
-	* Get longitud
-	* @return float
-	*/
-	public function getLongitud() {
-		return $this->longitud;
-	}
-
-	/**
 	* Get fechaNacimiento
 	* @return string
 	*/
 	public function getFechaNacimiento() {
 		return $this->fechaNacimiento;
-	}
-
-	/**
-	* Get sexo
-	* @return string
-	*/
-	public function getSexo() {
-		return $this->sexo;
-	}
-
-	/**
-	* Get calle
-	* @return string
-	*/
-	public function getCalle() {
-		return $this->calle;
-	}
-
-	/**
-	* Get numero
-	* @return string
-	*/
-	public function getNumero() {
-		return $this->numero;
-	}
-
-	/**
-	* Get codigoPostal
-	* @return string
-	*/
-	public function getCodigoPostal() {
-		return $this->codigoPostal;
-	}
-
-	/**
-	* Get ciudad
-	* @return string
-	*/
-	public function getCiudad() {
-		return $this->ciudad;
-	}
-
-	/**
-	* Get provincia
-	* @return string
-	*/
-	public function getProvincia() {
-		return $this->provincia;
-	}
-
-	/**
-	* Get pais
-	* @return string
-	*/
-	public function getPais() {
-		return $this->pais;
 	}
 
 	 /**
@@ -378,36 +216,51 @@ class Alumno {
 	}
 
 	/**
-	* Get fechaIngreso
+	* Get contacto
 	* @return string
 	*/
-	public function getFechaIngreso() {
-		return $this->fechaIngreso;
+	public function getContacto() {
+		return $this->contacto;
 	}
 
 	/**
-	* Get fechaEgreso
+	* Get comentario
 	* @return string
 	*/
-	public function getFechaEgreso() {
-		return $this->fechaEgreso;
+	public function getComentario() {
+		return $this->comentario;
 	}
 
 	/**
-	* Get fechaAlta
+	* Get nivel
 	* @return string
 	*/
-	public function getFechaAlta() {
-		return $this->fechaAlta;
+	public function getNivel() {
+		return $this->nivel;
 	}
 
+	/**
+	* Get curso
+	* @return integer
+	*/
+	public function getCurso() {
+		return $this->curso;
+	}
 
 	/**
-	* Get Responsables
-	* @return ArrayCollection
+	* Get division
+	* @return string
 	*/
-	public function getResponsables(){
-		return $this->responsables;
+	public function getDivision() {
+		return $this->division;
+	}
+
+	/**
+	* Get direccion
+	* @return string
+	*/
+	public function getDireccion() {
+		return $this->direccion;
 	}
 
 	/**
@@ -417,9 +270,6 @@ class Alumno {
 	public function getPagos(){
 		return $this->pagos;
 	}
-
-
-
 
 /** **************************  SETTERS  ********************************** */
 
@@ -440,17 +290,6 @@ public function setBorrado($borrado) {
 */
 public function setDni($dni) {
 	$this->dni = $dni;
-	return $this;
-}
-
-
-/**
-* Set tipoDni
-* @param string $tipoDni
-* @return Alumno
-*/
-public function setTipoDni($tipoDni) {
-	$this->tipoDNI = $tipoDni;
 	return $this;
 }
 
@@ -486,82 +325,6 @@ public function setFechaNacimiento($fechaNacimiento) {
 }
 
 /**
-* Set sexo
-* @param string $sexo
-* @return Alumno
-*/
-public function setSexo($sexo) {
-	$this->sexo = $sexo;
-	return $this;
-}
-
-/**
-* Set calle
-* @param string $calle
-* @return Alumno
-*/
-public function setCalle($calle) {
-	$this->calle = $calle;
-	return $this;
-}
-
-
-/**
-* Set numero
-* @param string $numero
-* @return Alumno
-*/
-public function setNumero($numero) {
-	$this->numero = $numero;
-	return $this;
-}
-
-
-/**
-* Set codigoPostal
-* @param string $codigoPostal
-* @return Alumno
-*/
-public function setCodigoPostal($codigoPostal) {
-	$this->codigoPostal = $codigoPostal;
-	return $this;
-}
-
-
-/**
-* Set ciudad
-* @param string $ciudad
-* @return Alumno
-*/
-public function setCiudad($ciudad) {
-	$this->ciudad = $ciudad;
-	return $this;
-}
-
-
-/**
-* Set provincia
-* @param string $provincia
-* @return Alumno
-*/
-public function setProvincia($provincia) {
-	$this->provincia = $provincia;
-	return $this;
-}
-
-
-/**
-* Set pais
-* @param string $pais
-* @return Alumno
-*/
-public function setPais($pais) {
-	$this->pais = $pais;
-	return $this;
-}
-
-
-/**
     * Set telefono
     *
     * @param string $telefono
@@ -582,51 +345,66 @@ public function setEmail($email) {
 	return $this;
 }
 
-
 /**
-* Set fechaIngreso
-* @param string $fechaIngreso
+* Set contacto
+* @param string $contacto
 * @return Alumno
 */
-
-public function setFechaIngreso($fechaIngreso) {
-	$this->fechaIngreso = $fechaIngreso;
+public function setContacto($contacto) {
+	$this->contacto = $contacto;
 	return $this;
 }
 
 /**
-* Set fechaEgreso
-* @param string $fechaEgreso
+* Set comentario
+* @param string $comentario
 * @return Alumno
 */
-
-public function setFechaEgreso($fechaEgreso) {
-	$this->fechaEgreso = $fechaEgreso;
-	return $this;
-}
-
-
-/**
-* Set fechaAlta
-* @param string $fechaAlta
-* @return Alumno
-*/
-public function setFechaAlta($fechaAlta) {
-	$this->fechaAlta = $fechaAlta;
+public function setComentario($comentario) {
+	$this->comentario = $comentario;
 	return $this;
 }
 
 /**
-* Set responsables
-* @param ArrayCollection $res
+* Set nivel
+* @param string $nivel
 * @return Alumno
 */
-public function setResponsables($res) {
-	if (!$this->responsables->contains($res)) {
-		$this->responsables[] = $res;
-	}
+public function setNivel($nivel) {
+	$this->nivel = $nivel;
 	return $this;
 }
+
+/**
+* Set curso
+* @param string $curso
+* @return Alumno
+*/
+public function setCurso($curso) {
+	$this->curso = $curso;
+	return $this;
+}
+
+/**
+* Set division
+* @param string $division
+* @return Alumno
+*/
+public function setDivision($division) {
+	$this->division = $division;
+	return $this;
+}
+
+/**
+* Set direccion
+* @param string $direccion
+* @return Alumno
+*/
+public function setDireccion($direccion) {
+	$this->direccion = $direccion;
+	return $this;
+}
+
 
 /**
 * Set pagos
@@ -637,29 +415,6 @@ public function setPagos($pagos) {
 	$this->pagos = $pagos;
 	return $this;
 }
-
-/**
-* Set latitud
-* @param float $latitud
-* @return Alumno
-*/
-public function setLatitud($latitud) {
-	$this->latitud = $latitud;
-	return $this;
-}
-
-/**
-* Set longitud
-* @param float $longitud
-* @return Alumno
-*/
-public function setLongitud($longitud) {
-	$this->longitud = $longitud;
-	return $this;
-}
-
-
-
 
 
 }

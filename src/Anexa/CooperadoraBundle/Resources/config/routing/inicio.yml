@@ -9,3 +9,7 @@ login:
 sendMail:
     path:     /sendMail
     defaults: { _controller: AnexaCooperadoraBundle:Index:sendMail }
+
+consulta:
+    path:     /consulta
+    defaults: { _controller: "AnexaCooperadoraBundle:Index:consulta" }

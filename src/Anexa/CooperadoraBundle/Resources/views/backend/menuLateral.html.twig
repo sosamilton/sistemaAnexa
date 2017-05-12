@@ -14,7 +14,6 @@
   {% endif %}
 
   {% if is_granted('ROLE_SUPER_ADMIN') %}
-    <li role="presentation" {% if menu == "responsable" %}class="active"{% endif %}><a href="{{path('responsable_index')}}">Responsables</a></li>
 
     <li role="presentation" {% if menu == "usuario" %}class="active"{% endif %}><a href="{{path('usuario_index')}}">Usuarios</a></li>
 

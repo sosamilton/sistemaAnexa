@@ -1,6 +1,7 @@
 {% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
 
 {% block dataAdmin %}
+    
     <div class="panel panel-primary">
         <!-- Default panel contents -->
         <div class="panel-heading">Detalles del Alumno</div>
@@ -24,22 +25,34 @@
                     <label for="fechaNac">Fecha de Nacimiento</label>
                     <div class="form-control">{{alumno.fechaNacimiento }}</div>
                 </div>
-                <div class="col-md-4">
-                    <label for="tipoDNI">Tipo de Documento</label>
-                    <div class="form-control">{{alumno.tipoDni}}</div>
-                </div>
+                
                 <div class="col-md-4">
                     <label for="dni">Nro Documento</label>
                     <div class="form-control">{{alumno.dni}}</div>
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="direccion">Dirección</label>
+                    <div class="form-control">{{alumno.direccion}}</div>
+                </div>       
+                  <div class="col-md-4">
+                    <label for="nivel">Nivel</label>
+                    <div class="form-control">{{alumno.nivel}}</div>
+                </div>
+                
+                  <div class="col-md-4">
+                    <label for="curso">Curso</label>
+                    <div class="form-control">{{alumno.curso}}</div>
+                </div>
+                
+                  <div class="col-md-4">
+                    <label for="division">División</label>
+                    <div class="form-control">{{alumno.division}}</div>
                 </div>
 
             </div>
             <div class="form-group col-md-12">
 
-                <div class="col-md-3">
-                    <label for="sexo">Sexo</label>
-                    <div class="form-control" >{% if alumno.sexo == 'F' %} Femenino {% elseif  alumno.sexo == 'M'%} Masculino {% else %} Otro {% endif %}</div>
-                </div>
                 <div class="col-md-4">
                     <label for="telefono">Teléfono</label>
                     <div class="form-control">{{alumno.telefono}}</div>
@@ -48,72 +61,18 @@
                     <label for="email">Email</label>
                     <div class="form-control" >{{alumno.email}}</div>
                 </div>
-
-            </div>
-            <div class="col-md-12" >
-
                 <div class="col-md-4">
-                    <label for="fechaAlta">Fecha de Alta</label>
-                    <div class="form-control" >{{alumno.fechaAlta }}</div>
+                    <label for="contacto">Contacto</label>
+                    <div class="form-control">{{alumno.contacto}}</div>
                 </div>
-                <div class="col-md-4">
-                    <label for="fechaIngreso">Fecha de Ingreso</label>
-                    <div class="form-control" >{{alumno.fechaIngreso }}</div>
-                </div>
-                <div class="col-md-4">
-                    <label for="fechaEgreso">Fecha de Egreso</label>
-                    <div class="form-control" >{{alumno.fechaEgreso }}</div>
-                </div>
-
-            </div>
-
-            <div class="form-group col-md-12">
-
-                <div class="col-md-4">
-                    <label for="calle">Calle</label>
-                    <div class="form-control" id="calle" >{{alumno.calle}}</div>
-                </div>
-                <div class="col-md-4">
-                    <label for="numero">Número</label>
-                    <div class="form-control" id="numero" >{{alumno.numero}}</div>
-                </div>
-                <div class="col-md-4">
-                    <label for="codigoPostal">Código Postal</label>
-                    <div class="form-control" id="codigoPostal" >{{alumno.codigoPostal}}</div>
-                </div>
-
-            </div>
-                <div class="form-group col-md-12">
-                    <div class="col-md-4">
-                        <label for="ciudad">Ciudad</label>
-                        <div class="form-control" id="ciudad" >{{alumno.ciudad}}</div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="provincia">Provincia</label>
-                        <div class="form-control" id="provincia" >{{alumno.provincia}}</div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="pais">País</label>
-                        <div class="form-control" id="pais" >{{alumno.pais}}</div>
-                    </div>
-                </div>
-
-            <div class="form-group col-md-12">
-            
-                <div class="col-md-5 col-offset-md-2">
-                    <label>Responsables Agregados</label>
-                    <ul id="listResponsables" class="list-group">
-                        {% for responsable in responsables %}
-                            <li class='list-group-item'>
-                                {{responsable.nombre ~ " " ~ responsable.apellido}}
-                                <span class="badge">DNI:{{responsable.dni}}</span>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            
                 
+                  <div class="col-md-4">
+                    <label for="comentario">Comentarios</label>
+                    <div class="form-control">{{alumno.comentario}}</div>
+                </div>
+
             </div>
+           
         </div>
     </div>
 {% endblock %}

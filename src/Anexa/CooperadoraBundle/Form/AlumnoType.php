@@ -23,49 +23,33 @@ class AlumnoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tipoDNI',
-             ChoiceType::class, array(
-                                    'choices'  => array(
-                                        'DNI' => 'DNI',
-                                        'Cédula de Identidad' => 'CI',
-                                        'Libreta Cívica' => 'LC',
-                                        'Libreta de Enrolamiento' => 'LE'),
-                                    'label' => 'Tipo de Documento')
-             )
+            
             ->add('dni', TextType::class, array('label' => 'Número de Documento'))
             ->add('apellido', TextType::class, array('label' => 'Apellido'))
             ->add('nombre', TextType::class, array('label' => 'Nombre'))
-            ->add('sexo', ChoiceType::class, array(
-                                            'choices'  => array(
-                                                'Femenino' => 'F',
-                                                'Masculino' => 'M',
-                                                'Otro' => 'O'),
-                                            'label' => 'Sexo'))
-            ->add('calle', TextType::class, array('label' => 'Calle'))
-            ->add('numero', TextType::class, array('label' => 'Número'))
-            ->add('ciudad', TextType::class, array('label' => 'Ciudad'))
-            ->add('provincia', TextType::class, array('label' => 'Provincia'))
-            ->add('codigoPostal', TextType::class, array('label' => 'Código Postal'))
-            ->add('pais', TextType::class, array('label' => 'País'))
+            ->add('fechaNacimiento',TextType::class, array('label' => 'Fecha de Nacimiento'))
+            ->add('direccion', TextType::class, array('label' => 'Dirección'))
             ->add('telefono', TextType::class, array('label' => 'Teléfono'))
             ->add('email', TextType::class, array('label' => 'Email'))
-            ->add('latitud', HiddenType::class, array('label' => 'Latitud'))
-            ->add('longitud', HiddenType::class, array('label' => 'Longitud'))
-
-            ->add('fechaNacimiento',TextType::class, array('label' => 'Fecha de Nacimiento'))
-            ->add('fechaAlta',HiddenType::class, array('data' =>  (new \DateTime())->format('d/m/Y H:m:s') ))
-            ->add('fechaIngreso', TextType::class, array('label' => 'Fecha de Ingreso'))
-            ->add('fechaEgreso',TextType::class, array('label' => 'Fecha de Egreso', 'required'=>false))
-            ->add('responsables', EntityType::class, array(
-                                                    'class' => 'AnexaCooperadoraBundle:Responsable',
-                                                    'multiple' => true,
-                                                    'required' => false,
-                                                    'label' => 'Responsables',
-                                                    'query_builder' => function(EntityRepository $er) {
-                                                        return $er -> createQueryBuilder('r')
-                                                                    ->where('r.borrado = 0');
-                                                        })
+            ->add('curso', TextType::class, array('label' => 'Curso'))
+            ->add('division', ChoiceType::class, array(
+                                    'choices' => array(
+                                        'A' => 'A',
+                                        'B' => 'B',
+                                        'C' => 'C',
+                                        'D' => 'D'),
+                                'label' => 'División')
             )
+            ->add('contacto', TextType::class, array('label' => 'Contacto'))
+            ->add('comentario', TextType::class, array('label' => 'Comentario'))
+            ->add('nivel', ChoiceType::class, array(
+                                    'choices' => array(
+                                        'Inicial/Jardín' => 'I',
+                                        'Primaria' => 'P'),
+                                    'label' => 'Nivel')
+            )
+                                        
+            
             ->add('button', SubmitType::class);
     }
 

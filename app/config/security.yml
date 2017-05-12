@@ -21,7 +21,6 @@ security:
                 default_target_path: anexa_cooperadora_backend #redireccion automatica cuando se logea magia tipo symfony3
                 # if you are using Symfony < 2.8, use the following config instead:
                 # csrf_provider: form.csrf_provider
-
             logout:       true
             anonymous:    true
 

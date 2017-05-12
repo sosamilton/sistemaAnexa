@@ -9,10 +9,6 @@
       <!-- Table -->
       <div class="panel-body">
 
-   {# {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }} #}
 
   {{ form_start(form,  {'attr': {'id':'form'}}) }}
     {{ form_errors(form) }}
@@ -34,88 +30,47 @@
 							</span>
 					</div>
       </div>
-      <div class="col-md-4">
-          {{ form_label(form.tipoDNI) }}
-          {{ form_widget(form.tipoDNI, {'attr': {'class':'form-control'}}) }}
-      </div>
+      
       <div class="col-md-4">
           {{ form_label(form.dni) }}
           {{ form_widget(form.dni, {'attr': {'class':'form-control'}}) }}
-      </div>
-      <div class="col-md-3">
-          {{ form_label(form.sexo) }}
-          {{ form_widget(form.sexo, {'attr': {'class':'form-control'}} )}}
       </div>
       <div class="col-md-4">
           {{ form_label(form.telefono) }}
           {{ form_widget(form.telefono, {'attr': {'class':'form-control'}}) }}
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4">
           {{ form_label(form.email) }}
           {{ form_widget(form.email, {'attr': {'class':'form-control'}}) }}
       </div>
-      <div class="col-md-6">
-          {{ form_label(form.fechaIngreso) }}
-					<div class='input-group date datetimepicker9'>
-							{{form_widget(form.fechaIngreso, {'attr': {'class': 'form-control' }} )}}
-							<span class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar">
-									</span>
-							</span>
-					</div>
+      <div class="col-md-4">
+          {{ form_label(form.direccion) }}
+          {{ form_widget(form.direccion, {'attr': {'class':'form-control'}}) }}
       </div>
-      <div class="col-md-6">
-          {{ form_label(form.fechaEgreso) }}
-					<div class='input-group date datetimepicker9'>
-							{{form_widget(form.fechaEgreso, {'attr': {'class': 'form-control' }} )}}
-							<span class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar">
-									</span>
-							</span>
-					</div>
+          <div class="col-md-4">
+          {{ form_label(form.contacto) }}
+          {{ form_widget(form.contacto, {'attr': {'class':'form-control'}}) }}
       </div>
-			<div class="col-md-12 form-group">
-			<div class="col-md-6">
-        <div class="col-md-12">
-            {{ form_label(form.calle) }}
-            {{ form_widget(form.calle, {'attr': {'class':'form-control direccion'}}) }}
-        </div>
-
-        <div class="col-md-12">
-            {{ form_label(form.numero) }}
-            {{ form_widget(form.numero, {'attr': {'class':'form-control direccion'}}) }}
-        </div>
-        <div class="col-md-12">
-            {{ form_label(form.codigoPostal) }}
-            {{ form_widget(form.codigoPostal, {'attr': {'class':'form-control direccion'}}) }}
-        </div>
-        <div class="col-md-12">
-            {{ form_label(form.ciudad) }}
-            {{ form_widget(form.ciudad, {'attr': {'class':'form-control direccion'}}) }}
-        </div>
-        <div class="col-md-12">
-            {{ form_label(form.provincia) }}
-            {{ form_widget(form.provincia, {'attr': {'class':'form-control direccion'}}) }}
-        </div>
-        <div class="col-md-12">
-            {{ form_label(form.pais) }}
-            {{ form_widget(form.pais, {'attr': {'class':'form-control direccion'}}) }}
-        </div>
-        </div>
-
-				<div class="col-md-6 margin-top0">
-					<div class="col-md-12 form-group">
-						<select class="form-control" id="resultados">
-							<option>Selecciones una ubicacion</option>
-						</select>
-					</div>
-					<div id="Map" class="img-thumbnail col-md-12" style="height:250px"></div>
-				</div>
-			</div>
-    <div class="col-md-12 ">
-        {{ form_label(form.responsables) }}
-        {{ form_widget(form.responsables, {'attr': {'class':'form-control chosen-select'}}) }}
-    </div>
+          
+        <div class="col-md-4">
+          {{ form_label(form.nivel) }}
+          {{ form_widget(form.nivel, {'attr': {'class':'form-control'}}) }}
+      </div>
+          
+        <div class="col-md-2">
+          {{ form_label(form.curso) }}
+          {{ form_widget(form.curso, {'attr': {'class':'form-control'}}) }}
+      </div>
+          
+     <div class="col-md-2">
+          {{ form_label(form.division) }}
+          {{ form_widget(form.division, {'attr': {'class':'form-control'}}) }}
+      </div>
+          
+    <div class="col-md-4">
+          {{ form_label(form.comentario) }}
+          {{ form_widget(form.comentario, {'attr': {'class':'form-control'}}) }}
+      </div>
 		<div class="col-md-12 form-group">
 				{{ form_label(form.button) }}
 				{{ form_widget(form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label': 'Agregar Alumno'}) }}
@@ -132,127 +87,12 @@
 				viewMode: 'years',
 				format: 'DD/MM/YYYY'
 			});
-			$(".chosen-select").chosen({
-			  display_disabled_options: true,
-				no_results_text: "Oops, No existe responsable con el nombre: ",
-				placeholder_text_multiple: "Seleccione los responsables del alumno"
-			});
 			$("#form").trigger("chosen:updated");
-      function loadMaps(){
-        var lat            = -34.920797;
-        var lon            =  -57.953198;
-        var zoom           = 14;
-
-        var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
-        var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
-        var position       = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
-
-        map = new OpenLayers.Map("Map");
-        var mapnik         = new OpenLayers.Layer.OSM();
-        map.addLayer(mapnik);
-
-
-        var markers = new OpenLayers.Layer.Markers( "Markers" );
-        map.addLayer(markers);
-        //markers.addMarker(new OpenLayers.Marker(position));
-        map.setCenter(position, zoom);
-      }
-
-      loadMaps();
-      $('.direccion').change(function(){
-        var numero=$('#alumno_numero').val();
-				var calle=$('#alumno_calle').val();
-        var ciudad = $('#alumno_ciudad').val();
-        var codigoPostal = $('#alumno_codigoPostal').val();
-        var provincia = $('#alumno_provincia').val();
-        var pais=$('#alumno_pais').val();
-        var dir = numero + ", " + calle + ", " + ciudad + ", " + provincia + ", " + codigoPostal + ", " + pais;
-        $.ajax({
-          url : ' http://nominatim.openstreetmap.org/search?q='+dir+'&format=json&polygon=1&addressdetails=1',
-          cache: false
-        })
-          .done(function( direcciones ) {
-            if (!direcciones.length == 0){
-              $('.opcion').remove();
-              $(direcciones).each(function(index, dir){
-                 $('#resultados').append('<option class="opcion" value="'+dir['place_id']+'" id="'+dir['place_id']+'" lat="'+dir['lat']+'" long="'+dir['lon']+'">'+dir['display_name']+'</option>');
-              });
-            }
-
-          });
-      });
-      $('#resultados').change(function(){
-        var option = $("#resultados option:selected");
-        $('#long').val(option.attr('long'));
-        $('#lat').val(option.attr('lat'));
-        $('#direccion').val(option.text());
-        var position       = new OpenLayers.LonLat(option.attr('long'), option.attr('lat'))
-                              .transform(
-                                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                                map.getProjectionObject() // to Spherical Mercator Projection
-                              );
-        var markers = new OpenLayers.Layer.Markers( "Markers" );
-        map.addLayer(markers);
-        markers.addMarker(new OpenLayers.Marker(position));
-        map.setCenter(position, 15);
-      });
-
-			//Set up a click handler
-			OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
-					defaultHandlerOptions: {
-							'single': true,
-							'double': false,
-							'pixelTolerance': 0,
-							'stopSingle': false,
-							'stopDouble': false
-					},
-
-					initialize: function(options) {
-							this.handlerOptions = OpenLayers.Util.extend(
-									{}, this.defaultHandlerOptions
-							);
-							OpenLayers.Control.prototype.initialize.apply(
-									this, arguments
-							);
-							this.handler = new OpenLayers.Handler.Click(
-									this, {
-											'click': this.trigger
-									}, this.handlerOptions
-							);
-					},
-
-					trigger: function(e) {
-							//A click happened!
-							var lonlat = map.getLonLatFromViewPortPx(e.xy)
-
-							lonlat.transform(
-								new OpenLayers.Projection("EPSG:900913"),
-								new OpenLayers.Projection("EPSG:4326")
-							);
-
-							alert("You clicked near " + lonlat.lat + " N, " +
-																				+ lonlat.lon + " E");
-					}
-
-			});
-
-
-			$('#addClick').click(function(){
-				map = new OpenLayers.Map('Map');
-
-				map.addLayer(new OpenLayers.Layer.OSM());
-
-				var click = new OpenLayers.Control.Click();
-				map.addControl(click);
-				click.activate();
-
-			});
   });
 
   </script>
 {% endblock %}
 
 {% block addJS %}
-<script src="{{asset("/js/openlayers-master/lib/OpenLayers.js")}}"></script>
 <script type="text/javascript" src="{{ asset('bundles/js/chosen.jquery.min.js') }}"></script>
 {% endblock %}

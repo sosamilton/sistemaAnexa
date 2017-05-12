@@ -75,12 +75,6 @@
                     Mes
                   </th>
                   <th>
-                    <button class="sort btn" data-sort="numero">
-                        <span class="glyphicon glyphicon-sort"></span> 
-                    </button>
-                    Número
-                  </th>
-                  <th>
                     <button class="sort btn" data-sort="tipo">
                         <span class="glyphicon glyphicon-sort"></span>
                     </button>
@@ -101,8 +95,7 @@
   	            {% for cuota in cuotasImpagas %}
   	              <tr>
   	                <td class="anio">{{cuota.anio}}</td>
-  	                <td class="mes">{{cuota.mes}}</td>
-                    <td class="numero">{{cuota.numero}}</td>
+  	                <td class="mes">{{ cuota.mes }}</td>
                     <td class="tipo">{{cuota.tipo}}</td>
                     <td class="monto">{{cuota.monto}}</td>
                     <td>
@@ -220,12 +213,6 @@
                     Mes
                   </th>
                   <th>
-                    <button class="sort btn" data-sort="numero">
-                        <span class="glyphicon glyphicon-sort"></span> 
-                    </button>
-                    N&uacute;mero
-                  </th>
-                  <th>
                     <button class="sort btn" data-sort="tipo">
                         <span class="glyphicon glyphicon-sort"></span>
                     </button>
@@ -250,8 +237,7 @@
                 {% for cuota in cuotasPagas %}
                   <tr>                 
                     <td class="anio">{{cuota.data.anio}}</td>
-                    <td class="mes">{{cuota.data.mes}}</td>
-                    <td class="numero">{{cuota.data.numero}}</td>
+                    <td class="mes">{{ cuota.data.mes }}</td>
                     <td class="tipo">{{cuota.data.tipo}}</td>
                     <td class="becado">{% if cuota.beca %} si {% else %} no {% endif %}</td>
                     <td class="monto">{{cuota.data.monto}}</td>                    
@@ -322,7 +308,7 @@
 
           var monkeyList = new List('paginacion', {
               valueNames: [ 'anio','mes','numero','tipo', 'monto', "comision", "fechaAlta"],
-              page: {{paginacion}},
+              page: '{{ render(url('paginacion')) }}',
               plugins: [ ListPagination({}) ] 
           });
 

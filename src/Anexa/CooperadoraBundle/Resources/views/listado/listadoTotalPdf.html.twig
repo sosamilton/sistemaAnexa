@@ -1,0 +1,67 @@
+{% extends 'AnexaCooperadoraBundle:backend:basePdf.html.twig' %}
+{% block title %} Administración | Pagos {% endblock %}
+
+
+{% block cuerpo %}
+
+{% block dataAdmin %}
+
+      <div class="panel panel-primary">
+            <!-- Default panel contents -->
+            <div class="panel-heading">{{info}}</div>
+                <!-- Table -->
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                DNI
+                                </th>
+                                
+                                <th>
+                                Alumno
+                                </th>
+                                
+                               {% for mes in meses %}
+                                    <th>  {{ mes }} </th>
+                                {% endfor %}
+                                
+                                <th>
+                                Cob
+                                </th>
+                                
+                                <th>
+                                Curso
+                                </th>
+                                
+                                <th>
+                                Div
+                                </th>
+                                
+                                <th>
+                                Est
+                                </th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody class="list">
+                             {% for pago in pagos %}
+                                <tr>
+                                    <td class="dni">{{pago.alumno.dni}}</td>
+                                    <td class="nombre">{{pago.alumno.apellido}} {{pago.alumno.nombre}}</td>
+                                    {% for mes in meses %}
+                                        <td class="mes">  {{pago.mes[loop.index0]}} </td>
+                                        {#<td class="mes">{{ not pago.mes[loop.index0] ? 'No' : pago.mes[loop.index0] }}  {{}} </td>#}
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+        </div>
+
+    
+    {% endblock %}
+{% endblock %}
+                      

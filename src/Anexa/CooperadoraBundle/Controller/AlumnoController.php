@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Anexa\CooperadoraBundle\Entity\Alumno;
-use Anexa\CooperadoraBundle\Entity\Responsable;
 use Anexa\CooperadoraBundle\Form\AlumnoType;
 
 /**
@@ -24,9 +23,14 @@ class AlumnoController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $alumnos = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findByBorrado(false);
+        if (count($alumnos) == 0) {
+            $datos['msj'] = 'No hay alumnos registrados aún';
+            $datos['success'] = false;
+        } else {
         $datos['alumnos'] = $alumnos;
         $datos['menu'] = "alumno";
         return $this->render('AnexaCooperadoraBundle:alumno:index.html.twig', $datos);
+         }
     }
 
     /**
@@ -64,12 +68,10 @@ class AlumnoController extends Controller
     {
         $deleteForm = $this->createDeleteForm($alumno);
         $em = $this->getDoctrine()->getManager();
-        $misResponsables = $alumno->getResponsables();
 
         return $this->render('AnexaCooperadoraBundle:alumno:show.html.twig', array(
             'alumno' => $alumno,
             'delete_form' => $deleteForm->createView(),
-            'responsables'=>$misResponsables,
             'menu' => 'alumno'
         ));
     }

@@ -94,7 +94,7 @@
       $( document ).ready(function() {
           var monkeyList = new List('paginacion', {
             valueNames: ['id', 'nombre','apellido','dni'],
-            page: {{ paginacion}},
+            page: '{{ render(url('paginacion')) }}',
             plugins: [ ListPagination({}) ] 
         });
 

@@ -38,6 +38,20 @@ class User extends BaseUser
     */
     protected $pagos;
 
+    /**
+    * @var string
+    *
+    *@ORM\Column(name="fechaUltCierre", type="string")
+    *
+    */
+    protected $fechaUltCierre;
+
+    /**
+    * @ORM\OneToOne(targetEntity="TipoCobrador")
+    * @ORM\JoinColumn(name="tipoCobrador_id", referencedColumnName="id")
+    */
+    protected $tipoCobrador;
+
     public function __construct(){
         parent::__construct();
         $this->habilitado = true;
@@ -137,12 +151,10 @@ class User extends BaseUser
     public function getRol() {
         if ($this->roles[0] == "ROLE_SUPER_ADMIN") {
           $rol="Super Administrador";
-        }elseif ($this->roles[0] == "ROLE_GESTION") {
+        }elseif ($this->roles[0] == "ROLE_COBRADOR") {
           $rol="Gestion";
         }elseif ($this->roles[0] == "ROLE_ADMIN") {
           $rol="Administrador";
-        }else {
-          $rol="Consulta";
         }
         return $rol;
     }
@@ -152,5 +164,14 @@ class User extends BaseUser
         return $this->getUserName();
     }
 
+    public function getFechaUltCierre(){
+        return $this->fechaUltCierre;
+    }
+
+    public function setFechaUltCierre($fecha){
+        $this->fechaUltCierre = $fecha;
+        return $this;
+
+    }
 
 }

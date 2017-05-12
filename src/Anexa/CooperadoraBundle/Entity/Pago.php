@@ -20,7 +20,6 @@ class Pago {
 	*/
 	protected $id;
 
-
 	/**
 	* @var boolean
 	* @ORM\Column(name="borrado", type="boolean")
@@ -32,20 +31,6 @@ class Pago {
 	* @ORM\Column (name="fecha", type="datetime")
 	*/
 	protected $fecha;
-
-
-	/**
-	* @var datetime
-	* @ORM\Column (name="fechaAlta", type="datetime")
-	*/
-	protected $fechaAlta;
-
-
-	/**
-	* @var datetime
-	* @ORM\Column (name="fechaActualizacion", type="datetime")
-	*/
-	protected $fechaActualizacion;
 
 	/**
 	* @ORM\ManyToOne(targetEntity="Alumno", inversedBy="pagos")
@@ -106,39 +91,12 @@ class Pago {
 	}
 
 	/**
-	* toogle borrado
-	* @return boolean
-	*/
-	public function toogle()
-	{
-		$this->borrado = false;
-	}
-
-	/**
 	* Get fecha
 	* @return datetime
 	*/
 	public function getFecha()
 	{
 		return $this->fecha;
-	}
-
-	/**
-	* Get fechaAlta
-	* @return datetime
-	*/
-	public function getFechaAlta()
-	{
-		return $this->fechaAlta;
-	}
-
-	/**
-	* Get fechaActualizacion
-	* @return datetime
-	*/
-	public function getFechaActualizacion()
-	{
-		return $this->fechaActualizacion;
 	}
 
 	/**
@@ -179,28 +137,6 @@ class Pago {
 	public function setFecha($fecha)
 	{
 		$this->fecha = $fecha;
-		return $this;
-	}
-
-	/**
-	* Set fechaAlta
-	* @param datetime $fecha
-	* @return Pago
-	*/
-	public function setFechaAlta($fecha)
-	{
-		$this->fechaAlta = $fecha;
-		return $this;
-	}
-
-	/**
-	* Set fechaActualizacion
-	* @param datetime $fecha
-	* @return Pago
-	*/
-	public function setFechaActualizacion($fecha)
-	{
-		$this->fechaActualizacion = $fecha;
 		return $this;
 	}
 
@@ -255,13 +191,5 @@ class Pago {
 		$this->borrado = $borrado;
 		return $this;
 	}
-
-
-
-
-
-
-
-
 
 }

@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
 * Cuota
 * @ORM\Table()
-* @ORM\Entity
+* @ORM\Entity(repositoryClass="Anexa\CooperadoraBundle\Repository\CuotaRepository")
 */
 
 class Cuota {
@@ -39,16 +39,17 @@ class Cuota {
 
 	/**
 	* @var integer
-	* @ORM\Column(name="mes", type="integer")
-	*/
-	protected $mes;
+	* @ORM\Column(name="orden", type="integer")
+    
+	protected $orden; */
 
 
-	/**
-	* @var integer
-	* @ORM\Column(name="numero", type="integer")
-	*/
-	protected $numero;
+    /**
+    * @var string
+    * @ORM\Column (name="mes", type="string", length=255)
+    */
+    protected $mes;
+    
 
 
 	/**
@@ -63,13 +64,6 @@ class Cuota {
 	* @ORM\Column (name="tipoCuota", type="string", length=255)
 	*/
 	protected $tipo;
-
-
-	/**
-	* @var decimal
-	* @ORM\Column(name="comisionCobrador", type="decimal")
-	*/
-	protected $comisionCobrador;
 
 
 	/**
@@ -114,29 +108,7 @@ class Cuota {
         return $this->pagos;
     }
 
-    /*
-    /**
-    *cmp
-    * @param Cuota $a Cuota $b
-    *@return boolean
-
-    public function cmp($a, $b) {
-        if ($a->getAnio() > $b->getAnio()){
-            return true;
-        } elseif ($a->getAnio() == $b->getAnio()) {
-            if ($a->getMes() > $b->getMes()) {
-                return true;
-            } else {
-                return false;
-                }
-         }
-      return false;
-    }
-    */
-
-
-
-
+     
 	/* *********************** GETTERS *********************** */
 
 	/**
@@ -169,7 +141,7 @@ class Cuota {
 
     /**
     * Get mes
-    * @return integer
+    * @return string
     */
     public function getMes()
     {
@@ -177,12 +149,12 @@ class Cuota {
     }
 
     /**
-    *Get numero
+    *Get orden
     * @return integer
     */
-    public function getNumero()
+    public function getOrden()
     {
-    	return $this->numero;
+    	return $this->orden;
     }
 
     /**
@@ -192,16 +164,6 @@ class Cuota {
     public function getMonto()
     {
     	return $this->monto;
-    }
-
-
-    /**
-    *Get comisionCobrador
-    * @return decimal
-    */
-    public function getComisionCobrador()
-    {
-    	return $this->comisionCobrador;
     }
 
     /**
@@ -236,7 +198,6 @@ class Cuota {
 
 
 	/* *********************** SETTERS *********************** */
-    //* @param integer @ORM\anio//
 	/**
     * Set Anio
     * @param integer $anio
@@ -260,13 +221,13 @@ class Cuota {
     }
 
     /**
-    *Set numero
-    * @param $nro
+    *Set orden
+    * @param $orden
     * @return Cuota
     */
-    public function setNumero($nro)
+    public function setOrden($orden)
     {
-    	$this->numero = $nro;
+    	$this->orden = $orden;
     	return $this;
     }
 
@@ -278,18 +239,6 @@ class Cuota {
     public function setMonto($monto)
     {
     	$this->monto = $monto;
-    	return $this;
-    }
-
-
-    /**
-    *Set comisionCobrador
-    * @param decimal $comision
-    * @return Cuota
-    */
-    public function setComisionCobrador($comision)
-    {
-    	$this->comisionCobrador = $comision;
     	return $this;
     }
 

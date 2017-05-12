@@ -18,7 +18,9 @@ framework:
     form:            ~
     csrf_protection: ~
     validation:      { enable_annotations: true }
-    #serializer:      { enable_annotations: true }
+    serializer: #{ enable_annotations: true }
+        enabled: true
+         
     templating:
         engines: ['twig']
     default_locale:  "%locale%"
@@ -83,4 +85,18 @@ swiftmailer:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
+    from_email: 
+        address:        noreply@example.com
+        sender_name:    Demo App
     user_class: Anexa\CooperadoraBundle\Entity\User
+
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary: %kernel.root_dir%/../vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64
+        options:    []
+
+    image:
+        enabled:    true
+        binary: %kernel.root_dir%/../vendor/h4cc/wkhtmltoimage-amd64/bin/wkhtmltoimage-amd64
+        options:    []

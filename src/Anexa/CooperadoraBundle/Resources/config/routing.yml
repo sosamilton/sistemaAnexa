@@ -14,10 +14,6 @@ anexa_cooperadora_couta:
     prefix:     /backend/cuota
     resource: "@AnexaCooperadoraBundle/Resources/config/routing/cuota.yml"
 
-anexa_cooperadora_responsable:
-    prefix:     /backend/responsable
-    resource: "@AnexaCooperadoraBundle/Resources/config/routing/responsable.yml"
-
 anexa_cooperadora_pago:
     prefix:     /backend/pago
     resource: "@AnexaCooperadoraBundle/Resources/config/routing/pago.yml"
@@ -41,8 +37,11 @@ logout:
     path: /logout
 
 login:
-    path: /login
+    path: /entrar
     defaults: { _controller: AnexaCooperadoraBundle:User:login }
+
+fos_login:
+    path: /login
 
 register:
     path: /register/
@@ -52,102 +51,3 @@ paginacion:
     path: /paginacion
     defaults: { _controller: AnexaCooperadoraBundle:Configuracion:paginacion }
 
-# backend/usuario/estado:
-#  	controller: "usuario"
-#  	action: "toogle"
-#  	role: rolAdmin
-#
-# backend/pago:
-# 	controller: "pago"
-# 	action: "index"
-# 	role: rolGestion
-#
-# backend/pago/seleccionado:
-# 	controller: "pago"
-# 	action: "pagoSeleccionado"
-# 	role: rolGestion
-#
-# backend/pago/total:
-# 	controller: "pago"
-# 	action: "pagoTotal"
-# 	role: rolGestion
-#
-# backend/pago/editar:
-# 	controller: "pago"
-# 	action:	"update"
-# 	role: rolGestion
-#
-# backend/pago/eliminar:
-# 	controller: "pago"
-# 	action: "delete"
-# 	role: rolGestion
-#
-# backend/pago/listarPagos:
-# 	controller: "pago"
-# 	action: "verPagos"
-# 	role: rolGestion
-#
-# backend/recorrido:
-# 	controller: "recorrido"
-# 	action: "index"
-# 	role: rolAdmin
-#
-# backend/estadisticas:
-# 	controller: "estadistica"
-# 	action: "index"
-# 	role: rolGestion
-#
-# backend/estadistica/graficos:
-# 	controller: "estadistica"
-# 	action: "graficar"
-# 	role: rolGestion
-#
-# backend/estadistica/graficoPDF:
-# 	controller: "estadistica"
-# 	action: "graficarPdf"
-# 	role: rolGestion
-#
-# backend/listado:
-# 	controller: "listado"
-# 	action: "index"
-# 	role: rolConsulta
-#
-# backend/listado/matriculados:
-# 	controller: "listado"
-# 	action: "matriculaPaga"
-# 	role: rolConsulta
-#
-# backend/listado/matriculadosPDF:
-# 	controller: "listado"
-# 	action: "matriculasPagasPdf"
-# 	role: rolConsulta
-#
-# backend/listado/cuotasPagas:
-# 	controller: "listado"
-# 	action: "cuotasPagas"
-# 	role: rolConsulta
-#
-# backend/listado/cuotasPagasPDF:
-# 	controller: "listado"
-# 	action: "cuotasPagasPdf"
-# 	role: rolConsulta
-#
-# backend/listado/cuotasImpagas:
-# 	controller: "listado"
-# 	action: "cuotasImpagas"
-# 	role: rolConsulta
-#
-# backend/listado/cuotasImpagasPDF:
-# 	controller: "listado"
-# 	action: "cuotasImpagasPdf"
-# 	role: rolConsulta
-#
-# backend/listado/comisionCobrada:
-# 	controller: "listado"
-# 	action: "comisionCobrada"
-# 	role: rolGestion
-#
-# backend/listado/comisionCobradaPDF:
-# 	controller: "listado"
-# 	action: "comisionCobradaPdf"
-# 	role: rolGestion
