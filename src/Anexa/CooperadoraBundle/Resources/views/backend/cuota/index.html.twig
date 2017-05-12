@@ -10,11 +10,9 @@
                 <th>Borrado</th>
                 <th>Anio</th>
                 <th>Mes</th>
-                <th>Numero</th>
                 <th>Monto</th>
                 <th>Tipo</th>
-                <th>Comisioncobrador</th>
-                <th>Fechaalta</th>
+                <th>Orden</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -24,11 +22,10 @@
                 <td><a href="{{ path('cuota_show', { 'id': cuotum.id }) }}">{{ cuotum.id }}</a></td>
                 <td>{% if cuotum.borrado %}Yes{% else %}No{% endif %}</td>
                 <td>{{ cuotum.anio }}</td>
-                <td>{{ cuotum.mes }}</td>
-                <td>{{ cuotum.numero }}</td>
+                <td>{{ cuotum.mes }}</td>           
                 <td>{{ cuotum.monto }}</td>
                 <td>{{ cuotum.tipo }}</td>
-                <td>{{ cuotum.comisionCobrador }}</td>
+                <td>{{ cuotum.orden }}</td>
                 <td>{% if cuotum.fechaAlta %}{{ cuotum.fechaAlta|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                     <ul>

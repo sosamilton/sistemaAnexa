@@ -40,8 +40,8 @@ class Cuota {
 	/**
 	* @var integer
 	* @ORM\Column(name="orden", type="integer")
-    
-	protected $orden; */
+    */
+	protected $orden;
 
 
     /**
@@ -50,7 +50,6 @@ class Cuota {
     */
     protected $mes;
     
-
 
 	/**
 	* @var decimal
@@ -64,13 +63,6 @@ class Cuota {
 	* @ORM\Column (name="tipoCuota", type="string", length=255)
 	*/
 	protected $tipo;
-
-
-	/**
-	* @var datetime
-	* @ORM\Column (name="fechaAlta", type="datetime")
-	*/
-	protected $fechaAlta;
 
 	/**
 	* @ORM\OneToMany (targetEntity="Pago", mappedBy="cuota")
@@ -166,15 +158,6 @@ class Cuota {
     	return $this->monto;
     }
 
-    /**
-    *Get fechaAlta
-    * @return datetime
-    */
-    public function getFechaAlta()
-    {
-    	return $this->fechaAlta;
-    }
-
 
     /**
     *Get pagos
@@ -239,17 +222,6 @@ class Cuota {
     public function setMonto($monto)
     {
     	$this->monto = $monto;
-    	return $this;
-    }
-
-    /**
-    *Set fechaAlta
-    * @param datetime $fecha
-    * @return Cuota
-    */
-    public function setFechaAlta($fecha)
-    {
-    	$this->fechaAlta = $fecha;
     	return $this;
     }
 

@@ -41,24 +41,20 @@
                   </button>
                   Tipo
                 </th>
+                 <th>
+                  <button class="sort btn" data-sort="orden">
+                      <span class="glyphicon glyphicon-sort"></span>
+                  </button>
+                  Orden
+                </th>
                 <th>
                   <button class="sort btn" data-sort="monto">
                       <span class="glyphicon glyphicon-sort"></span> 
                   </button>
                   Monto
                 </th> 
-                <th>
-                  <button class="sort btn" data-sort="comision">
-                      <span class="glyphicon glyphicon-sort"></span> 
-                  </button>
-                  Comisión Cobrador
-                </th>
-                <th>
-                  <button class="sort btn" data-sort="fechaAlta">
-                      <span class="glyphicon glyphicon-sort"></span> 
-                  </button>
-                  Fecha de Alta
-                </th>                   
+                
+                                   
                 <th>Acciones</th>
             </tr>
           </thead>
@@ -68,9 +64,9 @@
                         <td>{{ cuota.anio }}</td>
                         <td>{{ cuota.mes }}</td>
                         <td>{{ cuota.tipo }}</td>
+                        <td> {{ cuota.orden }}</td>
                         <td>{{ cuota.monto }}</td>
-                        <td>{{ cuota.comisionCobrador }}%</td>
-                        <td>{{ cuota.fechaAlta | date("d-m-Y") }}</td>
+                        
                         <td>
                             <div class="">
 
