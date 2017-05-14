@@ -19,7 +19,7 @@ class ConfiguracionType extends AbstractType
             ->add('titulo', TextType::class, array('label' => 'Título'))
             ->add('descripcion', TextType::class, array('label' => 'Descripción del sitio'))
             ->add('email', TextType::class, array('label' => 'Email de contacto'))
-            ->add('paginacion', TextType::class, array('label' => 'Paginacion'))
+            ->add('paginacion', TextType::class, array('label' => 'Paginación'))
             ->add('estado_sitio', TextType::class, array('label' => 'Estado del sitio'))
             ->add('mensaje_deshabilitado', TextType::class, array('label' => 'Mensaje del sitio deshabilitado'))
             ->add('button', SubmitType::class)

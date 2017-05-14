@@ -22,8 +22,6 @@ class TipoCobrador {
 	*/
 	protected $id;
 
-
-
 	/**
 	* @var denominacion
 	* @ORM\Column(name="denominacion", type="string", length=255)

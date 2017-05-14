@@ -90,7 +90,7 @@ class CuotaController extends Controller
             $em->persist($cuota);
             $em->flush();
 
-            return $this->redirectToRoute('cuota_index'); //, array('id' => $cuota->getId()));
+            return $this->redirectToRoute('cuota_index'); 
         }
 
         return $this->render('AnexaCooperadoraBundle:cuota:edit.html.twig', array(

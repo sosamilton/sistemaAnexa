@@ -12,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Doctrine\ORM\EntityRepository;
-use Anexa\CooperadoraBundle\Entity\Responsable;
 
 class AlumnoType extends AbstractType
 {
@@ -37,7 +36,8 @@ class AlumnoType extends AbstractType
                                         'A' => 'A',
                                         'B' => 'B',
                                         'C' => 'C',
-                                        'D' => 'D'),
+                                        'D' => 'D'.
+                                        'E' => 'E'),
                                 'label' => 'División')
             )
             ->add('contacto', TextType::class, array('label' => 'Contacto'))

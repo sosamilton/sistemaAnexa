@@ -152,7 +152,7 @@ class User extends BaseUser
         if ($this->roles[0] == "ROLE_SUPER_ADMIN") {
           $rol="Super Administrador";
         }elseif ($this->roles[0] == "ROLE_COBRADOR") {
-          $rol="Gestion";
+          $rol="Cobrador";
         }elseif ($this->roles[0] == "ROLE_ADMIN") {
           $rol="Administrador";
         }
