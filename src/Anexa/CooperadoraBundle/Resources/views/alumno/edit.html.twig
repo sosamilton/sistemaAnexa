@@ -44,6 +44,10 @@
                     {{ form_label(edit_form.telefono) }}
                     {{ form_widget(edit_form.telefono, {'attr': {'class':'form-control'}}) }}
                 </div>
+                <div class="col-md-4">
+                    {{ form_label(edit_form.direccion) }}
+                    {{ form_widget(edit_form.direccion, {'attr': {'class':'form-control'}}) }}
+                </div>
                 <div class="col-md-5">
                     {{ form_label(edit_form.email) }}
                     {{ form_widget(edit_form.email, {'attr': {'class':'form-control'}}) }}
@@ -72,6 +76,11 @@
               <div class="col-md-4">
                     {{ form_label(edit_form.comentario) }}
                     {{ form_widget(edit_form.comentario, {'attr': {'class':'form-control'}}) }}
+            </div>
+            
+            <div class="col-md-4">
+                    {{ form_label(edit_form.nuevo) }}
+                    {{ form_widget(edit_form.nuevo, {'attr': {'class':'form-control'}}) }}
             </div>
                
               <div class="col-md-12 form-group">

@@ -1,6 +1,6 @@
 {% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
 
-{% block title %} Administración | Cuotas | Listado {% endblock %}
+{% block title %} Administración | Tipos de Cobrador | Listado {% endblock %}
 
 {% block dataAdmin %}
   {% if msj is defined %}
@@ -10,13 +10,13 @@
         </div>
   {% endif %}
     {% if is_granted('ROLE_SUPER_ADMIN') %}
-        <a class="btn btn-primary botonAdd" href="{{ path('cuota_new') }}">Agregar Cuota</a>
+        <a class="btn btn-primary botonAdd" href="{{ path('cobrador_new') }}">Agregar Tipo Cobrador</a>
     {% endif %}
-{% if cuotas is defined %}
+{% if tipos is defined %}
 
     <div class="panel panel-primary" id="paginacion">
       <!-- Default panel contents -->
-      <div class="panel-heading">Listado de Cuotas</div>
+      <div class="panel-heading">Listado de Tipos De Cobradores</div>
       <!-- Table -->
       <div class="panel-body"> 
 
@@ -24,48 +24,32 @@
           <thead>
             <tr>
                 <th>
-                  <button class="sort btn" data-sort="anio">
+                  <button class="sort btn" data-sort="denominacion">
                       <span class="glyphicon glyphicon-sort"></span>
                   </button>
-                    Año
+                    Denominación
                 </th>
                 <th>
-                  <button class="sort btn" data-sort="mes">
+                  <button class="sort btn" data-sort="comision">
                       <span class="glyphicon glyphicon-sort"></span>
                   </button>
-                  Mes
-                </th>
-                <th>
-                  <button class="sort btn" data-sort="tipo">
-                      <span class="glyphicon glyphicon-sort"></span>
-                  </button>
-                  Tipo
-                </th>
-                <th>
-                  <button class="sort btn" data-sort="monto">
-                      <span class="glyphicon glyphicon-sort"></span> 
-                  </button>
-                  Monto
+                  Comisión
                 </th> 
-                
                                    
                 <th>Acciones</th>
             </tr>
           </thead>
               <tbody class='list'>
-                {% for cuota in cuotas %}
+                {% for tipo in tipos %}
                     <tr>                           
-                        <td>{{ cuota.anio }}</td>
-                        <td>{{ cuota.mes }}</td>
-                        <td>{{ cuota.tipo }}</td>
-                        <td>{{ cuota.monto }}</td>
-                        
+                        <td>{{ tipo.denominacion }}</td>
+                        <td>{{ tipo.comision }}</td>
                         <td>
                             <div class="">
 
                               {% if is_granted('ROLE_SUPER_ADMIN')  %}
-                                  <a class="btn btn-primary" href="{{ path('cuota_edit', { 'id': cuota.id }) }}" title="Editar"><span class='glyphicon glyphicon-pencil' ></span></a>
-                                 <a class="btn btn-danger" href="{{path('cuota_delete', { 'id':  cuota.id })}}" title='Eliminar'><span class='glyphicon glyphicon-remove'></span></a>
+                                  <a class="btn btn-primary" href="{{ path('cobrador_edit', { 'id': tipo.id }) }}" title="Editar"><span class='glyphicon glyphicon-pencil' ></span></a>
+                                 <a class="btn btn-danger" href="{{path('cobrador_delete', { 'id':  tipo.id })}}" title='Eliminar'><span class='glyphicon glyphicon-remove'></span></a>
                               {% endif %}
                               
                             </div>
@@ -84,7 +68,7 @@
     <script type="text/javascript">
         $( document ).ready(function() {
             var monkeyList = new List('paginacion', {
-              valueNames: ['numero', 'anio','mes','tipo', 'monto', "comision", "fechaAlta"],
+              valueNames: ['denominacion', 'comision'],
               page: '{{ render(url('paginacion')) }}',
               plugins: [ ListPagination({}) ] 
           });

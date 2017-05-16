@@ -1,0 +1,35 @@
+{% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
+
+{% block title %} Administración | Tipos de Cobrador | Editar {% endblock %}
+
+{% block dataAdmin %}
+    <div class="panel panel-primary">
+      <!-- Default panel contents -->
+        <div class="panel-heading">Editar Tipo De Cobrador ~ Tipo: {{tipoCobrador.denominacion}} </div>
+      <!-- Table -->
+        <div class="panel-body">
+
+          {{ form_start(edit_form) }}
+              {{ form_errors(edit_form) }}
+                <div class="form-group col-md-12">
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.denominacion) }}
+                      {{ form_widget(edit_form.denominacion, {'attr': {'class':'form-control'}}) }}
+                  </div>
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.comision) }}
+                      {{ form_widget(edit_form.comision, {'attr': {'class':'form-control'}}) }}
+                  </div>              
+                </div>              
+
+                  {{ form_label(edit_form.button) }}
+                  {{ form_widget(edit_form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label' : 'Editar Tipo De Cobrador'}) }}
+ 
+          {{ form_end(edit_form) }}
+
+        </div>
+    </div>
+    
+  
+{% endblock %}
+

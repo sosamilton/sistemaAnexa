@@ -1,24 +1,24 @@
 cobrador_index:
     path:     /
-    defaults: { _controller: "AnexaCooperadoraBundle:tipoCobrador:index" }
+    defaults: { _controller: "AnexaCooperadoraBundle:TipoCobrador:index" }
     methods:  GET
 
 cobrador_show:
     path:     /{id}/show
-    defaults: { _controller: "AnexaCooperadoraBundle:tipoCobrador:show" }
+    defaults: { _controller: "AnexaCooperadoraBundle:TipoCobrador:show" }
     methods:  GET
 
 cobrador_new:
     path:     /new
-    defaults: { _controller: "AnexaCooperadoraBundle:tipoCobrador:new" }
+    defaults: { _controller: "AnexaCooperadoraBundle:TipoCobrador:new" }
     methods:  [GET, POST]
 
 cobrador_edit:
     path:     /{id}/edit
-    defaults: { _controller: "AnexaCooperadoraBundle:tipoCobrador:edit" }
+    defaults: { _controller: "AnexaCooperadoraBundle:TipoCobrador:edit" }
     methods:  [GET, POST]
 
 cobrador_delete:
     path:     /{id}/delete
-    defaults: { _controller: "AnexaCooperadoraBundle:tipoCobrador:delete" }
+    defaults: { _controller: "AnexaCooperadoraBundle:TipoCobrador:delete" }
     methods:  GET

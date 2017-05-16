@@ -31,7 +31,7 @@ class TipoCobradorController extends Controller
         } else {
         $datos['tipos'] = $tipos;
         }
-        $datos['menu'] = "tipos";
+        $datos['menu'] = "tipoCobrador";
         return $this->render('AnexaCooperadoraBundle:tipoCobrador:index.html.twig', $datos);
     }
 
@@ -93,7 +93,7 @@ class TipoCobradorController extends Controller
             $em->persist($tipoCobrador);
             $em->flush();
 
-            return $this->redirectToRoute('tipoCobrador_index'); 
+            return $this->redirectToRoute('cobrador_index'); 
         }
 
         return $this->render('AnexaCooperadoraBundle:tipoCobrador:edit.html.twig', array(
@@ -123,14 +123,14 @@ class TipoCobradorController extends Controller
     /**
      * Creates a form to delete a TipoCobrador entity.
      *
-     * @param TipoCobrador $tipoCobrador The tipoCobrador entity
+     * @param TipoCobrador $tipoCobrador The TipoCobrador entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm(TipoCobrador $tipoCobrador)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('tipoCobrador_delete', array('id' => $tipoCobrador->getId())))
+            ->setAction($this->generateUrl('cobrador_delete', array('id' => $tipoCobrador->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

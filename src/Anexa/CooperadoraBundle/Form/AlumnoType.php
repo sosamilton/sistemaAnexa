@@ -36,9 +36,15 @@ class AlumnoType extends AbstractType
                                         'A' => 'A',
                                         'B' => 'B',
                                         'C' => 'C',
-                                        'D' => 'D'.
+                                        'D' => 'D',
                                         'E' => 'E'),
                                 'label' => 'División')
+            )
+            ->add('nuevo', ChoiceType::class, array(
+                                    'choices' => array(
+                                        'Si' => '1',
+                                        'No' => '0'),
+                                'label' => 'Nuevo')
             )
             ->add('contacto', TextType::class, array('label' => 'Contacto'))
             ->add('comentario', TextType::class, array('label' => 'Comentario'))

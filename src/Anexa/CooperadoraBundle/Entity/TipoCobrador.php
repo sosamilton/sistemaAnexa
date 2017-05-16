@@ -34,6 +34,12 @@ class TipoCobrador {
 	*/
 	protected $comision;
 
+    /**
+    * @var boolean
+    * @ORM\Column(name="borrado", type="boolean")
+    */
+    protected $borrado = false;
+
 	/* ****************************** GETTERS ******************************* */
 
 	/**
@@ -63,6 +69,15 @@ class TipoCobrador {
     	return $this->comision;
     }
 
+    /**
+    * Get borrado
+    * @return boolean
+    */
+    public function getBorrado()
+    {
+        return $this->borrado;
+    }
+
 
     /* ************************************* SETTERS ****************************** */
 
@@ -85,5 +100,16 @@ class TipoCobrador {
     public function setComision($comision){
     	$this->comision = $comision;
     	return $this;
+    }
+
+    /**
+    *Set borrado
+    * @param boolean $borrado
+    * @return TipoCobrador
+    */
+    public function setBorrado($borrado)
+    {
+        $this->borrado = $borrado;
+        return $this;
     }
 }

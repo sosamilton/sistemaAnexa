@@ -51,8 +51,6 @@ class AlumnoController extends Controller
             return $this->redirectToRoute('alumno_show', array('id' => $alumno->getId()));
         }
 
-        //$allResponsables = $em->getRepository('AnexaCooperadoraBundle:Responsable')->findByBorrado(false);
-
         return $this->render('AnexaCooperadoraBundle:alumno:new.html.twig', array(
             'alumno' => $alumno,
             'form' => $form->createView(),

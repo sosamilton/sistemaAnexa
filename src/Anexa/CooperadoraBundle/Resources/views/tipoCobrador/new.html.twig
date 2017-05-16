@@ -1,0 +1,34 @@
+{% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
+
+{% block title %} Administración | Tipos de Cobrador | Agregar{% endblock %}
+
+{% block dataAdmin %}
+	<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Agregar Tipo Cobrador </div>
+    <!-- Table -->
+    <div class="panel-body">
+
+      {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="form-group col-md-12">
+          <div class="col-md-3">
+              {{ form_label(form.denominacion) }}
+              {{ form_widget(form.denominacion, {'attr': {'class':'form-control'}}) }}
+          </div>
+          <div class="col-md-3">
+              {{ form_label(form.comision) }}
+              {{ form_widget(form.comision, {'attr': {'class':'form-control'}}) }}
+          </div> 
+          
+        </div>  
+             
+        {{ form_label(form.button) }}
+            {{ form_widget(form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label': 'Agregar Tipo Cobrador'}) }}
+
+      {{ form_end(form) }}
+    </div>
+  </div>
+
+{% endblock %}
+

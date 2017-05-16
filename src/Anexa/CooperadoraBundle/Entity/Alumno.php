@@ -28,6 +28,12 @@ class Alumno {
 	*/
 	protected $borrado = false;
 
+	/**
+	* @var boolean
+	* @ORM\Column(name="nuevo", type="boolean")
+	*/
+	protected $nuevo;
+
 
 	/**
 	* @var integer
@@ -161,6 +167,15 @@ class Alumno {
 		return $this->borrado;
 	}
 
+	/**
+	* Get nuevo
+	* @return boolean
+	*/
+	public function getNuevo()
+	{
+		return $this->nuevo;
+	}
+
 
 	/**
 	* Get DNI
@@ -280,6 +295,17 @@ class Alumno {
 */
 public function setBorrado($borrado) {
 	$this->borrado = $borrado;
+	return $this;
+}
+
+
+/**
+* Set Nuevo
+* @param boolean $nuevo
+* @return Alumno
+*/
+public function setNuevo($nuevo) {
+	$this->nuevo = $nuevo;
 	return $this;
 }
 

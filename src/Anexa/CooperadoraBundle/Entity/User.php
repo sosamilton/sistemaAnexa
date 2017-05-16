@@ -168,10 +168,18 @@ class User extends BaseUser
         return $this->fechaUltCierre;
     }
 
+    public function getTipoCobrador(){
+        return $this->tipoCobrador;
+    }
+
     public function setFechaUltCierre($fecha){
         $this->fechaUltCierre = $fecha;
         return $this;
+    }
 
+    public function setTipoCobrador($tipo){
+        $this->tipoCobrador = $tipo;
+        return $this;
     }
 
 }
