@@ -36,8 +36,7 @@ class UserType extends AbstractType
                 'multiple'=> true,
                 'choices' => array(
                     'Administrador' => 'ROLE_ADMIN',
-                    'Gestion'  => 'ROLE_GESTION',
-                    'Consulta'  => 'ROLE_CONSULTA'
+                    'Cobrador'  => 'ROLE_COBRADOR'
                 )))
           ->add('habilitado', CheckboxType::class, array(
               'label'    => 'Habilitado',

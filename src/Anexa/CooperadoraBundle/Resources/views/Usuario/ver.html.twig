@@ -24,7 +24,8 @@
                 </div>
                 <div class="col-md-4">
                   <label for="rol">Rol</label>
-                  <div class="form-control" > {{usuario.rol}}</div>
+                  <div class="form-control" > {% if usuario.roles[0] == "ROLE_SUPER_ADMIN" %} Administrador {% else %} Cobrador {% endif %}</div>
+                    
                 </div>
               </div>
             </div>
