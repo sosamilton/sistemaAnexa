@@ -97,12 +97,12 @@ class PagoController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     } // fin edit
-    
 
-    public function verPagosAction(Alumno $alumno, $datos=array()) 
+
+    public function verPagosAction(Alumno $alumno, $datos=array())
     {
         $em = $this->getDoctrine()->getManager();
-        
+
         $pagos = $alumno->getPagos(); //pagos realizados por el alumno
 
         if (count($pagos) == 0) {
@@ -116,7 +116,7 @@ class PagoController extends Controller
 
         $cuotasPagas = array();
         $cuotasPagasAux = array();
-        foreach ($pagos as $key => $pago) {        
+        foreach ($pagos as $key => $pago) {
             $cuotasPagasAux[$pago->getCuota()->getId()]=array();
             $cuotasPagasAux[$pago->getCuota()->getId()]['data']=$pago->getCuota();
             $cuotasPagasAux[$pago->getCuota()->getId()]['beca']=$pago->getBecado();
@@ -124,8 +124,8 @@ class PagoController extends Controller
             $cuotasPagas[] = $pago->getCuota(); //obtengo la cuota asociada con cada pago para obtener mes, año de la cuota
         }
 
-        $cuotasNoPagas = array_diff($todasCuotas, $cuotasPagas); //diferencia entre todas las cuotas existentes     
-  
+        $cuotasNoPagas = array_diff($todasCuotas, $cuotasPagas); //diferencia entre todas las cuotas existentes
+
         if (count($cuotasNoPagas) == 0) {
           $datos['msjImpagas'] = 'El alumno '.$alumno->getApellido().' '.$alumno->getNombre().' no tiene cuotas impagas';
           $datos['success'] = 0;
@@ -149,20 +149,20 @@ class PagoController extends Controller
           $datos['tieneCuotasPagas'] = true;
         }
         $datos['menu'] = 'pago';
-        
+
         $datos['alumno'] = $alumno;
-   
-        return $this->render('AnexaCooperadoraBundle:pago:listarPagos.html.twig', $datos); 
+
+        return $this->render('AnexaCooperadoraBundle:pago:listarPagos.html.twig', $datos);
     }// fin ver pagos
 
 
-    public function pagoSeleccionadoAction(Request $request) 
+    public function pagoSeleccionadoAction(Request $request)
     {
         $data= $request->request->all();
 
         $em = $this->getDoctrine()->getManager();
         $usuario = $this->getUser();
-        
+
         if (isset($data['alumnoId'])){
             $alumno = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findOneById($data['alumnoId']);
             if (isset($data['coutas'])) {
@@ -176,36 +176,44 @@ class PagoController extends Controller
               foreach ($data['becas'] as $id) {
                 $cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneById($id);
                 $this->setAction($cuota, $alumno, $usuario, true, new Pago);
-                $alumno->setNuevo(false);
-                $em->persist($alumno);
-                $em->flush();
               }
             }
 
             if (isset($data['nuevo'])) {
                 $cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneById($data['nuevo']);
+                $this->setAction($cuota, $alumno, $usuario, false, new Pago);
+                $alumno->setNuevo(false);
+                $em->persist($alumno);
+                $em->flush();
+            }
+
+            if (isset($data['nuevo_becar'])) {
+                $cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneById($data['nuevo_becar']);
                 $this->setAction($cuota, $alumno, $usuario, true, new Pago);
+                $alumno->setNuevo(false);
+                $em->persist($alumno);
+                $em->flush();
             }
             $datos=array(
               'msj' => ' Los pagos fueron efectuados correctamente!',
               'success' => 1
             );
-           
+
             return $this->verPagosAction($alumno, $datos);
         }else{
             return $this->indexAction();
         }
     } // fin pago seleccionado
 
-    public function setAction($cuota, $alumno, $usuario, $beca, $pago) 
-    {  
+    public function setAction($cuota, $alumno, $usuario, $beca, $pago)
+    {
         $em = $this->getDoctrine()->getManager();
         $pagoEfectuado=$em->getRepository('AnexaCooperadoraBundle:Pago')->findBy(array('alumno' => $alumno, 'cuota' => $cuota ));
         if (count($pagoEfectuado) < 1){
           try {
               $pago->setAlumno($alumno);
-              $pago->setCuota($cuota);  
-              $pago->setUser($usuario);        
+              $pago->setCuota($cuota);
+              $pago->setUser($usuario);
               $pago->setFecha(new \DateTime());
               $pago->setBecado($beca);
               $em->persist($pago);
@@ -220,7 +228,7 @@ class PagoController extends Controller
               return true;
            } catch (Exception $e) {
               return false;
-           } 
+           }
         }else{
           $datos=array(
               'msj' => ' La cuota a pagar ya estaba pagada',
@@ -238,7 +246,7 @@ class PagoController extends Controller
         $em = $this->getDoctrine()->getManager();
         if (isset($data['id'])) {
             $pago = $em->getRepository('AnexaCooperadoraBundle:Pago')->findOneById($data['id']);
-            $alumno = $pago->getAlumno(); 
+            $alumno = $pago->getAlumno();
             $alumno->removePago($pago);
             $pago->toogle();
             $em->persist($alumno);

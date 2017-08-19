@@ -5,17 +5,17 @@
     {% if msjImpagas is defined %}
         <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <strong>Atención! </strong>{{msjImpagas}}           
+          <strong>Atención! </strong>{{msjImpagas}}
         </div>
     {% endif %}
 
     {% if msjPagas is defined %}
         <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <strong>Atenci&oacute;n! </strong>{{msjPagas}}           
+          <strong>Atenci&oacute;n! </strong>{{msjPagas}}
         </div>
     {% endif %}
-  
+
 <!-- ##################################### cuotas no pagas ################################### -->
 
 
@@ -33,35 +33,35 @@
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="numero" checked> 
+                        <input type="checkbox" name="busqueda" value="numero" checked>
                         <label>N&uacute;mero</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="anio" checked> 
+                        <input type="checkbox" name="busqueda" value="anio" checked>
                         <label>A&ntilde;o</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="mes" checked> 
+                        <input type="checkbox" name="busqueda" value="mes" checked>
                         <label>Mes</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="tipo" checked> 
+                        <input type="checkbox" name="busqueda" value="tipo" checked>
                         <label>Tipo</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="monto" checked> 
+                        <input type="checkbox" name="busqueda" value="monto" checked>
                         <label>Monto</label>
                     </li>
                   </ul>
                 </div>
                 <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
                 <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-            </div>            
-              
+            </div>
+
             <table class="table table-hover">
               <thead>
                 <tr>
-                  
+
                   <th>
                     <button class="sort btn" data-sort="anio">
                         <span class="glyphicon glyphicon-sort"></span>
@@ -86,34 +86,34 @@
                     </button>
                     Monto
                   </th>
-                  
+
                   <th>Pagar</th>
                   {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <th>Becar</th>
                   {% endif %}
-                  
+
                 </tr>
               </thead>
               <tbody class="list">
-                {% if esNuevo %} 
+                {% if esNuevo %}
                     <tr>
-                        <td>{{cuotaIngreso.anio}}</td>
-                        <td>{{cuotaIngreso.mes}}</td>
-                        <td>{{cuotaIngreso.tipo}}</td>
-                        <td>{{cuotaIngreso.monto}}</td>
+                        <td class="anio">{{cuotaIngreso.anio}}</td>
+                        <td class="mes">{{cuotaIngreso.mes}}</td>
+                        <td class="tipo">{{cuotaIngreso.tipo}}</td>
+                        <td class="monto">{{cuotaIngreso.monto}}</td>
                         <td>
-                            <div class="pagar btn btn-primary" id="pagar_{{cuotaIngreso.id}}" cuota-id="{{cuotaIngreso.id}}" title='pagar'>
+                          <div class="nuevo btn btn-primary" tipo="nuevo" id="nuevo" cuota-id="{{cuotaIngreso.id}}" title='pagar'>
                                 <span class='glyphicon glyphicon-ok' ></span>
-                            </div>      
+                            </div>
                         </td>
                         {% if is_granted('ROLE_SUPER_ADMIN') %}
                             <td>
-                                <div class="becar btn btn-primary" id="becar_{{cuotaIngreso.id}}" cuota-id="{{cuotaIngreso.id}}" title='becar'>
+                                <div class="nuevo btn btn-primary" tipo="becar" id="nuevo_becar" cuota-id="{{cuotaIngreso.id}}" title='becar'>
                                     <span class='glyphicon glyphicon-ok' ></span>
-                                </div>      
+                                </div>
                             </td>
-                        {% endif %}  
-                  </tr>  
+                        {% endif %}
+                  </tr>
                 {% endif %}
   	            {% for cuota in cuotasImpagas %}
   	              <tr>
@@ -124,13 +124,13 @@
                     <td>
                         <div class="pagar btn btn-primary" id="pagar_{{cuota.id}}" cuota-id="{{cuota.id}}" title='pagar'>
                             <span class='glyphicon glyphicon-ok' ></span>
-                        </div>      
+                        </div>
                     </td>
                     {% if is_granted('ROLE_SUPER_ADMIN') %}
                         <td>
                             <div class="becar btn btn-primary" id="becar_{{cuota.id}}" cuota-id="{{cuota.id}}" title='becar'>
                                 <span class='glyphicon glyphicon-ok' ></span>
-                            </div>      
+                            </div>
                         </td>
                     {% endif %}
   	              </tr>
@@ -158,17 +158,17 @@
             </div>
           </div>
           <form id="formulario" action="{{path ('pago_seleccionado')}}" method="post">
-             
+
             <input type="hidden" name="alumnoId" value="{{alumno.id}}">
             <div id="inputs">
-               
+
             </div>
           </form>
       </div>
     {% endif %}
-    
+
 <!-- ##################################### cuotas pagas ################################### -->
-    
+
     {% if tieneCuotasPagas %}
       <div class="panel panel-primary">
           <!-- Default panel contents -->
@@ -182,27 +182,27 @@
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="numero" checked> 
+                        <input type="checkbox" name="busqueda" value="numero" checked>
                         <label>Numero</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="anio" checked> 
+                        <input type="checkbox" name="busqueda" value="anio" checked>
                         <label>Año</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="mes" checked> 
+                        <input type="checkbox" name="busqueda" value="mes" checked>
                         <label>Mes</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="tipo" checked> 
+                        <input type="checkbox" name="busqueda" value="tipo" checked>
                         <label>Tipo</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="monto" checked> 
+                        <input type="checkbox" name="busqueda" value="monto" checked>
                         <label>Monto</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="cobrador" checked> 
+                        <input type="checkbox" name="busqueda" value="cobrador" checked>
                         <label>Cobrador</label>
                     </li>
                   </ul>
@@ -210,12 +210,12 @@
                 <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
                 <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
 
-            </div>       
-                                    
+            </div>
+
 
             <table class="table table-hover">
               <thead>
-                <tr>                
+                <tr>
                   <th>
                     <button class="sort btn" data-sort="anio">
                         <span class="glyphicon glyphicon-sort"></span>
@@ -252,17 +252,17 @@
                     </button>
                     Cobrador
                   </th>
-                  
+
                 </tr>
               </thead>
               <tbody class="list">
                 {% for cuota in cuotasPagas %}
-                  <tr>                 
+                  <tr>
                     <td class="anio">{{cuota.data.anio}}</td>
                     <td class="mes">{{ cuota.data.mes }}</td>
                     <td class="tipo">{{cuota.data.tipo}}</td>
                     <td class="becado">{% if cuota.beca %} si {% else %} no {% endif %}</td>
-                    <td class="monto">{{cuota.data.monto}}</td>                    
+                    <td class="monto">{{cuota.data.monto}}</td>
                     <td class="cobrador">{{cuota.cobrador}}</td>
                   </tr>
                 {% endfor %}
@@ -307,7 +307,6 @@
             $(this).children().toggleClass("glyphicon-ok glyphicon-remove");
             var id = $(this).attr('cuota-id');
             var monto = $(this).parent().parent().find('.monto').text();
-            console.log($('#pagar_'+id));
             $('#pagar_'+id).toggleClass("btn-primary btn-danger");
             $('#pagar_'+id).children().toggleClass("glyphicon-ok glyphicon-remove");
             if ($('#cuota_'+id).length){
@@ -322,6 +321,25 @@
             actualizarSubtotal();
           });
 
+          $('.nuevo').click(function(){
+            var id = $(this).attr('cuota-id');
+            var tipo = $(this).attr('tipo');
+            var monto = $(this).parent().parent().find('.monto').text();
+            if(tipo=="becar"){
+              $('#beca_'+id).remove();
+              $('#nuevo_becar').toggleClass("btn-primary btn-danger");
+              $('#nuevo_becar').children().toggleClass("glyphicon-ok glyphicon-remove");
+              var text = "<input type='hidden' name='nuevo_becar' class='cuotaABecar' id='beca_"+id+"'' monto='"+monto+"' value='"+id+"'>";
+            }else{
+              $('#cuota_'+id).remove();
+              $('#nuevo').toggleClass("btn-primary btn-danger");
+              $('#nuevo').children().toggleClass("glyphicon-ok glyphicon-remove");
+              var text = "<input type='hidden' name='nuevo' class='cuotaAPagar' id='cuota_"+id+"'' monto='"+monto+"' value='"+id+"'>";
+            }
+            $('#inputs').append(text);
+            actualizarSubtotal();
+          });
+
           $('#pagarSeleccion').click(function(){
             var r = confirm("Está seguro que desea realizar el pago?");
             if (r == true) {
@@ -332,7 +350,7 @@
           var monkeyList = new List('paginacion', {
               valueNames: [ 'anio','mes','numero','tipo', 'monto', "comision", "fechaAlta"],
               page: '{{ render(url('paginacion')) }}',
-              plugins: [ ListPagination({}) ] 
+              plugins: [ ListPagination({}) ]
           });
 
           $(".input-busqueda").keyup(function(){
@@ -342,10 +360,10 @@
               });
               monkeyList.search($(this).val(), filtros)
           });
-        
+
 
         });
-        
+
         function actualizarSubtotal(){
           var total=0;
           $(".cuotaAPagar").each(function() {
@@ -353,6 +371,6 @@
           });
           $('#totalSeleccionado').text('$ '+ total);
         }
-        
+
     </script>
 {% endblock %}

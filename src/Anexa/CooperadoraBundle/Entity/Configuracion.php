@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
 * Configuracion
 *
-*@ORM\Table(name="Configuracion")
+*@ORM\Table(name="configuracion")
 *@ORM\Entity(repositoryClass="Anexa\CooperadoraBundle\Repository\ConfiguracionRepository")
 */
 class Configuracion {
