@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-md-2">
                     <label for="apellido">Nuevo</label>
-                    <div class="form-control" > {{alumno.nuevo}}</div>
+                    <div class="form-control" > {% if alumno.nuevo %} Si {% else %} No {% endif %}</div>
                 </div>
 
             </div>
@@ -59,7 +59,7 @@
               
                 <div class="col-md-4">
                     <label for="nivel">Nivel</label>
-                    <div class="form-control">{{alumno.nivel}}</div>
+                    <div class="form-control">{% if alumno.nivel == "P" %} Primaria {% else %} Inicial/Jardín {% endif %}</div>
                 </div>
                 
                   <div class="col-md-2">

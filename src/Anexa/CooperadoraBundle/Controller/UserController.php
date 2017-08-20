@@ -178,4 +178,37 @@ class UserController extends Controller
     {
         return $this->container->getParameter('fos_user.template.engine');
     }
+
+
+     /**
+     * Deletes a User entity.
+     *
+     */
+    public function deleteAction(Request $request, User $user)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user->borrar();
+        $em->flush();
+        $datos['msj'] = ' El usuario se eliminó correctamente!';
+        $datos['success'] = 1;
+        return $this->indexAction($datos);
+
+        return $this->redirectToRoute('user_index');
+    }
+
+    /**
+     * Creates a form to delete a User entity.
+     *
+     * @param User $user The User entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(User $user)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('user_delete', array('id' => $user->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
 }

@@ -88,7 +88,10 @@
                   </th>
                   
                   <th>Pagar</th>
-                  <th>Becar</th>
+                  {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <th>Becar</th>
+                  {% endif %}
+                  
                 </tr>
               </thead>
               <tbody class="list">
@@ -103,11 +106,13 @@
                             <span class='glyphicon glyphicon-ok' ></span>
                         </div>      
                     </td>
-                    <td>
-                        <div class="becar btn btn-primary" id="becar_{{cuota.id}}" cuota-id="{{cuota.id}}" title='becar'>
-                            <span class='glyphicon glyphicon-ok' ></span>
-                        </div>      
-                    </td>
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        <td>
+                            <div class="becar btn btn-primary" id="becar_{{cuota.id}}" cuota-id="{{cuota.id}}" title='becar'>
+                                <span class='glyphicon glyphicon-ok' ></span>
+                            </div>      
+                        </td>
+                    {% endif %}
   	              </tr>
   	            {% endfor %}
               </tbody>
@@ -133,19 +138,6 @@
             </div>
           </div>
           <form id="formulario" action="{{path ('pago_seleccionado')}}" method="post">
-              
-              {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <div class="form-group">
-                    <div class="col-md-4">
-                          <label for="user">Usuarios de Gestión</label>
-                          <select class="form-control" name="userId" required>
-                            {% for user in usuariosGestion %}
-                              <option value="{{user.id}}">{{user.username}}</option>
-                            {% endfor %}
-                          </select>
-                    </div>
-                </div>
-            {% endif %}
              
             <input type="hidden" name="alumnoId" value="{{alumno.id}}">
             <div id="inputs">
@@ -175,7 +167,7 @@
                     </li>
                     <li role="presentation">
                         <input type="checkbox" name="busqueda" value="anio" checked> 
-                        <label>Añoo</label>
+                        <label>Año</label>
                     </li>
                     <li role="presentation">
                         <input type="checkbox" name="busqueda" value="mes" checked> 
@@ -188,6 +180,10 @@
                     <li role="presentation">
                         <input type="checkbox" name="busqueda" value="monto" checked> 
                         <label>Monto</label>
+                    </li>
+                    <li role="presentation">
+                        <input type="checkbox" name="busqueda" value="cobrador" checked> 
+                        <label>Cobrador</label>
                     </li>
                   </ul>
                 </div>
@@ -204,7 +200,7 @@
                     <button class="sort btn" data-sort="anio">
                         <span class="glyphicon glyphicon-sort"></span>
                     </button>
-                    A&ntilde;o
+                    Año
                   </th>
                   <th>
                     <button class="sort btn" data-sort="mes">
@@ -230,6 +226,12 @@
                     </button>
                     Monto
                   </th>
+                  <th>
+                    <button class="sort btn" data-sort="cobrador">
+                        <span class="glyphicon glyphicon-sort"></span>
+                    </button>
+                    Cobrador
+                  </th>
                   
                 </tr>
               </thead>
@@ -241,6 +243,7 @@
                     <td class="tipo">{{cuota.data.tipo}}</td>
                     <td class="becado">{% if cuota.beca %} si {% else %} no {% endif %}</td>
                     <td class="monto">{{cuota.data.monto}}</td>                    
+                    <td class="cobrador">{{cuota.cobrador}}</td>
                   </tr>
                 {% endfor %}
               </tbody>

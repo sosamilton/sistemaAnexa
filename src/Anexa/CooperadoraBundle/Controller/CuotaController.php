@@ -16,7 +16,6 @@ class CuotaController extends Controller
 {
     /**
      * Lists all Cuota entities.
-     *
      */
     public function indexAction($datos=array())
     {

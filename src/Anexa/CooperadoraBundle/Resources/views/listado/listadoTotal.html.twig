@@ -24,10 +24,6 @@
                                 {% endfor %}
                                 
                                 <th>
-                                Cob
-                                </th>
-                                
-                                <th>
                                 Curso
                                 </th>
                                 
@@ -49,6 +45,9 @@
                                     {% for mes in meses %}
                                         <td class="mes">  {{pago.mes[loop.index0]}} </td>
                                     {% endfor %}
+                                    <td class="curso">{{pago.alumno.curso}}</td>
+                                    <td class="division">{{pago.alumno.division}}</td>
+                                    <td class="dni">{% if pago.alumno.nivel == 'P' %} Primario {% else %} Inicial/Jardin {% endif %}</td>
                                     
                                 </tr>
                             {% endfor %}

@@ -101,52 +101,6 @@ class PagoController extends Controller
 
     public function verPagosAction(Alumno $alumno, $datos=array()) 
     {
-        function filtrarPorFecha($alumno,$anioCuota,$mesCuota) {
-            $fechaIngreso = $alumno->getFechaIngreso();
-            $anioIngreso= (int)(substr($fechaIngreso,0,4)); //obtengo el año
-            $mesIngreso = (int)(substr($fechaIngreso,5,2)); //obtengo el mes
-
-            $fechaEgreso = $alumno->getFechaEgreso();
-            
-
-            if ($fechaEgreso == null) {
-                
-                if ( $anioCuota > $anioIngreso) {
-                  return true;
-                 }elseif ($anioCuota < $anioIngreso) {
-                  return false;
-                } elseif ($mesCuota >= $mesIngreso) {
-                    return true;
-                  } else {
-                    return false;}
-                
-            } else {
-                $anioEgreso= (int)(substr($fechaEgreso,0,4));
-                $mesEgreso= (int)(substr($fechaEgreso,5,2));
-                
-                if ($anioCuota < $anioEgreso) {
-                  if ($anioCuota > $anioIngreso) {
-                    return true;
-                  }
-                  elseif ($anioCuota < $anioIngreso) {
-                    return false;
-
-                  } elseif ($mesCuota >= $mesIngreso) {
-                    return true;
-                    } else {
-                      return false;
-                    }
-              } elseif ($anioCuota > $anioEgreso){
-                  return false;
-                  }  elseif ($mesCuota <= $mesEgreso) {
-                    return true;
-                    } else {
-                      return false;
-                    } 
-            }               
-                      
-        } // fin filtrar
-        /* ************************************** FILTRAR ******************************* */
         $em = $this->getDoctrine()->getManager();
         
         $pagos = $alumno->getPagos(); //pagos realizados por el alumno
@@ -171,24 +125,18 @@ class PagoController extends Controller
             $cuotasPagasAux[$pago->getCuota()->getId()]=array();
             $cuotasPagasAux[$pago->getCuota()->getId()]['data']=$pago->getCuota();
             $cuotasPagasAux[$pago->getCuota()->getId()]['beca']=$pago->getBecado();
+            $cuotasPagasAux[$pago->getCuota()->getId()]['cobrador']=$pago->getUser();
             $cuotasPagas[] = $pago->getCuota(); //obtengo la cuota asociada con cada pago para obtener mes, año de la cuota
         }
 
-        $cuotasNoPagas = array_diff($todasCuotas, $cuotasPagas); //diferencia entre todas las cuotas existentes
-        $cuotasImpagas = array();
-        foreach ($cuotasNoPagas as $cuota) {
-            if (filtrarPorFecha($alumno, $cuota->getAnio(), $cuota->getMes())) {
-                $cuotasImpagas[] = $cuota;
-            }
-        }      
-    
+        $cuotasNoPagas = array_diff($todasCuotas, $cuotasPagas); //diferencia entre todas las cuotas existentes     
   
-        if (count($cuotasImpagas) == 0) {
+        if (count($cuotasNoPagas) == 0) {
           $datos['msjImpagas'] = 'El alumno '.$alumno->getApellido().' '.$alumno->getNombre().' no tiene cuotas impagas';
           $datos['success'] = 0;
           $datos['tieneCuotasImpagas'] = false;
         } else {
-            $datos['cuotasImpagas'] = $cuotasImpagas;
+            $datos['cuotasImpagas'] = $cuotasNoPagas;
             $datos['tieneCuotasImpagas'] = true;
         }
 
@@ -202,21 +150,7 @@ class PagoController extends Controller
         $datos['menu'] = 'pago';
         
         $datos['alumno'] = $alumno;
-        $datos['usuariosGestion'] = array();
-
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')){
-            $usuarios = $em->getRepository('AnexaCooperadoraBundle:User')->findByBorrado(0);  
-              
-            if (!empty($usuarios)) {
-                $es_gestion = array();
-                foreach ($usuarios as $user) {
-                   if ($user->getRoles()[0] == 'ROLE_GESTION') {
-                     $es_gestion[] = $user;               
-                   }
-                }
-                $datos['usuariosGestion'] =  $es_gestion;
-            } 
-        }    
+   
         return $this->render('AnexaCooperadoraBundle:pago:listarPagos.html.twig', $datos); 
     }// fin ver pagos
 
@@ -229,8 +163,8 @@ class PagoController extends Controller
         if (isset($data['userId'])){
           $usuario = $em->getRepository('AnexaCooperadoraBundle:User')->findOneById($data['userId']);
         } 
-        elseif ($this->get('security.authorization_checker')->isGranted('ROLE_GESTION')){
-              $usuario = $em->getRepository('AnexaCooperadoraBundle:User')->findOneById($_SESSION['id']);
+        elseif ($this->get('security.authorization_checker')->isGranted('ROLE_COBRADOR')){
+              $usuario = $this->getUser();
         }       
 
         if (isset($data['alumnoId'])){
@@ -269,8 +203,6 @@ class PagoController extends Controller
               $pago->setCuota($cuota);  
               $pago->setUser($usuario);        
               $pago->setFecha(new \DateTime());
-              $pago->setFechaAlta(new \DateTime());
-              $pago->setFechaActualizacion(new \DateTime());
               $pago->setBecado($beca);
               $em->persist($pago);
               $em->flush();

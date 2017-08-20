@@ -132,15 +132,13 @@ class ListadoController extends Controller
 					$todosLosPagos[$iterator->current()->getId()] = $iterator->current();
 					$iterator->next();
 				}
-				/* Un usuario de consulta sólo puede ver los pagos de los alumnos que tiene a cargo */
 				
 				foreach ($pagos as $pago) {
-					//if ( /*todos or */$pago->getUser()->getUsername() == $usuario->getUsername()) { 
+					
 						$alumnos[$pago->getAlumno()->getId()]=array();
 						$alumnos[$pago->getAlumno()->getId()]['data']=$pago->getAlumno();
 						$alumnos[$pago->getAlumno()->getId()]['beca']=$pago;
 						$alumnos[$pago->getAlumno()->getId()]['user']=$pago->getUser()->getUsername();
-					//}
 				}
 				if (count($alumnos) == 0) {
 					$datos['msj'] = 'El usuario '.$usuario->getUsername().' no registra cobros de esta cuota';
@@ -195,15 +193,9 @@ class ListadoController extends Controller
 				    $iterator->next();
 				}
 			}
-			$deberianPagarAux = array();
-			foreach ($alumnos as $alumno) {
-				if (filtrarPorFecha($alumno,(int)$_POST['anio'],(int)$_POST['mes'])) {					
-					$deberianPagarAux[$alumno->getId()] = $alumno;
-				} 					
-			}
 
-			if (count($deberianPagarAux) > 0) {			
-				$arrayobject = new ArrayObject($deberianPagarAux);
+			if (count($alumnos) > 0) {			
+				$arrayobject = new ArrayObject($alumnos);
 				$iterator = $arrayobject->getIterator();
 		        while($iterator->valid()){
 				    $deberianPagar[$iterator->current()->getId()] = $iterator->current();
