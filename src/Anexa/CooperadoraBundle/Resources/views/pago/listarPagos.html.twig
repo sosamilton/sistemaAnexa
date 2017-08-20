@@ -95,6 +95,26 @@
                 </tr>
               </thead>
               <tbody class="list">
+                {% if esNuevo %} 
+                    <tr>
+                        <td>{{cuotaIngreso.anio}}</td>
+                        <td>{{cuotaIngreso.mes}}</td>
+                        <td>{{cuotaIngreso.tipo}}</td>
+                        <td>{{cuotaIngreso.monto}}</td>
+                        <td>
+                            <div class="pagar btn btn-primary" id="pagar_{{cuotaIngreso.id}}" cuota-id="{{cuotaIngreso.id}}" title='pagar'>
+                                <span class='glyphicon glyphicon-ok' ></span>
+                            </div>      
+                        </td>
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                            <td>
+                                <div class="becar btn btn-primary" id="becar_{{cuotaIngreso.id}}" cuota-id="{{cuotaIngreso.id}}" title='becar'>
+                                    <span class='glyphicon glyphicon-ok' ></span>
+                                </div>      
+                            </td>
+                        {% endif %}  
+                  </tr>  
+                {% endif %}
   	            {% for cuota in cuotasImpagas %}
   	              <tr>
   	                <td class="anio">{{cuota.anio}}</td>

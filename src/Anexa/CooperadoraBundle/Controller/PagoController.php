@@ -112,12 +112,7 @@ class PagoController extends Controller
             );
         }
       //todas las cuotas del sistema
-        $todasCuotas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findBy(array(
-              'borrado' => false),
-            array(
-              'anio' => 'DESC',
-              'mes' => 'DESC'
-            ));
+        $todasCuotas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->cuotasActivasAlumno();
 
         $cuotasPagas = array();
         $cuotasPagasAux = array();
@@ -138,6 +133,12 @@ class PagoController extends Controller
         } else {
             $datos['cuotasImpagas'] = $cuotasNoPagas;
             $datos['tieneCuotasImpagas'] = true;
+        }
+        if ($alumno->getNuevo()) {
+          $datos['cuotaIngreso'] = $em->getRepository('AnexaCooperadoraBundle:Cuota')->cuotasIngreso();
+          $datos['esNuevo'] = true;
+        }else{
+          $datos['esNuevo'] = false;
         }
 
         if (count($cuotasPagas) == 0) {
@@ -160,13 +161,8 @@ class PagoController extends Controller
         $data= $request->request->all();
 
         $em = $this->getDoctrine()->getManager();
-        if (isset($data['userId'])){
-          $usuario = $em->getRepository('AnexaCooperadoraBundle:User')->findOneById($data['userId']);
-        } 
-        elseif ($this->get('security.authorization_checker')->isGranted('ROLE_COBRADOR')){
-              $usuario = $this->getUser();
-        }       
-
+        $usuario = $this->getUser();
+        
         if (isset($data['alumnoId'])){
             $alumno = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findOneById($data['alumnoId']);
             if (isset($data['coutas'])) {
@@ -180,10 +176,18 @@ class PagoController extends Controller
               foreach ($data['becas'] as $id) {
                 $cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneById($id);
                 $this->setAction($cuota, $alumno, $usuario, true, new Pago);
+                $alumno->setNuevo(false);
+                $em->persist($alumno);
+                $em->flush();
               }
             }
+
+            if (isset($data['nuevo'])) {
+                $cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneById($data['nuevo']);
+                $this->setAction($cuota, $alumno, $usuario, true, new Pago);
+            }
             $datos=array(
-              'msj' => ' Los pagos fueron efectuados correctamente',
+              'msj' => ' Los pagos fueron efectuados correctamente!',
               'success' => 1
             );
            

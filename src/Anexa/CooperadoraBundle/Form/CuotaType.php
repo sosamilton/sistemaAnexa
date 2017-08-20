@@ -45,7 +45,8 @@ class CuotaType extends AbstractType
             ->add('tipo', ChoiceType::class, array(
                                     'choices'  => array(
                                         'Mensual' => 'mensual',
-                                        'Matrícula' => 'matricula'),
+                                        'Matricula' => 'matricula',
+                                        'Matrícula Ingreso' => 'matriculaIngreso'),
                                     'label' => 'Tipo')
                 )
             
