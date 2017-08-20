@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-08-2017 a las 19:16:14
+-- Tiempo de generación: 20-08-2017 a las 19:19:55
 -- Versión del servidor: 5.6.31-0ubuntu0.15.10.1
 -- Versión de PHP: 5.6.11-1ubuntu3.4
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   `comentario` longtext COLLATE utf8_unicode_ci NOT NULL,
   `nivel` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `curso` int(11) NOT NULL,
-  `direccion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `direccion` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   `nuevo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS `alumno` (
 --
 
 INSERT INTO `alumno` (`id`, `borrado`, `dni`, `apellido`, `nombre`, `fechaNacimiento`, `division`, `telefono`, `email`, `contacto`, `comentario`, `nivel`, `curso`, `direccion`, `nuevo`) VALUES
-(6, 0, 234234234, 'Sosa', 'Milton', '17/01/2010', 'A', '2214561789', 'milton@milton.com.ar', 'mamá', 'un comentario', 'I', 1, 'berisso', 0),
-(7, 0, 37075766, 'Pantera', 'Luis', '06/09/2010', 'A', '2216697311', 'milton@milton.com', 'mamá', 'bien', 'I', 2, '123 5', 0),
+(6, 0, 234234234, 'Sosa', 'Milton', '17/01/2010', 'A', '2214561789', 'milton@milton.com.ar', 'mamá', 'un comentario', 'I', 1, 'b', 0),
+(7, 0, 37075766, 'Pantera', 'Luis', '06/09/2010', 'A', '2216697311', 'milton@milton.com', 'mamá', 'bien', 'I', 2, '1', 0),
 (17, 0, 49567890, 'Lufiego', 'Zoe', '22/04/2014', '', '123456', 'mayravillarrubia@gmail.com', '', '', '', 0, '', 0),
 (18, 0, 94282488, 'Benitez', 'Javier', '17/11/1989', '', '02214091359', 'j@javier.com.ar', '', '', '', 0, '', 1),
 (19, 1, 50432678, 'Argento', 'Pepe', '04/06/2002', '', '2214915678', 'pepe@telefe.com', '', '', '', 0, '', 0),
