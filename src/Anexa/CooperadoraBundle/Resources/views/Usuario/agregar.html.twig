@@ -54,6 +54,8 @@
           $('#user_roles').change(function(event) {
             if ($(this).val() == "ROLE_COBRADOR") {
               $('#user_tipoCobrador').parent().show();
+            }else{
+              $('#user_tipoCobrador').parent().hide();
             }
           });
 

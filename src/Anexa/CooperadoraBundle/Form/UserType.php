@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use FOS\UserBundle\Util\LegacyFormHelper;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Anexa\CooperadoraBundle\Form\DataTransformer\StringToArrayTransformer;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -39,7 +40,7 @@ class UserType extends AbstractType
                     'Cobrador'  => 'ROLE_COBRADOR'
                 )))
           ->add('tipoCobrador', ChoiceType::class, array(
-                'multiple'=> true,
+                'multiple'=> false,
                 'choices'=>array(
                     'Domicilio' => 'domicilio',
                     'Transferencia Bancaria' => 'transferencia',
