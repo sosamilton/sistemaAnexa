@@ -246,21 +246,22 @@ class ListadoController extends Controller
 		}
 		
 		$result = array();
-		
+
 		foreach ($alumnos as $key => $alumno) 
 		{
         	$result[$alumno->getDni()] = array();
         	$result[$alumno->getDni()]['alumno'] = $alumno;
         	$aux = $em->getRepository('AnexaCooperadoraBundle:Cuota')->CuotasAlumnosPorAnio($anio, $alumno);       	
-        	
+          	$aux[]=$em->getRepository('AnexaCooperadoraBundle:Cuota')->cuotasIngresoData($anio, $alumno);      	
         	foreach (array_keys($meses) as $i) {
-        		if ($aux[$i]['pago']) {
+        		if (isset($aux[$i]['pago'])) {
         			$result[$alumno->getDni()]['mes'][$i] = 'Si';
         		} else {
         			$result[$alumno->getDni()]['mes'][$i] = 'No';
         		}
         	} 
-		}		
+		}	
+
         return $datos=array('pagos' =>$result, 'meses' => array_values($meses));
 
 	} //fin todosPagosAlumnosAux

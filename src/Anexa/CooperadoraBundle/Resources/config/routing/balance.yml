@@ -1,0 +1,4 @@
+balance_index:
+    path:     /
+    defaults: { _controller: "AnexaCooperadoraBundle:Balance:index" }
+    methods:  GET

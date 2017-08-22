@@ -16,5 +16,13 @@
      <li role="presentation" {% if menu == "configuracion" %}class="active"{% endif %}><a href="{{path('configuracion_index')}}">Configuración</a></li>
      <li role="presentation" {% if menu == "importData" %}class="active"{% endif %}><a href="{{path('importData')}}">Importar</a></li>
    {% endif %}
+<<<<<<< HEAD
 
+=======
+    
+    {% if is_granted('ROLE_COBRADOR') %}
+        <li role="presentation" {% if menu == "balance" %}class="active"{% endif %}><a href="{{path('balance_index')}}">Balance</a></li>
+    {% endif %}
+  
+>>>>>>> 2be66dc3fc6756aca9e2fa5245c3256f7b75eaa4
 </ul>

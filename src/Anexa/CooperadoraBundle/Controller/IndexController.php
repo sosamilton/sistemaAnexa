@@ -60,14 +60,13 @@ class IndexController extends Controller{
 				$cuotasAlumno = $em->getRepository('AnexaCooperadoraBundle:Cuota')->CuotasAlumnosPorAnio($anio, $alumno);        	
 	        	
 	        	foreach (array_keys($meses) as $i) {
-	        		if ($cuotasAlumno[$i]['pago']) {
+	        		if (isset($cuotasAlumno[$i]['pago'])) {
 	        			$result[$i] = 'Si';
 	        		} else {
 	        			$result[$i] = 'No';
 	        		}
 	        	}
-	        	//var_dump($result); die;
-				return array(
+	        	return array(
 						'status' => true,
 						'data' => $cuotasAlumno,
 						'meses' => array_values($meses),
