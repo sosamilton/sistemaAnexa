@@ -9,3 +9,11 @@ login:
 sendMail:
     path:     /sendMail
     defaults: { _controller: AnexaCooperadoraBundle:backend:sendMail }
+
+loadData:
+    path:     /loadData
+    defaults: { _controller: AnexaCooperadoraBundle:backend:loadData }
+
+importData:
+    path:     /importData
+    defaults: { _controller: AnexaCooperadoraBundle:backend:importData }

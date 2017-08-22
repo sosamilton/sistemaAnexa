@@ -31,7 +31,8 @@
         "h4cc/wkhtmltopdf-amd64": "0.12.x",
         "friendsofsymfony/user-bundle": "dev-master",
         "h4cc/wkhtmltoimage-amd64": "0.12.x",
-        "jens-na/osrm-api-client": "dev-master"
+        "jens-na/osrm-api-client": "dev-master",
+        "liuggio/excelbundle":"^2.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

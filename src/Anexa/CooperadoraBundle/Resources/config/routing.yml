@@ -55,3 +55,10 @@ paginacion:
     path: /paginacion
     defaults: { _controller: AnexaCooperadoraBundle:Configuracion:paginacion }
 
+loadData:
+    path:     /backend/loadData
+    defaults: { _controller: AnexaCooperadoraBundle:backend:loadData }
+
+importData:
+    path:     /backend/importData
+    defaults: { _controller: AnexaCooperadoraBundle:backend:importData }
