@@ -27,3 +27,4 @@ usuario_estado:
     path:     /{id}/toogle
     defaults: { _controller: "AnexaCooperadoraBundle:User:estado" }
     methods:  [GET, POST]
+

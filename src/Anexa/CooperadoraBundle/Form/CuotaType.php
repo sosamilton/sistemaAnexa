@@ -26,6 +26,7 @@ class CuotaType extends AbstractType
             ->add('mes', ChoiceType::class, array(
                                     'choices' => array(
                                         'Matrícula' => 'Matricula',
+                                        'Matrícula Ingreso' => 'matriculaIngreso',
                                         'Enero' => 'Enero',
                                         'Febrero' => 'Febrero',
                                         'Marzo' => 'Marzo',

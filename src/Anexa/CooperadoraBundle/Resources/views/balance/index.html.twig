@@ -1,18 +1,8 @@
 {% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
 
-{% block title %} Administración | Cuotas | Listado {% endblock %}
+{% block title %} Administración | Cobros Realizados {% endblock %}
 
 {% block dataAdmin %}
-  {% if msj is defined %}
-        <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <strong>Atención!</strong> {{msj}}
-        </div>
-  {% endif %}
-    {% if is_granted('ROLE_SUPER_ADMIN') %}
-        <a class="btn btn-primary botonAdd" href="{{ path('cuota_new') }}">Agregar Cuota</a>
-    {% endif %}
-{% if cuotas is defined %}
 
     <div class="panel panel-primary" id="paginacion">
       <!-- Default panel contents -->
@@ -27,47 +17,36 @@
                   <button class="sort btn" data-sort="anio">
                       <span class="glyphicon glyphicon-sort"></span>
                   </button>
-                    Año
+                    Alumno
                 </th>
                 <th>
                   <button class="sort btn" data-sort="mes">
                       <span class="glyphicon glyphicon-sort"></span>
                   </button>
-                  Mes
+                  Cuota
                 </th>
                 <th>
                   <button class="sort btn" data-sort="tipo">
                       <span class="glyphicon glyphicon-sort"></span>
                   </button>
-                  Tipo
+                  Fecha
                 </th>
                 <th>
                   <button class="sort btn" data-sort="monto">
                       <span class="glyphicon glyphicon-sort"></span> 
                   </button>
                   Monto
-                </th> 
-                
-                                   
+                </th>          
                 <th>Acciones</th>
             </tr>
           </thead>
               <tbody class='list'>
-                {% for cuota in cuotas %}
+                {% for cobro in cobros %}
                     <tr>                           
-                        <td>{{ cuota.anio }}</td>
-                        <td> {% if cuota.mes == 'matriculaIngreso' %} Matricula Ingreso {% else %} {{ cuota.mes }} {% endif %} </td>
-                        <td> {% if cuota.tipo == 'matriculaIngreso' %} matricula Ingreso {% else %} {{ cuota.tipo }} {% endif %} </td>
-                        <td> {{ cuota.monto }}</td>
-                        <td>
-                            <div class="">
-
-                              {% if is_granted('ROLE_SUPER_ADMIN')  %}
-                                  <a class="btn btn-primary" href="{{ path('cuota_edit', { 'id': cuota.id }) }}" title="Editar"><span class='glyphicon glyphicon-pencil' ></span></a>
-                                 <a class="btn btn-danger" href="{{path('cuota_delete', { 'id':  cuota.id })}}" title='Eliminar'><span class='glyphicon glyphicon-remove'></span></a>
-                              {% endif %}
-                              
-                            </div>
+                        <td>{{ cobro.alumno.nombre }}</td>
+                        <td>{{ cobro.cuota.mes }}</td>
+                        <td>{{ cobro.fecha }}</td>
+                        <td>{{ cobro.cuota.monto }}</td>
                         </td>
                     </tr>
                 {% endfor %}
@@ -78,7 +57,6 @@
             </div>
         </div>
     </div>
-{% endif %}
 
     <script type="text/javascript">
         $( document ).ready(function() {

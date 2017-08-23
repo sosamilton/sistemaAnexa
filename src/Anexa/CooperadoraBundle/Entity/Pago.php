@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
 * Pago
 * @ORM\Table()
-* @ORM\Entity
+* @ORM\Entity(repositoryClass="Anexa\CooperadoraBundle\Repository\PagoRepository")
 */
 
 class Pago {

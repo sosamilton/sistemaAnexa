@@ -38,6 +38,12 @@ class User extends BaseUser
     */
     protected $pagos;
 
+     /**
+    * @ORM\OneToMany(targetEntity="Balance", mappedBy="user")
+    *
+    */
+    protected $balances;
+
     /**
     * @var string
     *

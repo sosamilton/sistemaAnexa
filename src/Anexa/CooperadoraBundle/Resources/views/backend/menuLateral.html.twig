@@ -15,5 +15,9 @@
      <li role="presentation" {% if menu == "tipoCobrador" %}class="active"{% endif %}><a href="{{path('cobrador_index')}}">Tipos de Cobrador</a></li> 
      <li role="presentation" {% if menu == "configuracion" %}class="active"{% endif %}><a href="{{path('configuracion_index')}}">Configuración</a></li>
    {% endif %}
+    
+    {% if is_granted('ROLE_COBRADOR') %}
+        <li role="presentation" {% if menu == "balance" %}class="active"{% endif %}><a href="{{path('balance_index')}}">Balance</a></li>
+    {% endif %}
   
 </ul>

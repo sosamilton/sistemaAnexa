@@ -23,7 +23,7 @@
                                 </th>
                                 
                                {% for mes in meses %}
-                                    <th>  {{ mes }} </th>
+                                    <th>{% if mes == 'matriculaIngreso' %} Matricula Ingreso {% else %}  {{ mes }} {% endif %}</th>
                                 {% endfor %}
                                 
                                 <th>
