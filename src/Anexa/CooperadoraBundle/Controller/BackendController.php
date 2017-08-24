@@ -4,67 +4,80 @@ namespace Anexa\CooperadoraBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Response;
 
+use Anexa\CooperadoraBundle\Entity\Alumno;
 use Anexa\CooperadoraBundle\Entity\Configuracion;
 use Anexa\CooperadoraBundle\Form\ConfiguracionType;
-use Symfony\Component\HttpFoundation\Response;
 
 class BackendController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AnexaCooperadoraBundle:importar:index.html.twig', array('menu' => 'inicio' ));
+        return $this->render('AnexaCooperadoraBundle:backend:index.html.twig', array('menu' => 'inicio' ));
     }
 
     public function importDataAction()
     {
-        return $this->render('AnexaCooperadoraBundle:backend:index.html.twig', array('menu' => 'importData' ));
+        return $this->render('AnexaCooperadoraBundle:importar:index.html.twig', array('menu' => 'importData' ));
     }
 
     public function loadDataAction(Request $request){
-      $filenames = "your-file-name";
-      $file = $request->files->get('fichierExcel');
-      $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($filenames);
-
-      foreach ($phpExcelObject ->getWorksheetIterator() as $worksheet) {
-         echo 'Worksheet - ' , $worksheet->getTitle();
-         foreach ($worksheet->getRowIterator() as $row) {
-             echo '    Row number - ' , $row->getRowIndex();
-             $cellIterator = $row->getCellIterator();
-             $cellIterator->setIterateOnlyExistingCells(false); // Loop all cells, even if it is not set
-             foreach ($cellIterator as $cell) {
-                 if (!is_null($cell)) {
-                     echo '        Cell - ' , $cell->getCoordinate() , ' - ' , $cell->getCalculatedValue();
-                 }
-             }
+      $file = $request->files->get('upload');
+      $name = $file->getFilename();
+      $url =  $file->getRealPath();
+      $em = $this->getDoctrine()->getManager();
+      if ($file->isValid()) {
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($url);
+        $phpExcelObject->setActiveSheetIndex(0);
+        $activesheet = $phpExcelObject->getActiveSheet()->toArray();
+        $j = 1;
+        $alumnosNuevos = 0;
+        $alumnosActualizados = 0;
+        while (isset($activesheet[$j][0])) {
+          $alumno = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findOneByDni($activesheet[$j][0]);
+          if (!isset($alumno)) {
+              $alumnosNuevos++;
+              $alumno = new Alumno();
+              $alumno->setNuevo(true);
+          }else {
+            $alumnosActualizados++;
+          }
+          $alumno->setDni($activesheet[$j][0]);
+          $name = explode(",", $activesheet[$j][1]);
+          $alumno->setApellido(ucfirst(strtolower($name[0])));
+          $alumno->setNombre(ucfirst(strtolower($name[1])));
+          $alumno->setCurso($activesheet[$j][2]);
+          $alumno->setDivision($activesheet[$j][3]);
+          $alumno->setNivel($activesheet[$j][4]);
+          if (isset($activesheet[$j][5])) {
+            $alumno->setTelefono($activesheet[$j][5]);
+          }
+          if (isset($activesheet[$j][6])) {
+            $alumno->setFechaNacimiento($activesheet[$j][6]);
+          }
+          if (isset($activesheet[$j][7])) {
+            $alumno->setEmail($activesheet[$j][7]);
+          }
+          if (isset($activesheet[$j][8])) {
+            $alumno->setDireccion($activesheet[$j][8]);
+          }
+          if (isset($activesheet[$j][9])) {
+            $alumno->setContacto($activesheet[$j][9]);
+          }
+          $em->persist($alumno);
+          $j++;
         }
+        $em->flush();
+        return $this->render('AnexaCooperadoraBundle:importar:index.html.twig', array(
+          'menu' => 'importData',
+          'carga' => true,
+          'alumnosNuevos' => $alumnosNuevos,
+          'alumnosActualizados' => $alumnosActualizados
+        ));
+
       }
-      // $objPHPExcel = $this->get('xls.load_xls2007')->load($fileWithPath);
-      // //se obtienen las hojas, el nombre de las hojas y se pone activa la primera hoja
-      // $total_sheets=$objPHPExcel->getSheetCount();
-      // $allSheetName=$objPHPExcel->getSheetNames();
-      // $objWorksheet = $objPHPExcel->setActiveSheetIndex(0);
-      // //Se obtiene el número máximo de filas
-      // $highestRow = $objWorksheet->getHighestRow();
-      // //Se obtiene el número máximo de columnas
-      // $highestColumn = $objWorksheet->getHighestColumn();
-      // $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumn);
-      // //$headingsArray contiene las cabeceras de la hoja excel. Llos titulos de columnas
-      // $headingsArray = $objWorksheet->rangeToArray('A1:'.$highestColumn.'1',null, true, true, true);
-      // $headingsArray = $headingsArray[1];
-      //
-      // //Se recorre toda la hoja excel desde la fila 2 y se almacenan los datos
-      //  $r = -1;
-      //  $namedDataArray = array();
-      //  for ($row = 2; $row <= $highestRow; ++$row) {
-      //       $dataRow = $objWorksheet->rangeToArray('A'.$row.':'.$highestColumn.$row,null, true, true, true);
-      //       if ((isset($dataRow[$row]['A'])) && ($dataRow[$row]['A'] > '')) {
-      //             ++$r;
-      //             foreach($headingsArray as $columnKey => $columnHeading) {
-      //                     $namedDataArray[$r][$columnHeading] = $dataRow[$row][$columnKey];
-      //             } //endforeach
-      //       } //endif
-      //   }
-      //  var_dump($namedDataArray);
     }
 }

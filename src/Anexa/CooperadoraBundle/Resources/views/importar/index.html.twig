@@ -1,0 +1,56 @@
+{% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
+
+{% block title %} Administración | Configuración {% endblock %}
+
+{% block addJS %}
+{% endblock %}
+
+{% block addCSS %}
+{% endblock %}
+
+{% block dataAdmin %}
+      {% if msj is defined %}
+        <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <strong>Atención! </strong>{{msj}}
+        </div>
+      {% endif %}
+      <div class="panel panel-primary">
+          <!-- Default panel contents -->
+          <div class="panel-heading">Importar Alumnos</div>
+          <!-- Table -->
+          <div class="panel-body">
+            <form action="{{ path('loadData')}}" method="post"  enctype="multipart/form-data">
+
+              <div class="form-group">
+                <div class="col-md-12">
+                  <label for="exampleInputFile">Seleccione el Archivo</label>
+                  <input type="file" name="upload" id="exampleInputFile">
+                  <p class="help-block">
+                    recuerde que el archivo tiene estar compuesto por las siguientes columnas (los campos con * son obligatorios)<br>
+                    <span class="label label-default">
+                      * DNI | * APELLIDO, NOMBRE |	* CURSO |	* DIVISION | * NIVEL | TELEFONO |	FECHA NACIMIENTO (DD/MM/AAAA)	| EMAIL | DIRECCION | CONTACTO
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+               <button type="submit" class="btn btn-primary col-md-12">Importar</button>
+            </form>
+          </div>
+          {% if carga is defined  %}
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Carga Compĺeta!</strong>
+                <ul>
+                  <li>Alumnos Nuevos : {{alumnosNuevos}}</li>
+                  <li>Alumnos Actualizados : {{alumnosActualizados}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+      </div>
+{% endblock %}

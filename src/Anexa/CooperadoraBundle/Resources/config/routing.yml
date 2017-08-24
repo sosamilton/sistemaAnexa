@@ -61,8 +61,8 @@ paginacion:
 
 loadData:
     path:     /backend/loadData
-    defaults: { _controller: AnexaCooperadoraBundle:backend:loadData }
+    defaults: { _controller: AnexaCooperadoraBundle:Backend:loadData }
 
 importData:
     path:     /backend/importData
-    defaults: { _controller: AnexaCooperadoraBundle:backend:importData }
+    defaults: { _controller: AnexaCooperadoraBundle:Backend:importData }
