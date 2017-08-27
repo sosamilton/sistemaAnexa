@@ -34,7 +34,7 @@ class CuotaRepository extends \Doctrine\ORM\EntityRepository
     public function cuotasIngreso()
     {
         return $this->createQueryBuilder('c')
-				    ->select(array('c.mes', 'p.id as pago'))
+				    ->select('c')
 				    ->where('c.tipo = :tipo')
 				    ->AndWhere('c.borrado = 0')
 				    ->setParameter('tipo', "matriculaIngreso")
@@ -42,7 +42,7 @@ class CuotaRepository extends \Doctrine\ORM\EntityRepository
    					->addOrderBy('c.mes', 'DESC')
 				    ->getQuery()
         		    ->getOneOrNullResult();
-    }    
+    }
 
     public function cuotasIngresoData($anio, $alumno)
     {
