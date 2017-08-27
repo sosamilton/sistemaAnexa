@@ -74,7 +74,7 @@
                     <td class="username">{{usuario.username}}</td>
                     <td class="estado">{% if usuario.habilitado %} Habilitado {% else %} Deshabilitado {% endif %}</td>
                     <td class="role">{% if usuario.roles[0] == "ROLE_SUPER_ADMIN" %} Administrador {% else %} Cobrador {% endif %}</td>
-                    
+
                     <td>
                         <div class="">
                             <a class="btn btn-success" href="{{ path('usuario_show', {'id': usuario.id}) }}" title='Ver'>

@@ -8,13 +8,41 @@
       <!-- Default panel contents -->
       <div class="panel-heading">Listado de Cuotas</div>
       <!-- Table -->
-      <div class="panel-body"> 
-
+      <div class="panel-body">
+        <div class="input-group col-md-12">
+            <div class="input-group-addon">
+              <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                <span class="glyphicon glyphicon-filter"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="alumno" checked>
+                    <label>Alumno</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="mes" checked>
+                    <label>Mes</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="fecha" checked>
+                    <label>Fecha</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="monto" checked>
+                    <label>Monto</label>
+                </li>
+              </ul>
+            </div>
+            <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
+            <div class="input-group-addon">
+              <span class="glyphicon glyphicon-search"></span>
+            </div>
+        </div>
         <table class="table">
           <thead>
             <tr>
                 <th>
-                  <button class="sort btn" data-sort="anio">
+                  <button class="sort btn" data-sort="alumno">
                       <span class="glyphicon glyphicon-sort"></span>
                   </button>
                     Alumno
@@ -23,30 +51,30 @@
                   <button class="sort btn" data-sort="mes">
                       <span class="glyphicon glyphicon-sort"></span>
                   </button>
-                  Cuota
+                  Mes
                 </th>
                 <th>
-                  <button class="sort btn" data-sort="tipo">
+                  <button class="sort btn" data-sort="fecha">
                       <span class="glyphicon glyphicon-sort"></span>
                   </button>
                   Fecha
                 </th>
                 <th>
                   <button class="sort btn" data-sort="monto">
-                      <span class="glyphicon glyphicon-sort"></span> 
+                      <span class="glyphicon glyphicon-sort"></span>
                   </button>
                   Monto
-                </th>          
+                </th>
                 <th>Acciones</th>
             </tr>
           </thead>
               <tbody class='list'>
                 {% for cobro in cobros %}
-                    <tr>                           
-                        <td>{{ cobro.alumno.nombre }}</td>
-                        <td>{{ cobro.cuota.mes }}</td>
-                        <td>{{ cobro.fecha }}</td>
-                        <td>{{ cobro.cuota.monto }}</td>
+                    <tr>
+                        <td class="alumno">{{ cobro.alumno.nombre }}</td>
+                        <td class="mes">{{ cobro.cuota.mes }}</td>
+                        <td class="fecha">{{ cobro.fecha }}</td>
+                        <td class="monto">{{ cobro.cuota.monto }}</td>
                         </td>
                     </tr>
                 {% endfor %}
@@ -61,9 +89,9 @@
     <script type="text/javascript">
         $( document ).ready(function() {
             var monkeyList = new List('paginacion', {
-              valueNames: ['numero', 'anio','mes','tipo', 'monto', "comision", "fechaAlta"],
+              valueNames: ['alumno','mes', "fecha", 'monto'],
               page: '{{ render(url('paginacion')) }}',
-              plugins: [ ListPagination({}) ] 
+              plugins: [ ListPagination({}) ]
           });
         });
     </script>
