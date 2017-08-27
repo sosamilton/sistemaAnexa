@@ -2,3 +2,8 @@ balance_index:
     path:     /
     defaults: { _controller: "AnexaCooperadoraBundle:Balance:index" }
     methods:  GET
+
+balance_cerrar:
+    path:   /cerrar
+    defaults: { _controller: "AnexaCooperadoraBundle:Balance:cerrar"}
+    methods:  POST

@@ -16,20 +16,28 @@
               </button>
               <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
                 <li role="presentation">
-                    <input type="checkbox" name="busqueda" value="alumno" checked>
-                    <label>Alumno</label>
+                    <input type="checkbox" name="busqueda" value="dni" checked>
+                    <label>DNI</label>
                 </li>
                 <li role="presentation">
-                    <input type="checkbox" name="busqueda" value="mes" checked>
-                    <label>Mes</label>
+                    <input type="checkbox" name="busqueda" value="nombre" checked>
+                    <label>Nombre</label>
                 </li>
                 <li role="presentation">
-                    <input type="checkbox" name="busqueda" value="fecha" checked>
-                    <label>Fecha</label>
+                    <input type="checkbox" name="busqueda" value="apellido" checked>
+                    <label>Apellido</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="cuota" checked>
+                    <label>cuota</label>
                 </li>
                 <li role="presentation">
                     <input type="checkbox" name="busqueda" value="monto" checked>
                     <label>Monto</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="fecha" checked>
+                    <label>Fecha</label>
                 </li>
               </ul>
             </div>
@@ -40,42 +48,59 @@
         </div>
         <table class="table">
           <thead>
-            <tr>
-                <th>
-                  <button class="sort btn" data-sort="alumno">
-                      <span class="glyphicon glyphicon-sort"></span>
-                  </button>
-                    Alumno
-                </th>
-                <th>
-                  <button class="sort btn" data-sort="mes">
-                      <span class="glyphicon glyphicon-sort"></span>
-                  </button>
-                  Mes
-                </th>
-                <th>
-                  <button class="sort btn" data-sort="fecha">
-                      <span class="glyphicon glyphicon-sort"></span>
-                  </button>
-                  Fecha
-                </th>
-                <th>
-                  <button class="sort btn" data-sort="monto">
-                      <span class="glyphicon glyphicon-sort"></span>
-                  </button>
-                  Monto
-                </th>
-                <th>Acciones</th>
-            </tr>
-          </thead>
+                    <tr>
+                      <th>
+                        <button class="sort btn" data-sort="dni">
+                            <span class="glyphicon glyphicon-sort"></span>
+                        </button>
+                        DNI
+                      </th>
+                      
+                      <th>
+                        <button class="sort btn" data-sort="nombre">
+                            <span class="glyphicon glyphicon-sort"></span>
+                        </button>
+                        Nombre
+                      </th>
+                        
+                        <th>
+                        <button class="sort btn" data-sort="apellido">
+                            <span class="glyphicon glyphicon-sort"></span>
+                        </button>
+                        Apellido
+                      </th>
+                        
+                    <th>
+                        <button class="sort btn" data-sort="cuota">
+                            <span class="glyphicon glyphicon-sort"></span>
+                        </button>
+                        Cuota
+                      </th>
+                    
+                    <th>
+                        <button class="sort btn" data-sort="monto">
+                            <span class="glyphicon glyphicon-sort"></span>
+                        </button>
+                        Monto
+                    </th>
+                        
+                    <th>
+                        <button class="sort btn" data-sort="fecha">
+                            <span class="glyphicon glyphicon-sort"></span>
+                        </button>
+                        Fecha de Cobro
+                      </th>
+                    </tr>
+                </thead>
               <tbody class='list'>
                 {% for cobro in cobros %}
                     <tr>
-                        <td class="alumno">{{ cobro.alumno.nombre }}</td>
-                        <td class="mes">{{ cobro.cuota.mes }}</td>
-                        <td class="fecha">{{ cobro.fecha }}</td>
+                        <td class="dni">{{ cobro.alumno.dni }}</td>
+                        <td class="nombre">{{ cobro.alumno.nombre }}</td>
+                        <td class="apellido">{{ cobro.alumno.apellido }}</td>
+                        <td class="cuota">{{ cobro.cuota.mes }}</td>
                         <td class="monto">{{ cobro.cuota.monto }}</td>
-                        </td>
+                        <td class="fecha">{{ cobro.fecha|date("Y-m-d")  }}</td>
                     </tr>
                 {% endfor %}
               </tbody>
@@ -84,14 +109,37 @@
                 <ul class="pagination"></ul>
             </div>
         </div>
+
+    <div class="panel-footer">
+
+            <div class="col-md-4">
+                <div class="btn-group btn-group-sm col-md-12" role="group" >
+                  <button type="button" id="cerrarBalance" class="btn btn-danger col-md-12">Cerrar Balance</button>
+                </div>
+            </div>
     </div>
+        
+    {# <form id="formulario" action="{{path ('balance_cerrar')}}" method="post">
+
+             <input type="hidden" name="alumnoId" value="{{alumno.id}}"> 
+            <div id="inputs">
+
+            </div>
+          </form> #}
+</div>
 
     <script type="text/javascript">
         $( document ).ready(function() {
             var monkeyList = new List('paginacion', {
-              valueNames: ['alumno','mes', "fecha", 'monto'],
+              valueNames: ['dni','nombre','apellido','cuota','monto', 'fecha'],
               page: '{{ render(url('paginacion')) }}',
               plugins: [ ListPagination({}) ]
+          });
+        $('#cerrarBalance').click(function(){
+            var r = confirm("Está seguro que desea realizar el cierre?");
+            if (r == true) {
+                $('#formulario').submit();
+            }
           });
         });
     </script>
