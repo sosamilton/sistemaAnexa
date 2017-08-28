@@ -34,7 +34,7 @@ class Balance {
 
 	/**
 	* @ORM\ManyToOne(targetEntity="User", inversedBy="balances")
-	* @ORM\JoinColumn(name="blance_cobrador", referencedColumnName="id")
+	* @ORM\JoinColumn(name="balance_cobrador", referencedColumnName="id")
 	*/
 	protected $cobrador;
 
@@ -54,7 +54,7 @@ class Balance {
     * @var decimal
     * @ORM\Column(name="totalComision", type="decimal")
     */
-    protected $totalComision;
+    protected $comisionCobrada;
 
 	public function __construct(){
 		$this->pagos = new ArrayCollection();
@@ -206,5 +206,29 @@ class Balance {
     public function getPagos()
     {
         return $this->pagos;
+    }
+
+    /**
+     * Set comisionCobrada
+     *
+     * @param string $comisionCobrada
+     *
+     * @return Balance
+     */
+    public function setComisionCobrada($comisionCobrada)
+    {
+        $this->comisionCobrada = $comisionCobrada;
+
+        return $this;
+    }
+
+    /**
+     * Get comisionCobrada
+     *
+     * @return string
+     */
+    public function getComisionCobrada()
+    {
+        return $this->comisionCobrada;
     }
 }

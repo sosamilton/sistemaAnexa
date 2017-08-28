@@ -3,7 +3,7 @@
 {% block title %} Administración | Cobros Realizados {% endblock %}
 
 {% block dataAdmin %}
-
+    {% if cobros is defined %}
     <div class="panel panel-primary" id="paginacion">
       <!-- Default panel contents -->
       <div class="panel-heading">Listado de Cuotas</div>
@@ -29,7 +29,7 @@
                 </li>
                 <li role="presentation">
                     <input type="checkbox" name="busqueda" value="cuota" checked>
-                    <label>cuota</label>
+                    <label>Cuota</label>
                 </li>
                 <li role="presentation">
                     <input type="checkbox" name="busqueda" value="monto" checked>
@@ -93,40 +93,41 @@
                     </tr>
                 </thead>
               <tbody class='list'>
-                {% for cobro in cobros %}
-                    <tr>
-                        <td class="dni">{{ cobro.alumno.dni }}</td>
-                        <td class="nombre">{{ cobro.alumno.nombre }}</td>
-                        <td class="apellido">{{ cobro.alumno.apellido }}</td>
-                        <td class="cuota">{{ cobro.cuota.mes }}</td>
-                        <td class="monto">{{ cobro.cuota.monto }}</td>
-                        <td class="fecha">{{ cobro.fecha|date("Y-m-d")  }}</td>
-                    </tr>
-                {% endfor %}
-              </tbody>
+                    {% for cobro in cobros %}
+                        <tr>
+                            <td class="dni">{{ cobro.alumno.dni }}</td>
+                            <td class="nombre">{{ cobro.alumno.nombre }}</td>
+                            <td class="apellido">{{ cobro.alumno.apellido }}</td>
+                            <td class="cuota">{{ cobro.cuota.mes }}</td>
+                            <td class="monto">{{ cobro.cuota.monto }}</td>
+                            <td class="fecha">{{ cobro.fecha|date("Y-m-d")  }}</td>
+                        </tr>
+                    {% endfor %}
+                  
+              </tbody> 
             </table>
             <div class="col-md-4 col-md-offset-4">
                 <ul class="pagination"></ul>
             </div>
         </div>
-
-    <div class="panel-footer">
-
-            <div class="col-md-4">
-                <div class="btn-group btn-group-sm col-md-12" role="group" >
-                  <button type="button" id="cerrarBalance" class="btn btn-danger col-md-12">Cerrar Balance</button>
+        {% if cierre is not defined %}
+        <div class="panel-footer">
+            <form id="formulario" action="{{path ('balance_index')}}" method="POST">
+                <div class="col-md-4">
+                    <div class="btn-group btn-group-sm col-md-12" role="group" >
+                      <button type="submit" id="cerrarBalance" class="btn btn-danger col-md-12">Cerrar Balance</button>
+                    </div>
                 </div>
-            </div>
-    </div>
-        
-    {# <form id="formulario" action="{{path ('balance_cerrar')}}" method="post">
-
-             <input type="hidden" name="alumnoId" value="{{alumno.id}}"> 
-            <div id="inputs">
-
-            </div>
-          </form> #}
+            </form>
+        </div>
+        {% else %}
+            <div class="alert alert-success" role="alert">El cierre se efectuo correctamente!</div>
+        {% endif%}
+         
 </div>
+      {% else %}
+        <div class="alert alert-danger" role="alert">no hay cobros realizados desde el ultimo cierre a la fecha</div>
+      {% endif %}
 
     <script type="text/javascript">
         $( document ).ready(function() {
@@ -134,13 +135,11 @@
               valueNames: ['dni','nombre','apellido','cuota','monto', 'fecha'],
               page: '{{ render(url('paginacion')) }}',
               plugins: [ ListPagination({}) ]
-          });
-        $('#cerrarBalance').click(function(){
-            var r = confirm("Está seguro que desea realizar el cierre?");
-            if (r == true) {
-                $('#formulario').submit();
-            }
-          });
+            });
+            $('#formulario').submit(function() {
+                var r = confirm("Está seguro que desea realizar el cierre?");
+                return r;
+            });
         });
     </script>
 
