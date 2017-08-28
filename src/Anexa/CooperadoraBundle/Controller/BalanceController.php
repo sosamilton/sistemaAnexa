@@ -21,4 +21,11 @@ class BalanceController extends Controller
         	'cobros' => $cobros
         ));
     }
+
+    public function cerrarAction() 
+    {
+
+
+        
+    }
 }

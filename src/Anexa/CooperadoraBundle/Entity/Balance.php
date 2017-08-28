@@ -50,6 +50,12 @@ class Balance {
 	*/
 	protected $total;
 
+    /**
+    * @var decimal
+    * @ORM\Column(name="totalComision", type="decimal")
+    */
+    protected $totalComision;
+
 	public function __construct(){
 		$this->pagos = new ArrayCollection();
 	}
