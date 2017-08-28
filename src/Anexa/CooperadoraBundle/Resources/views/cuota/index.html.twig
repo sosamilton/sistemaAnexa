@@ -18,8 +18,36 @@
       <!-- Default panel contents -->
       <div class="panel-heading">Listado de Cuotas</div>
       <!-- Table -->
-      <div class="panel-body"> 
-
+      <div class="panel-body">
+        <div class="input-group col-md-12">
+            <div class="input-group-addon">
+              <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                <span class="glyphicon glyphicon-filter"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="anio" checked>
+                    <label>Año</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="mes" checked>
+                    <label>Mes</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="fecha" checked>
+                    <label>Fecha</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="monto" checked>
+                    <label>Monto</label>
+                </li>
+              </ul>
+            </div>
+            <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
+            <div class="input-group-addon">
+              <span class="glyphicon glyphicon-search"></span>
+            </div>
+        </div>
         <table class="table">
           <thead>
             <tr>
@@ -43,22 +71,22 @@
                 </th>
                 <th>
                   <button class="sort btn" data-sort="monto">
-                      <span class="glyphicon glyphicon-sort"></span> 
+                      <span class="glyphicon glyphicon-sort"></span>
                   </button>
                   Monto
-                </th> 
-                
-                                   
+                </th>
+
+
                 <th>Acciones</th>
             </tr>
           </thead>
               <tbody class='list'>
                 {% for cuota in cuotas %}
-                    <tr>                           
-                        <td>{{ cuota.anio }}</td>
-                        <td> {% if cuota.mes == 'matriculaIngreso' %} Matricula Ingreso {% else %} {{ cuota.mes }} {% endif %} </td>
-                        <td> {% if cuota.tipo == 'matriculaIngreso' %} matricula Ingreso {% else %} {{ cuota.tipo }} {% endif %} </td>
-                        <td> {{ cuota.monto }}</td>
+                    <tr>
+                        <td class="anio">{{ cuota.anio }}</td>
+                        <td class="mes"> {% if cuota.mes == 'matriculaIngreso' %} Matricula Ingreso {% else %} {{ cuota.mes }} {% endif %} </td>
+                        <td class="tipo"> {% if cuota.tipo == 'matriculaIngreso' %} matricula Ingreso {% else %} {{ cuota.tipo }} {% endif %} </td>
+                        <td class="monto"> {{ cuota.monto }}</td>
                         <td>
                             <div class="">
 
@@ -66,7 +94,7 @@
                                   <a class="btn btn-primary" href="{{ path('cuota_edit', { 'id': cuota.id }) }}" title="Editar"><span class='glyphicon glyphicon-pencil' ></span></a>
                                  <a class="btn btn-danger" href="{{path('cuota_delete', { 'id':  cuota.id })}}" title='Eliminar'><span class='glyphicon glyphicon-remove'></span></a>
                               {% endif %}
-                              
+
                             </div>
                         </td>
                     </tr>
@@ -83,9 +111,9 @@
     <script type="text/javascript">
         $( document ).ready(function() {
             var monkeyList = new List('paginacion', {
-              valueNames: ['numero', 'anio','mes','tipo', 'monto', "comision", "fechaAlta"],
+              valueNames: ['anio','mes','tipo', 'monto'],
               page: '{{ render(url('paginacion')) }}',
-              plugins: [ ListPagination({}) ] 
+              plugins: [ ListPagination({}) ]
           });
         });
     </script>

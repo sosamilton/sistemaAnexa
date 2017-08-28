@@ -18,8 +18,27 @@
       <!-- Default panel contents -->
       <div class="panel-heading">Listado de Tipos De Cobradores</div>
       <!-- Table -->
-      <div class="panel-body"> 
+      <div class="panel-body">
+        <div class="input-group col-md-12">
+            <div class="input-group-addon">
+              <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                <span class="glyphicon glyphicon-filter"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="denominacion" checked>
+                    <label>Denominacion</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="comision" checked>
+                    <label>Comision</label>
+                </li>
+              </ul>
+            </div>
+            <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
+            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
 
+        </div>
         <table class="table">
           <thead>
             <tr>
@@ -34,24 +53,24 @@
                       <span class="glyphicon glyphicon-sort"></span>
                   </button>
                   Comisión
-                </th> 
-                                   
+                </th>
+
                 <th>Acciones</th>
             </tr>
           </thead>
               <tbody class='list'>
                 {% for tipo in tipos %}
-                    <tr>                           
-                        <td>{{ tipo.denominacion }}</td>
-                        <td>{{ tipo.comision }}%</td>
+                    <tr>
+                        <td class="denominacion">{{ tipo.denominacion }}</td>
+                        <td class="comision">{{ tipo.comision }}%</td>
                         <td>
-                            <div class="">
+                            <div>
 
                               {% if is_granted('ROLE_SUPER_ADMIN')  %}
                                   <a class="btn btn-primary" href="{{ path('cobrador_edit', { 'id': tipo.id }) }}" title="Editar"><span class='glyphicon glyphicon-pencil' ></span></a>
                                  <a class="btn btn-danger" href="{{path('cobrador_delete', { 'id':  tipo.id })}}" title='Eliminar'><span class='glyphicon glyphicon-remove'></span></a>
                               {% endif %}
-                              
+
                             </div>
                         </td>
                     </tr>
@@ -70,7 +89,14 @@
             var monkeyList = new List('paginacion', {
               valueNames: ['denominacion', 'comision'],
               page: '{{ render(url('paginacion')) }}',
-              plugins: [ ListPagination({}) ] 
+              plugins: [ ListPagination({}) ]
+          });
+          $(".input-busqueda").keyup(function(){
+            filtros = [];
+            $("input[name='busqueda']:checked").each(function() {
+              filtros.push($(this).val());
+            });
+            monkeyList.search($(this).val(), filtros)
           });
         });
     </script>

@@ -17,29 +17,29 @@
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="nombre" checked> 
+                      <input type="checkbox" name="busqueda" value="dni" checked>
+                      <label>DNI</label>
+                    </li>
+                    <li role="presentation">
+                      <input type="checkbox" name="busqueda" value="apellido" checked>
+                      <label>Apellido</label>
+                    </li>
+                    <li role="presentation">
+                        <input type="checkbox" name="busqueda" value="nombre" checked>
                         <label>Nombre</label>
-                    </li>
-                    <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="apellido" checked> 
-                        <label>Apellido</label>
-                    </li>
-                    <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="dni" checked> 
-                        <label>DNI</label>
                     </li>
                   </ul>
                 </div>
                 <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
                 <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
 
-            </div> 
+            </div>
 
             <table class="table">
                 <thead>
                     <tr>
                       <th>
-                        <button class="sort btn" data-sort="id">
+                        <button class="sort btn">
                             <span class="glyphicon glyphicon-sort"></span>
                         </button>
                         #
@@ -58,27 +58,24 @@
                       </th>
                       <th>
                         <button class="sort btn" data-sort="nombre">
-                            <span class="glyphicon glyphicon-sort"></span> 
+                            <span class="glyphicon glyphicon-sort"></span>
                         </button>
                         Nombre
-                      </th>                  
+                      </th>
                     </tr>
                 </thead>
                 <tbody class='list'>
                     {% for alumno in alumnos %}
                         <tr>
-                                                       
+
                           <td>{{ alumno.id }}</td>
-                          <td>{{ alumno.dni }}</td>
-                          <td>{{ alumno.apellido }}</td>
-                          <td>{{ alumno.nombre }}</td>
+                          <td class="dni">{{ alumno.dni }}</td>
+                          <td class="apellido">{{ alumno.apellido }}</td>
+                          <td class="nombre">{{ alumno.nombre }}</td>
                           <td>
                               <div class="">
-                                  
                                 <a class="btn btn-success" href="{{ path('pago_mostrar', { 'id': alumno.id }) }}" title="Ver Pagos"><span class='glyphicon glyphicon-eye-open'></span></a>
-                                 
                               </div>
-
                           </td>
                         </tr>
                     {% endfor %}
@@ -93,9 +90,9 @@
     <script type="text/javascript">
       $( document ).ready(function() {
           var monkeyList = new List('paginacion', {
-            valueNames: ['id', 'nombre','apellido','dni'],
+            valueNames: ['dni','apellido','nombre'],
             page: '{{ render(url('paginacion')) }}',
-            plugins: [ ListPagination({}) ] 
+            plugins: [ ListPagination({}) ]
         });
 
       $(".input-busqueda").keyup(function(){
@@ -106,7 +103,7 @@
           monkeyList.search($(this).val(), filtros)
       });
     });
-        
+
     </script>
 
 {% endblock %}

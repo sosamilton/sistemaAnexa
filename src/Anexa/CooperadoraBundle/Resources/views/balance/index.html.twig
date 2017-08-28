@@ -8,8 +8,44 @@
       <!-- Default panel contents -->
       <div class="panel-heading">Listado de Cuotas</div>
       <!-- Table -->
-      <div class="panel-body"> 
-
+      <div class="panel-body">
+        <div class="input-group col-md-12">
+            <div class="input-group-addon">
+              <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                <span class="glyphicon glyphicon-filter"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="dni" checked>
+                    <label>DNI</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="nombre" checked>
+                    <label>Nombre</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="apellido" checked>
+                    <label>Apellido</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="cuota" checked>
+                    <label>cuota</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="monto" checked>
+                    <label>Monto</label>
+                </li>
+                <li role="presentation">
+                    <input type="checkbox" name="busqueda" value="fecha" checked>
+                    <label>Fecha</label>
+                </li>
+              </ul>
+            </div>
+            <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
+            <div class="input-group-addon">
+              <span class="glyphicon glyphicon-search"></span>
+            </div>
+        </div>
         <table class="table">
           <thead>
                     <tr>
@@ -59,12 +95,12 @@
               <tbody class='list'>
                 {% for cobro in cobros %}
                     <tr>
-                        <td>{{ cobro.alumno.dni }}</td>
-                        <td>{{ cobro.alumno.nombre }}</td>
-                        <td>{{ cobro.alumno.apellido }}</td>
-                        <td>{{ cobro.cuota.mes }}</td>
-                        <td>{{ cobro.cuota.monto }}</td>
-                        <td>{{ cobro.fecha|date("Y-m-d")  }}</td>
+                        <td class="dni">{{ cobro.alumno.dni }}</td>
+                        <td class="nombre">{{ cobro.alumno.nombre }}</td>
+                        <td class="apellido">{{ cobro.alumno.apellido }}</td>
+                        <td class="cuota">{{ cobro.cuota.mes }}</td>
+                        <td class="monto">{{ cobro.cuota.monto }}</td>
+                        <td class="fecha">{{ cobro.fecha|date("Y-m-d")  }}</td>
                     </tr>
                 {% endfor %}
               </tbody>
@@ -95,9 +131,9 @@
     <script type="text/javascript">
         $( document ).ready(function() {
             var monkeyList = new List('paginacion', {
-              valueNames: ['numero', 'anio','mes','tipo', 'monto', "comision", "fechaAlta"],
+              valueNames: ['dni','nombre','apellido','cuota','monto', 'fecha'],
               page: '{{ render(url('paginacion')) }}',
-              plugins: [ ListPagination({}) ] 
+              plugins: [ ListPagination({}) ]
           });
         $('#cerrarBalance').click(function(){
             var r = confirm("Está seguro que desea realizar el cierre?");

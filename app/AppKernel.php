@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Anexa\CooperadoraBundle\AnexaCooperadoraBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             //new AppBundle\AppBundle(),
         ];
 

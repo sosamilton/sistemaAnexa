@@ -24,7 +24,7 @@
           <!-- Default panel contents -->
           <div class="panel-heading">Listado de Cuotas Impagas | {{alumno.nombre ~ " " ~ alumno.apellido}}</div>
           <!-- Table -->
-          <div class="panel-body" id="paginacion">
+          <div class="panel-body" id="paginacion2">
 
             <div class="input-group col-md-12">
                 <div class="input-group-addon">
@@ -33,28 +33,24 @@
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="numero" checked>
-                        <label>N&uacute;mero</label>
+                        <input type="checkbox" name="busqueda2" value="anio" checked>
+                        <label>Año</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="anio" checked>
-                        <label>A&ntilde;o</label>
-                    </li>
-                    <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="mes" checked>
+                        <input type="checkbox" name="busqueda2" value="mes" checked>
                         <label>Mes</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="tipo" checked>
+                        <input type="checkbox" name="busqueda2" value="tipo" checked>
                         <label>Tipo</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="monto" checked>
+                        <input type="checkbox" name="busqueda2" value="monto" checked>
                         <label>Monto</label>
                     </li>
                   </ul>
                 </div>
-                <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
+                <input type="text" class="input-busqueda2 form-control" placeholder="Inicie su búsqueda aquí" />
                 <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
             </div>
 
@@ -94,7 +90,7 @@
 
                 </tr>
               </thead>
-              <tbody class="list">
+              <tbody class="list2">
                 {% if esNuevo %}
                     <tr>
                         <td class="anio">{{cuotaIngreso.anio}}</td>
@@ -138,7 +134,7 @@
               </tbody>
             </table>
             <div class="col-md-4 col-md-offset-4">
-                <ul class="pagination"></ul>
+                <ul class="pagination2"></ul>
             </div>
           </div>
           <div class="panel-footer">
@@ -181,10 +177,6 @@
                     <span class="glyphicon glyphicon-filter"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
-                    <li role="presentation">
-                        <input type="checkbox" name="busqueda" value="numero" checked>
-                        <label>Numero</label>
-                    </li>
                     <li role="presentation">
                         <input type="checkbox" name="busqueda" value="anio" checked>
                         <label>Año</label>
@@ -356,6 +348,22 @@
           $(".input-busqueda").keyup(function(){
               filtros = [];
               $("input[name='busqueda']:checked").each(function() {
+                  filtros.push($(this).val());
+              });
+              monkeyList.search($(this).val(), filtros)
+          });
+
+
+        });
+          var monkeyList = new List('paginacion2', {
+              valueNames: [ 'anio','mes','numero','tipo', 'monto'],
+              page: '{{ render(url('paginacion2')) }}',
+              plugins: [ ListPagination({}) ]
+          });
+
+          $(".input-busqueda2").keyup(function(){
+              filtros = [];
+              $("input[name='busqueda2']:checked").each(function() {
                   filtros.push($(this).val());
               });
               monkeyList.search($(this).val(), filtros)

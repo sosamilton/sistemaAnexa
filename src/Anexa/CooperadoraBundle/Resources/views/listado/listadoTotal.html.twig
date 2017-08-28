@@ -8,35 +8,85 @@
             <div class="panel-heading">{{info}}</div>
                 <!-- Table -->
                 <div class="panel-body table-responsive" id="paginacion">
+                    <div class="input-group col-md-12">
+                      <div class="input-group-addon">
+                        <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                          <span class="glyphicon glyphicon-filter"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
+                          <li role="presentation">
+                              <input type="checkbox" name="busqueda" value="dni" checked>
+                              <label>DNI</label>
+                          </li>
+                          <li role="presentation">
+                              <input type="checkbox" name="busqueda" value="alumno" checked>
+                              <label>Alumno</label>
+                          </li>
+                          <li role="presentation">
+                            <input type="checkbox" name="busqueda" value="mes" checked>
+                            <label>Mes</label>
+                          </li>
+                          <li role="presentation">
+                            <input type="checkbox" name="busqueda" value="curso" checked>
+                            <label>Curso</label>
+                          </li>
+                          <li role="presentation">
+                              <input type="checkbox" name="busqueda" value="division" checked>
+                              <label>Division</label>
+                          </li>
+                          <li role="presentation">
+                            <input type="checkbox" name="busqueda" value="establecimiento" checked>
+                            <label>Establecimiento</label>
+                          </li>
+                        </ul>
+                      </div>
+                      <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
+                      <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>
-                                DNI
-                                </th>
-                                
-                                <th>
-                                Alumno
-                                </th>
-                                
-                                {% for mes in meses %}
-                                    <th>{% if mes == 'matriculaIngreso' %} Matricula Ingreso {% else %}  {{ mes }} {% endif %}</th>
-                                {% endfor %}
-                                
-                                <th>
-                                Curso
-                                </th>
-                                
-                                <th>
-                                Div
-                                </th>
-                                
-                                <th>
-                                Est
-                                </th>
+                              <th>
+                                  <button class="sort btn" data-sort="dni">
+                                      <span class="glyphicon glyphicon-sort"></span>
+                                  </button>
+                                  DNI
+                              </th>
+                              <th>
+                                  <button class="sort btn" data-sort="alumno">
+                                      <span class="glyphicon glyphicon-sort"></span>
+                                  </button>
+                                  Alumno
+                              </th>
+                              {% for mes in meses %}
+                              <th>
+                                  <button class="sort btn" data-sort="mes">
+                                      <span class="glyphicon glyphicon-sort"></span>
+                                  </button>
+                                  {% if mes == 'matriculaIngreso' %} Matricula Ingreso {% else %}  {{ mes }} {% endif %}
+                              </th>
+                              {% endfor %}
+                              <th>
+                                  <button class="sort btn" data-sort="curso">
+                                      <span class="glyphicon glyphicon-sort"></span>
+                                  </button>
+                                  Curso
+                              </th>
+                              <th>
+                                  <button class="sort btn" data-sort="division">
+                                      <span class="glyphicon glyphicon-sort"></span>
+                                  </button>
+                                  Division
+                              </th>
+                              <th>
+                                  <button class="sort btn" data-sort="establecimiento">
+                                      <span class="glyphicon glyphicon-sort"></span>
+                                  </button>
+                                  Establecimiento
+                              </th>
                             </tr>
                         </thead>
-                        
+
                         <tbody class="list">
                              {% for pago in pagos %}
                                 <tr>
@@ -47,8 +97,8 @@
                                     {% endfor %}
                                     <td class="curso">{{pago.alumno.curso}}</td>
                                     <td class="division">{{pago.alumno.division}}</td>
-                                    <td class="dni">{% if pago.alumno.nivel == 'P' %} Primario {% else %} Inicial/Jardin {% endif %}</td>
-                                    
+                                    <td class="establecimiento">{% if pago.alumno.nivel == 'P' %} Primario {% else %} Inicial/Jardin {% endif %}</td>
+
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -64,9 +114,9 @@
     <script type="text/javascript">
         $( document ).ready(function() {
             var monkeyList = new List('paginacion', {
-              	valueNames: ['nombre','apellido','dni'],
+              	valueNames: ['dni','nombre','mes','curso','division', 'establecimiento'],
               	 page: '{{ render(url('paginacion')) }}',
-              	plugins: [ ListPagination({}) ] 
+              	plugins: [ ListPagination({}) ]
           	});
 
           	$(".input-busqueda").keyup(function(){
@@ -77,7 +127,6 @@
               	monkeyList.search($(this).val(), filtros)
           	});
         });
-        
+
     </script>
 {% endblock %}
-                      

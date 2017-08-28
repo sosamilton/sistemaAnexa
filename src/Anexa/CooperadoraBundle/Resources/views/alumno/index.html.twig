@@ -15,7 +15,7 @@
 
     <div class="panel panel-primary">
         <!-- Default panel contents -->
-        <div class="panel-heading">Listado de Alumnos peron</div>
+        <div class="panel-heading">Listado de Alumnos</div>
         <!-- Table -->
         <div class="panel-body" id="paginacion">
 
@@ -26,22 +26,23 @@
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
                     <li role="presentation">
-                        <input type="checkbox" name="nombre" value="nombre" checked>
+                        <input type="checkbox" name="busqueda" value="nombre" checked>
                         <label>Nombre</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="apellido" value="apellido" checked>
+                        <input type="checkbox" name="busqueda" value="apellido" checked>
                         <label>Apellido</label>
                     </li>
                     <li role="presentation">
-                        <input type="checkbox" name="dni" value="dni" checked>
+                        <input type="checkbox" name="busqueda" value="dni" checked>
                         <label>DNI</label>
                     </li>
                   </ul>
                 </div>
                 <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
-                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-search"></span>
+                </div>
             </div>
 
             <table class="table">

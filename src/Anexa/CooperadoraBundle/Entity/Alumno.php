@@ -32,7 +32,7 @@ class Alumno {
 	* @var boolean
 	* @ORM\Column(name="nuevo", type="boolean")
 	*/
-	protected $nuevo;
+	protected $nuevo = false;
 
 
 	/**
@@ -57,71 +57,71 @@ class Alumno {
 
 	/**
 	* @var string
-	* @ORM\Column (name="fechaNacimiento", type="string")
+	* @ORM\Column (name="fechaNacimiento", type="string", nullable=true)
 	*/
 	protected $fechaNacimiento;
 
 	/**
 	* @var string
-	* @ORM\Column (name="telefono", type="string", length=255)
+	* @ORM\Column (name="telefono", type="string", length=255, nullable=true)
 	*/
 	protected $telefono;
 
 	/**
 	* @var string
-	* @ORM\Column (name="direccion", type="string", length=1)
+	* @ORM\Column (name="direccion", type="string", length=255, nullable=true)
 	*/
 	protected $direccion;
 
 	/**
 	* @var string
-	* @ORM\Column (name="email", type="string", length=255)
+	* @ORM\Column (name="email", type="string", length=255, nullable=true)
 	*/
 	protected $email;
 
 	/**
 	* @var string
-	* @ORM\Column (name="contacto", type="text")
+	* @ORM\Column (name="contacto", type="text", nullable=true)
 	*/
 	protected $contacto;
 
 
 	/**
 	* @var string
-	* @ORM\Column (name="comentario", type="text")
+	* @ORM\Column (name="comentario", type="text", nullable=true)
 	*/
 	protected $comentario;
 
 	/**
 	* @var string
-	* @ORM\Column (name="nivel", type="string", length=255)
+	* @ORM\Column (name="nivel", type="string", length=255, nullable=true)
 	*/
 	protected $nivel;
 
 	/**
 	* @var integer
-	* @ORM\Column (name="curso", type="integer")
+	* @ORM\Column (name="curso", type="integer", nullable=true)
 	*/
 	protected $curso;
 
 	/**
 	* @var string
-	* @ORM\Column (name="division", type="string", length=1)
+	* @ORM\Column (name="division", type="string", length=1, nullable=true)
 	*/
 	protected $division;
 
-    /**
-    * @ORM\OneToMany(targetEntity="Pago", mappedBy="alumno")
-    */
-    protected $pagos;
+  /**
+  * @ORM\OneToMany(targetEntity="Pago", mappedBy="alumno")
+  */
+  protected $pagos;
 
-   	public function __construct(){
-   		$this->pagos = new ArrayCollection();
-   	}
+ 	public function __construct(){
+ 		$this->pagos = new ArrayCollection();
+ 	}
 
-   	public function __toString(){
-   		return $this->nombre.$this->apellido;
-   	}
+ 	public function __toString(){
+ 		return $this->nombre.$this->apellido;
+ 	}
 
 /** **********************************   ********************************* */
 

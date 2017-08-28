@@ -12,7 +12,7 @@
 
     {% endif %}
     {% if hayPagos %}
-        
+
         <div class="panel panel-primary">
             <!-- Default panel contents -->
             <div class="panel-heading">{{info}}</div>
@@ -25,33 +25,35 @@
                       </button>
                       <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
                         <li role="presentation">
-                            <input type="checkbox" name="busqueda" value="dni" checked> 
+                            <input type="checkbox" name="busqueda" value="dni" checked>
                             <label>DNI</label>
                         </li>
                         <li role="presentation">
-                            <input type="checkbox" name="busqueda" value="nombre" checked> 
+                            <input type="checkbox" name="busqueda" value="nombre" checked>
                             <label>Nombre</label>
                         </li>
                         <li role="presentation">
-                            <input type="checkbox" name="busqueda" value="apellido" checked> 
+                            <input type="checkbox" name="busqueda" value="apellido" checked>
                             <label>Apellido</label>
+                        </li>
+                        <li role="presentation">
+                            <input type="checkbox" name="busqueda" value="becado" checked>
+                            <label>Becado</label>
+                        </li>
+                        <li role="presentation">
+                            <input type="checkbox" name="busqueda" value="cobrador" checked>
+                            <label>Cobrador</label>
                         </li>
                       </ul>
                     </div>
                     <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
                     <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
 
-                </div>           
+                </div>
 
                     <table class="table">
                         <thead>
                             <tr>
-                                {#<th>
-                                    <button class="sort btn" data-sort="id">
-                                        <span class="glyphicon glyphicon-sort"></span>
-                                    </button>
-                                #
-                                </th> #}
                                 <th>
                                     <button class="sort btn" data-sort="dni">
                                         <span class="glyphicon glyphicon-sort"></span>
@@ -60,7 +62,7 @@
                                 </th>
                                 <th>
                                     <button class="sort btn" data-sort="nombre">
-                                        <span class="glyphicon glyphicon-sort"></span> 
+                                        <span class="glyphicon glyphicon-sort"></span>
                                     </button>
                                     Nombre
                                 </th>
@@ -89,13 +91,11 @@
                         <tbody class="list">
                             {% for alumno in alumnos %}
                                 <tr>
-                                    {#<th scope="row" class="id">{{alumno.data.id}}</th>#}
                                     <td class="dni">{{alumno.data.dni}}</td>
                                     <td class="nombre">{{alumno.data.nombre}}</td>
                                     <td class="apellido">{{alumno.data.apellido}}</td>
                                     <td class="becado">{% if alumno.beca.becado %} si {% else %} no {% endif %}</td>
                                     <td class="cobrador">{{alumno.user}}</td>
-
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -110,9 +110,9 @@
     <script type="text/javascript">
         $( document ).ready(function() {
             var monkeyList = new List('paginacion', {
-              	valueNames: ['nombre','apellido','dni'],
+              	valueNames: ['dni','nombre','apellido','becado','cobrador'],
               	page: {{paginacion}},
-              	plugins: [ ListPagination({}) ] 
+              	plugins: [ ListPagination({}) ]
           	});
 
           	$(".input-busqueda").keyup(function(){
@@ -123,6 +123,6 @@
               	monkeyList.search($(this).val(), filtros)
           	});
         });
-        
+
     </script>
 {% endblock %}
