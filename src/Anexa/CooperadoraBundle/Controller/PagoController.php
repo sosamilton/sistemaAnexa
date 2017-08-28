@@ -165,35 +165,28 @@ class PagoController extends Controller
 
         if (isset($data['alumnoId'])){
             $alumno = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findOneById($data['alumnoId']);
-            if (isset($data['coutas'])) {
-              foreach ($data['coutas'] as $id) {
-                $cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneById($id);
-
-                $this->setAction($cuota, $alumno, $usuario, false, new Pago);
-              }
+            if ($this->isGranted('ROLE_SUPER_ADMIN')) {
+              $beca=true;
+            }else{
+              $beca=false;
             }
-            if (isset($data['becas'])) {
-              foreach ($data['becas'] as $id) {
+
+            if (isset($data['cuota'])) {
+              foreach ($data['cuota'] as $id) {
                 $cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneById($id);
-                $this->setAction($cuota, $alumno, $usuario, true, new Pago);
+                $this->setAction($cuota, $alumno, $usuario, $beca, new Pago);
               }
             }
 
             if (isset($data['nuevo'])) {
+              die('tambien hay nuevos');
                 $cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneById($data['nuevo']);
-                $this->setAction($cuota, $alumno, $usuario, false, new Pago);
+                $this->setAction($cuota, $alumno, $usuario, $beca, new Pago);
                 $alumno->setNuevo(false);
                 $em->persist($alumno);
                 $em->flush();
             }
 
-            if (isset($data['nuevo_becar'])) {
-                $cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneById($data['nuevo_becar']);
-                $this->setAction($cuota, $alumno, $usuario, true, new Pago);
-                $alumno->setNuevo(false);
-                $em->persist($alumno);
-                $em->flush();
-            }
             $datos=array(
               'msj' => ' Los pagos fueron efectuados correctamente!',
               'success' => 1

@@ -20,6 +20,7 @@
 
 
     {% if tieneCuotasImpagas %}
+    {% set type = is_granted('ROLE_SUPER_ADMIN') ? 'becar' : 'pagar'%}
     	<div class="panel panel-primary">
           <!-- Default panel contents -->
           <div class="panel-heading">Listado de Cuotas Impagas | {{alumno.nombre ~ " " ~ alumno.apellido}}</div>
@@ -83,10 +84,7 @@
                     Monto
                   </th>
 
-                  <th>Pagar</th>
-                  {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Becar</th>
-                  {% endif %}
+                  <th>{{type|title}}</th>
 
                 </tr>
               </thead>
@@ -98,17 +96,10 @@
                         <td class="tipo">{{cuotaIngreso.tipo}}</td>
                         <td class="monto">{{cuotaIngreso.monto}}</td>
                         <td>
-                          <div class="nuevo btn btn-primary" tipo="nuevo" id="nuevo" cuota-id="{{cuotaIngreso.id}}" title='pagar'>
+                          <div class="pago btn btn-primary" tipo="nuevo"  accion="agregar" monto="{{cuotaIngreso.monto}}" cuota-id="{{cuotaIngreso.id}}" title='{{type}}'>
                                 <span class='glyphicon glyphicon-ok' ></span>
                             </div>
                         </td>
-                        {% if is_granted('ROLE_SUPER_ADMIN') %}
-                            <td>
-                                <div class="nuevo btn btn-primary" tipo="becar" id="nuevo_becar" cuota-id="{{cuotaIngreso.id}}" title='becar'>
-                                    <span class='glyphicon glyphicon-ok' ></span>
-                                </div>
-                            </td>
-                        {% endif %}
                   </tr>
                 {% endif %}
   	            {% for cuota in cuotasImpagas %}
@@ -118,17 +109,10 @@
                     <td class="tipo">{{cuota.tipo}}</td>
                     <td class="monto">{{cuota.monto}}</td>
                     <td>
-                        <div class="pagar btn btn-primary" id="pagar_{{cuota.id}}" cuota-id="{{cuota.id}}" title='pagar'>
+                        <div class="pago btn btn-primary" tipo="{{type}}" accion="agregar" monto="{{cuota.monto}}" cuota-id="{{cuota.id}}" title='{{type}}'>
                             <span class='glyphicon glyphicon-ok' ></span>
                         </div>
                     </td>
-                    {% if is_granted('ROLE_SUPER_ADMIN') %}
-                        <td>
-                            <div class="becar btn btn-primary" id="becar_{{cuota.id}}" cuota-id="{{cuota.id}}" title='becar'>
-                                <span class='glyphicon glyphicon-ok' ></span>
-                            </div>
-                        </td>
-                    {% endif %}
   	              </tr>
   	            {% endfor %}
               </tbody>
@@ -268,96 +252,66 @@
     {% endif %}
 
       <script type="text/javascript">
-        $( document ).ready(function() {
+        function total() {
+           this.total = 0;
+           this.aPagar = 0;
+           var obj = this;
+           $(".pago").each(function() {
+             obj.total += parseFloat($(this).attr('monto'));
+           });
+           $('.pago').click(function(){
+             console.log('entro al pago');
+             $(this).toggleClass("btn-primary btn-danger");
+             $(this).children().toggleClass("glyphicon-ok glyphicon-remove");
+             var id = $(this).attr('cuota-id');
+             var monto = $(this).attr('monto');
+             var accion = $(this).attr('accion');
+             var tipo = $(this).attr('tipo');
+             if (tipo == "pagar") {
+               if (accion == "agregar") {
+                 obj.aPagar+=parseFloat(monto);
+               }else {
+                 obj.aPagar-=parseFloat(monto);
+               }
+             }
+             if(tipo == 'nuevo'){
+               var name="nuevo";
+             }else{
+               var name="cuota"
+             }
+             if (accion == "agregar") {
+               console.log('entro a crear el input');
+               var text = "<input type='hidden' name='"+name+"[]' id='"+tipo+"_"+id+"'' monto='"+monto+"' value='"+id+"'>";
+               $('#inputs').append(text);
+               $(this).attr('accion','quitar');
+             }else{
+               $(this).attr('accion','agregar');
+               $('#'+tipo+"_"+id).remove();
+             }
+              obj.actualizarTotal();
+           });
 
-          var total=0;
-          $(".monto").each(function() {
-            total += parseFloat($(this).text());
-          });
+           this.actualizarTotal = function(){
+            $('#totalSeleccionado').text('$ '+ this.aPagar);
+            $('#totalAPagar').text('$ '+ this.total);
+           }
 
-          $('#totalAPagar').text('$ '+ total);
+           this.actualizarTotal();
 
-          $('.pagar').click(function(){
-            $(this).toggleClass("btn-primary btn-danger");
-            $(this).children().toggleClass("glyphicon-ok glyphicon-remove");
-            var id = $(this).attr('cuota-id');
-            var monto = $(this).parent().parent().find('.monto').text();
-            if ($('#beca_'+id).length){
-              $('#beca_'+id).remove();
-            }
-            if ($('#cuota_'+id).length){
-              $('#cuota_'+id).remove();
-            }else{
-              var text = "<input type='hidden' name='coutas[]' class='cuotaAPagar' id='cuota_"+id+"'' monto='"+monto+"' value='"+id+"'>";
-              $('#inputs').append(text);
-            }
-            actualizarSubtotal();
-          });
-
-          $('.becar').click(function(){
-            $(this).toggleClass("btn-primary btn-danger");
-            $(this).children().toggleClass("glyphicon-ok glyphicon-remove");
-            var id = $(this).attr('cuota-id');
-            var monto = $(this).parent().parent().find('.monto').text();
-            $('#pagar_'+id).toggleClass("btn-primary btn-danger");
-            $('#pagar_'+id).children().toggleClass("glyphicon-ok glyphicon-remove");
-            if ($('#cuota_'+id).length){
-              $('#cuota_'+id).remove();
-            }
-            if ($('#beca_'+id).length){
-              $('#beca_'+id).remove();
-            }else{
-              var text = "<input type='hidden' name='becas[]' class='cuotaABecar' id='beca_"+id+"'' monto='"+monto+"' value='"+id+"'>";
-              $('#inputs').append(text);
-            }
-            actualizarSubtotal();
-          });
-
-          $('.nuevo').click(function(){
-            var id = $(this).attr('cuota-id');
-            var tipo = $(this).attr('tipo');
-            var monto = $(this).parent().parent().find('.monto').text();
-            if(tipo=="becar"){
-              $('#beca_'+id).remove();
-              $('#nuevo_becar').toggleClass("btn-primary btn-danger");
-              $('#nuevo_becar').children().toggleClass("glyphicon-ok glyphicon-remove");
-              var text = "<input type='hidden' name='nuevo_becar' class='cuotaABecar' id='beca_"+id+"'' monto='"+monto+"' value='"+id+"'>";
-            }else{
-              $('#cuota_'+id).remove();
-              $('#nuevo').toggleClass("btn-primary btn-danger");
-              $('#nuevo').children().toggleClass("glyphicon-ok glyphicon-remove");
-              var text = "<input type='hidden' name='nuevo' class='cuotaAPagar' id='cuota_"+id+"'' monto='"+monto+"' value='"+id+"'>";
-            }
-            $('#inputs').append(text);
-            actualizarSubtotal();
-          });
-
-          $('#pagarSeleccion').click(function(){
+           $('#pagarSeleccion').click(function(){
             var r = confirm("Está seguro que desea realizar el pago?");
             if (r == true) {
                 $('#formulario').submit();
             }
           });
+        }
 
-          var monkeyList = new List('paginacion', {
-              valueNames: [ 'anio','mes','numero','tipo', 'monto', "comision", "fechaAlta"],
-              page: '{{ render(url('paginacion')) }}',
-              plugins: [ ListPagination({}) ]
-          });
+        $( document ).ready(function() {
+          new total();
 
-          $(".input-busqueda").keyup(function(){
-              filtros = [];
-              $("input[name='busqueda']:checked").each(function() {
-                  filtros.push($(this).val());
-              });
-              monkeyList.search($(this).val(), filtros)
-          });
-
-
-        });
-          var monkeyList = new List('paginacion2', {
+          var monkeyList2 = new List('paginacion2', {
               valueNames: [ 'anio','mes','numero','tipo', 'monto'],
-              page: '{{ render(url('paginacion2')) }}',
+              page: '{{ render(url('paginacion')) }}',
               plugins: [ ListPagination({}) ]
           });
 
@@ -366,19 +320,23 @@
               $("input[name='busqueda2']:checked").each(function() {
                   filtros.push($(this).val());
               });
-              monkeyList.search($(this).val(), filtros)
+              monkeyList2.search($(this).val(), filtros);
           });
 
+          var monkeyList = new List('paginacion', {
+             valueNames: [ 'anio','mes','numero','tipo', 'monto', "comision", "fechaAlta"],
+             page: '{{ render(url('paginacion')) }}',
+             plugins: [ ListPagination({}) ]
+         });
 
+         $(".input-busqueda").keyup(function(){
+             filtros = [];
+             $("input[name='busqueda']:checked").each(function() {
+                 filtros.push($(this).val());
+             });
+             monkeyList.search($(this).val(), filtros)
+         });
         });
-
-        function actualizarSubtotal(){
-          var total=0;
-          $(".cuotaAPagar").each(function() {
-            total += parseFloat($(this).attr('monto'));
-          });
-          $('#totalSeleccionado').text('$ '+ total);
-        }
 
     </script>
 {% endblock %}

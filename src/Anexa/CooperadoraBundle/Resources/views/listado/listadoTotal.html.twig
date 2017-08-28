@@ -23,10 +23,6 @@
                               <label>Alumno</label>
                           </li>
                           <li role="presentation">
-                            <input type="checkbox" name="busqueda" value="mes" checked>
-                            <label>Mes</label>
-                          </li>
-                          <li role="presentation">
                             <input type="checkbox" name="busqueda" value="curso" checked>
                             <label>Curso</label>
                           </li>
@@ -60,9 +56,6 @@
                               </th>
                               {% for mes in meses %}
                               <th>
-                                  <button class="sort btn" data-sort="mes">
-                                      <span class="glyphicon glyphicon-sort"></span>
-                                  </button>
                                   {% if mes == 'matriculaIngreso' %} Matricula Ingreso {% else %}  {{ mes }} {% endif %}
                               </th>
                               {% endfor %}
@@ -93,7 +86,7 @@
                                     <td class="dni">{{pago.alumno.dni}}</td>
                                     <td class="nombre">{{pago.alumno.apellido}} {{pago.alumno.nombre}}</td>
                                     {% for mes in meses %}
-                                        <td class="mes">  {{pago.mes[loop.index0]}} </td>
+                                        <td>  {{pago.mes[loop.index0]}} </td>
                                     {% endfor %}
                                     <td class="curso">{{pago.alumno.curso}}</td>
                                     <td class="division">{{pago.alumno.division}}</td>
@@ -114,7 +107,7 @@
     <script type="text/javascript">
         $( document ).ready(function() {
             var monkeyList = new List('paginacion', {
-              	valueNames: ['dni','nombre','mes','curso','division', 'establecimiento'],
+              	valueNames: ['dni','nombre','curso','division', 'establecimiento'],
               	 page: '{{ render(url('paginacion')) }}',
               	plugins: [ ListPagination({}) ]
           	});
