@@ -64,7 +64,7 @@ INSERT INTO `alumno` (`id`, `borrado`, `dni`, `apellido`, `nombre`, `fechaNacimi
 -- Estructura de tabla para la tabla `Configuracion`
 --
 
-CREATE TABLE IF NOT EXISTS `Configuracion` (
+CREATE TABLE IF NOT EXISTS `configuracion` (
   `clave` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `valorNumerico` int(11) DEFAULT NULL,
   `valorTextual` longtext COLLATE utf8_unicode_ci
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `Configuracion` (
 -- Volcado de datos para la tabla `Configuracion`
 --
 
-INSERT INTO `Configuracion` (`clave`, `valorNumerico`, `valorTextual`) VALUES
+INSERT INTO `configuracion` (`clave`, `valorNumerico`, `valorTextual`) VALUES
 ('descripcion', 0, 'La Escuela Graduada “Joaquín V. González” fue creada por Decreto del Poder Ejecutivo del 24 de enero de 1906. Con su creación se completaba el proceso educativo dentro de la Universidad, por primera vez en el país. Se lograba, como quería el Presidente de la U.N.L.P., Joaquín V. González, la armonía y continuidad de las distintas etapas de la enseñanza primaria, secundaria y universitaria.\r\nLa Escuela surgió como Anexa a la Sección Pedagógica de la Facultad de Ciencias Jurídicas y Sociales de la Universidad Nacional de La Plata, que se encontraba a cargo del Profesor Víctor Mercante. En 1914 fue anexada a la Facultad de Ciencias de la Educación y en 1920 a la Facultad de Humanidades y Ciencias de la Educación. Actualmente depende de la Presidencia de la U.N.L.P.'),
 ('email', 0, 'info@anexa.unlp.edu.ar'),
 ('estado_sitio', 1, '1'),
