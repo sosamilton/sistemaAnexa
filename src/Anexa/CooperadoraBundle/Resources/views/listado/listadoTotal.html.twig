@@ -84,7 +84,7 @@
                              {% for pago in pagos %}
                                 <tr>
                                     <td class="dni">{{pago.alumno.dni}}</td>
-                                    <td class="nombre">{{pago.alumno.apellido}} {{pago.alumno.nombre}}</td>
+                                    <td class="alumno">{{pago.alumno.apellido}} {{pago.alumno.nombre}}</td>
                                     {% for mes in meses %}
                                         <td>  {{pago.mes[loop.index0]}} </td>
                                     {% endfor %}
@@ -107,7 +107,7 @@
     <script type="text/javascript">
         $( document ).ready(function() {
             var monkeyList = new List('paginacion', {
-              	valueNames: ['dni','nombre','curso','division', 'establecimiento'],
+              	valueNames: ['dni','alumno','curso','division', 'establecimiento'],
               	 page: '{{ render(url('paginacion')) }}',
               	plugins: [ ListPagination({}) ]
           	});
@@ -122,4 +122,5 @@
         });
 
     </script>
+
 {% endblock %}

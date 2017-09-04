@@ -32,11 +32,18 @@
                   {{ form_label(edit_form.roles) }}
                   {{ form_widget(edit_form.roles, {'attr': {'class':'form-control'}}) }}
               </div>
-            </div>
-            <div class="col-md-12">
-              {{ form_label(edit_form.habilitado) }}
-              {{ form_widget(edit_form.habilitado, {'attr': {'class':'form-control'}}) }}
-            </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="col-md-6">
+                  {{ form_label(edit_form.tipo) }}
+                  {{ form_widget(edit_form.tipo, {'attr': {'class':'form-control'}}) }}
+                  </div>
+        
+                <div class="col-md-6">
+                  {{ form_label(edit_form.habilitado) }}
+                  {{ form_widget(edit_form.habilitado, {'attr': {'class':'form-control'}}) }}
+                </div>
+              </div>
 
             <div class="form-group col-md-12">
               <button type="submit" class="btn btn-primary col-md-12">Editar Usuario</button>
@@ -44,8 +51,15 @@
             {{ form_end(edit_form) }}
             </div>
           </div>
-      </div>
+      
       <script type="text/javascript">
-
+          $('#user_tipo').parent().hide();
+          $('#user_roles').change(function(event) {
+            if ($(this).val() == "ROLE_COBRADOR") {
+              $('#user_tipo').parent().show();
+            }else{
+              $('#user_tipo').parent().hide();
+            }
+          });
       </script>
 {% endblock %}

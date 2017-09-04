@@ -34,7 +34,7 @@ class BalanceController extends Controller
                 }
 
                 $balance->setTotal($total);
-                $porcentaje = $this->getUser()->getTipoCobrador()->getComision();
+                $porcentaje = $this->getUser()->getTipo()->getComision();
                 $balance->setComisionCobrada(($total*$porcentaje)/100);
                 $this->getUser()->setFechaUltCierre((new \DateTime())->format('Y-m-d H:i:s'));
                 $em->persist($balance);

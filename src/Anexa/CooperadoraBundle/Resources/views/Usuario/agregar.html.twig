@@ -32,15 +32,20 @@
                   {{ form_label(form.roles) }}
                   {{ form_widget(form.roles, {'attr': {'class':'form-control'}}) }}
               </div>
-              <div class="col-md-12">
-                  {{ form_label(form.tipoCobrador) }}
-                  {{ form_widget(form.tipoCobrador, {'attr': {'class':'form-control'}}) }}
-              </div>
+              
             </div>
+              
             <div class="col-md-12">
-              {{ form_label(form.habilitado) }}
-              {{ form_widget(form.habilitado, {'attr': {'class':'form-control'}}) }}
-            </div>
+                <div class="col-md-6">
+                  {{ form_label(form.tipo) }}
+                  {{ form_widget(form.tipo, {'attr': {'class':'form-control'}}) }}
+                  </div>
+              
+                <div class="col-md-6">
+                  {{ form_label(form.habilitado) }}
+                  {{ form_widget(form.habilitado, {'attr': {'class':'form-control'}}) }}
+                </div>
+              </div>
 
             <div class="form-group col-md-12">
               <button type="submit" class="btn btn-primary col-md-12">Agregar Usuario</button>
@@ -48,14 +53,13 @@
             {{ form_end(form) }}
             </div>
           </div>
-      </div>
       <script type="text/javascript">
-          $('#user_tipoCobrador').parent().hide();
+          $('#user_tipo').parent().hide();
           $('#user_roles').change(function(event) {
             if ($(this).val() == "ROLE_COBRADOR") {
-              $('#user_tipoCobrador').parent().show();
+              $('#user_tipo').parent().show();
             }else{
-              $('#user_tipoCobrador').parent().hide();
+              $('#user_tipo').parent().hide();
             }
           });
 

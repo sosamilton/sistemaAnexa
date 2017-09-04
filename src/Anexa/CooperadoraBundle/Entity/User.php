@@ -53,9 +53,11 @@ class User extends BaseUser
     protected $fechaUltCierre;
 
     /**
-    * @ORM\OneToOne(targetEntity="TipoCobrador")
-    * @ORM\JoinColumn(name="tipoCobrador_id", referencedColumnName="id")
+    @ORM\ManyToOne(targetEntity="TipoCobrador", inversedBy="users")
+    *@ORM\JoinColumn(name="tipoCobrador_id", referencedColumnName="id")
+    *
     */
+
     protected $tipoCobrador;
 
     public function __construct(){
@@ -174,7 +176,7 @@ class User extends BaseUser
         return $this->fechaUltCierre;
     }
 
-    public function getTipoCobrador(){
+    public function getTipo(){
         return $this->tipoCobrador;
     }
 
@@ -183,7 +185,7 @@ class User extends BaseUser
         return $this;
     }
 
-    public function setTipoCobrador($tipo){
+    public function setTipo($tipo){
         $this->tipoCobrador = $tipo;
         return $this;
     }

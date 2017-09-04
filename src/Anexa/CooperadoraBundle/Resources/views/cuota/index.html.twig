@@ -115,7 +115,17 @@
               page: '{{ render(url('paginacion')) }}',
               plugins: [ ListPagination({}) ]
           });
+        
+        $(".input-busqueda").keyup(function(){
+              	filtros = [];
+              	$("input[name='busqueda']:checked").each(function() {
+                  	filtros.push($(this).val());
+              	});
+              	monkeyList.search($(this).val(), filtros)
+          	});
         });
     </script>
+
+
 
 {% endblock %}

@@ -49,12 +49,6 @@
                 <thead>
                     <tr>
                       <th>
-                        <button class="sort btn" data-sort="id">
-                            <span class="glyphicon glyphicon-sort"></span>
-                        </button>
-                        #
-                      </th>
-                      <th>
                         <button class="sort btn" data-sort="dni">
                             <span class="glyphicon glyphicon-sort"></span>
                         </button>
@@ -78,8 +72,6 @@
                 <tbody class="list">
                     {% for alumno in alumnos %}
                         <tr>
-
-                          <td class="id">{{ alumno.id }}</td>
                           <td class="dni">{{ alumno.dni }}</td>
                           <td class="apellido">{{ alumno.apellido }}</td>
                           <td class="nombre">{{ alumno.nombre }}</td>

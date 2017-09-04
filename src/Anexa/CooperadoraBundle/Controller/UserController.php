@@ -19,6 +19,7 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Anexa\CooperadoraBundle\Entity\TipoCobrador;
 
 class UserController extends Controller
 {
@@ -38,6 +39,9 @@ class UserController extends Controller
     {
         if (!isset($user)) {
           $user= new User();
+          $fecha = new \DateTime();
+          $fecha = $fecha->format('Y-m-d H:i:s');
+          $user->setFechaUltCierre($fecha);
         }
         $form = $this->createForm("Anexa\CooperadoraBundle\Form\UserType", $user);
 
@@ -50,8 +54,13 @@ class UserController extends Controller
             return $this->redirectToRoute('usuario_index');
         }
 
+        $em = $this->getDoctrine()->getManager();
+
+        $tiposCob = $em->getRepository('AnexaCooperadoraBundle:TipoCobrador')->findByBorrado(false);
+
         return $this->render('AnexaCooperadoraBundle:Usuario:agregar.html.twig', array(
             'form' => $form->createView(),
+            'tiposCob' => $tiposCob,
             'menu' => "usuario"
         ));
     }

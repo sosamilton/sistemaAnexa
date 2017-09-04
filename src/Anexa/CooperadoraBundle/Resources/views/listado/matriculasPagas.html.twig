@@ -107,7 +107,7 @@
         $( document ).ready(function() {
             var monkeyList = new List('paginacion', {
               	valueNames: ['dni','nombre','apellido', 'becado', 'cobrador'],
-              	page: {{paginacion}},
+              	page: '{{ render(url('paginacion')) }}',
               	plugins: [ ListPagination({}) ]
           	});
 

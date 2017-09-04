@@ -39,13 +39,13 @@ class UserType extends AbstractType
                     'Administrador' => 'ROLE_ADMIN',
                     'Cobrador'  => 'ROLE_COBRADOR'
                 )))
-          ->add('tipoCobrador', ChoiceType::class, array(
-                'multiple'=> false,
-                'choices'=>array(
-                    'Domicilio' => 'domicilio',
-                    'Transferencia Bancaria' => 'transferencia',
-                    'Librería/Fotocopiadora' => 'librería'
-                )))
+
+          ->add('tipo', EntityType::class, array(
+            'class' => 'AnexaCooperadoraBundle:TipoCobrador',
+            'choice_label' => function ($tipo) {
+                return $tipo->getDenominacion();
+                },
+            'label' => 'Tipo de Cobrador'))
           ->add('habilitado', CheckboxType::class, array(
               'label'    => 'Habilitado',
               'required' => false,
