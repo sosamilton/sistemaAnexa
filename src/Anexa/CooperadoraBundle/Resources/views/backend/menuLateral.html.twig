@@ -4,12 +4,11 @@
       <li role="presentation" {% if menu == "alumno" %}class="active"{% endif %}><a href="{{path('alumno_index')}}">Alumnos</a></li>
   {% endif %}
 
-    <li role="presentation" {% if menu == "listado" %}class="active"{% endif %}><a href="{{path('listado_index')}}">Listados</a></li>
 
     <li role="presentation"  {% if menu == "pago" %}class="active"{% endif %}><a href="{{path('pago_index')}}">Pagos</a></li>
 
   {% if is_granted('ROLE_SUPER_ADMIN') %}
-
+     <li role="presentation" {% if menu == "listado" %}class="active"{% endif %}><a href="{{path('listado_index')}}">Listados</a></li>
      <li role="presentation" {% if menu == "cuota" %}class="active"{% endif %}><a href="{{path('cuota_index')}}">Cuotas</a></li>
      <li role="presentation" {% if menu == "usuario" %}class="active"{% endif %}><a href="{{path('usuario_index')}}">Usuarios</a></li>
      <li role="presentation" {% if menu == "tipoCobrador" %}class="active"{% endif %}><a href="{{path('cobrador_index')}}">Tipos de Cobrador</a></li>
