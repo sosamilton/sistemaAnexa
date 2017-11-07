@@ -91,7 +91,7 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $userManager->updateUser($user);
-            return $this->redirectToRoute('usuario_index');
+            return $this->showAction($user);
         }
 
         return $this->render('AnexaCooperadoraBundle:Usuario:editar.html.twig', array(
