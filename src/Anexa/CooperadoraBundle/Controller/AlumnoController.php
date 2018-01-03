@@ -23,14 +23,16 @@ class AlumnoController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $alumnos = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findByBorrado(false);
+        $datos['menu'] = "alumno";
         if (count($alumnos) == 0) {
             $datos['msj'] = 'No hay alumnos registrados aún';
+            $datos['alumnos'] = null;
             $datos['success'] = false;
         } else {
-        $datos['alumnos'] = $alumnos;
-        $datos['menu'] = "alumno";
+            $datos['alumnos'] = $alumnos;
+            $datos['menu'] = "alumno";
+        }
         return $this->render('AnexaCooperadoraBundle:alumno:index.html.twig', $datos);
-         }
     }
 
     /**
