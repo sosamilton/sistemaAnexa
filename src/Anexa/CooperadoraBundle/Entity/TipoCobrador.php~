@@ -40,41 +40,7 @@ class TipoCobrador {
     */
     protected $borrado = false;
 
-    /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="tipoCobrador")
-     */
-
-    protected $users;
-
-    public function __construct(){
-        $this->users = new ArrayCollection();
-    }
-
 	/* ****************************** GETTERS ******************************* */
-
-    /**
-    * Add user
-    * @param User $unUser
-    * @return ArrayCollection
-    */
-    public function addUser($unUser) {
-        $this->users[] = $unUser;
-        return $this->getUsers();
-    }
-
-    /**
-    *remove user
-    *@param User $unUser
-    *@return ArrayCollection
-    */
-    public function removeUser($unUser) {
-        $this->users->removeElement($unUser);
-        return $this->users;
-    }
-
-    public function __toString(){
-        return (string)$this->id;
-    }
 
 	/**
 	* Get id
