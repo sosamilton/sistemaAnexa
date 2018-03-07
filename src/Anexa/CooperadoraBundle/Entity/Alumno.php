@@ -29,6 +29,19 @@ class Alumno {
 	protected $borrado = false;
 
 	/**
+	* @var integer
+	* @ORM\Column(name="anioIngreso", type="integer")
+	*/
+	protected $anioIngreso;
+
+
+	/**
+	* @var decimal
+	* @ORM\Column(name="saldoFavor", type="decimal")
+	*/
+	protected $saldoFavor;
+
+	/**
 	* @var boolean
 	* @ORM\Column(name="nuevo", type="boolean")
 	*/
@@ -176,6 +189,24 @@ class Alumno {
 		return $this->nuevo;
 	}
 
+	/**
+	* Get anioIngreso
+	* @return integer
+	*/
+	public function getAnioIngreso()
+	{
+		return $this->anioIngreso;
+	}
+
+	/**
+	* Get saldoFavor
+	* @return decimal
+	*/
+	public function getSaldoFavor()
+	{
+		return $this->saldoFavor;
+	}
+
 
 	/**
 	* Get DNI
@@ -316,6 +347,26 @@ public function setNuevo($nuevo) {
 */
 public function setDni($dni) {
 	$this->dni = $dni;
+	return $this;
+}
+
+/**
+* Set anioIngreso
+* @param integer $anio
+* @return Alumno
+*/
+public function setAnioIngreso($anio) {
+	$this->anioIngreso = $anio;
+	return $this;
+}
+
+/**
+* Set saldoFavor
+* @param decimal $saldo
+* @return Alumno
+*/
+public function setSaldoFavor($saldo) {
+	$this->saldoFavor = $saldo;
 	return $this;
 }
 

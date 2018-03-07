@@ -9,17 +9,21 @@
         <div class="panel-body">
             <div class="form-group col-md-12">
 
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <label for="nombre">Nombre</label>
                     <div class="form-control">{{alumno.nombre}}</div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <label for="apellido">Apellido</label>
                     <div class="form-control" > {{alumno.apellido}}</div>
                 </div>
                 <div class="col-md-2">
                     <label for="apellido">Nuevo</label>
                     <div class="form-control" > {% if alumno.nuevo %} Si {% else %} No {% endif %}</div>
+                </div>
+                <div class="col-md-2">
+                    <label for="ingreso">Año Ingreso</label>
+                    <div class="form-control" > {{alumno.anioIngreso}}</div>
                 </div>
 
             </div>

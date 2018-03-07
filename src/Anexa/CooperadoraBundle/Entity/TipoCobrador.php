@@ -35,6 +35,13 @@ class TipoCobrador {
 	protected $comision;
 
     /**
+    * @var montoMinimo
+    * @ORM\Column(name="montoMinimo", type="decimal")
+    */
+    protected $montoMinimo;
+
+
+    /**
     * @var boolean
     * @ORM\Column(name="borrado", type="boolean")
     */
@@ -104,6 +111,15 @@ class TipoCobrador {
     }
 
     /**
+    * Get montoMinimo
+    * @return decimal
+    */
+
+    public function getMontoMinimo(){
+        return $this->montoMinimo;
+    }
+
+    /**
     * Get borrado
     * @return boolean
     */
@@ -134,6 +150,16 @@ class TipoCobrador {
     public function setComision($comision){
     	$this->comision = $comision;
     	return $this;
+    }
+
+    /**
+    * Set montoMinimo
+    * @param decimal $monto
+    * @return TipoCobrador
+    */
+    public function setMontoMinimo($monto){
+        $this->montoMinimo = $monto;
+        return $this;
     }
 
     /**

@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -30,6 +31,7 @@ class AlumnoType extends AbstractType
             ->add('direccion', TextType::class, array('label' => 'Dirección'))
             ->add('telefono', TextType::class, array('label' => 'Teléfono'))
             ->add('email', TextType::class, array('label' => 'Email'))
+            ->add('anioIngreso', IntegerType::class, array('label' => 'Año de Ingreso'))
             ->add('curso', TextType::class, array('label' => 'Curso'))
             ->add('division', ChoiceType::class, array(
                                     'choices' => array(
