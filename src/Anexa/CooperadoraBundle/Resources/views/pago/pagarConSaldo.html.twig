@@ -1,0 +1,257 @@
+{% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
+{% block title %} Administración | Cuotas | Ver{% endblock %}
+
+{% block dataAdmin %}
+
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Agregar Saldo y Pagar</div>
+        <div class="panel-footer">
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="titulo">Saldo Actual</label>
+                <div class="form-control">{{ alumno.saldo }}</div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+<!-- ##################################### cuotas no pagas ################################### -->
+
+    {% if tieneCuotasImpagas %}
+    {% set type = is_granted('ROLE_SUPER_ADMIN') ? 'becar' : 'pagar'%}
+    	<div class="panel panel-primary">
+          <!-- Default panel contents -->
+          <div class="panel-heading">Pago con Saldo | {{alumno.nombre ~ " " ~ alumno.apellido}}</div>
+          <!-- Table -->
+          <div class="panel-body" id="paginacion2">
+
+            <div class="input-group col-md-12">
+                <div class="input-group-addon">
+                  <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                    <span class="glyphicon glyphicon-filter"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
+                    <li role="presentation">
+                        <input type="checkbox" name="busqueda2" value="anio" checked>
+                        <label>Año</label>
+                    </li>
+                    <li role="presentation">
+                        <input type="checkbox" name="busqueda2" value="mes" checked>
+                        <label>Mes</label>
+                    </li>
+                    <li role="presentation">
+                        <input type="checkbox" name="busqueda2" value="tipo" checked>
+                        <label>Tipo</label>
+                    </li>
+                    <li role="presentation">
+                        <input type="checkbox" name="busqueda2" value="monto" checked>
+                        <label>Monto</label>
+                    </li>
+                  </ul>
+                </div>
+                <input type="text" class="input-busqueda2 form-control" placeholder="Inicie su búsqueda aquí" />
+                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+            </div>
+
+            <table class="table table-hover">
+              <thead>
+                <tr>
+
+                  <th>
+                    <button class="sort btn" data-sort="anio">
+                        <span class="glyphicon glyphicon-sort"></span>
+                    </button>
+                    Año
+                  </th>
+                  <th>
+                    <button class="sort btn" data-sort="mes">
+                        <span class="glyphicon glyphicon-sort"></span>
+                    </button>
+                    Mes
+                  </th>
+                  <th>
+                    <button class="sort btn" data-sort="tipo">
+                        <span class="glyphicon glyphicon-sort"></span>
+                    </button>
+                    Tipo
+                  </th>
+                  <th>
+                    <button class="sort btn" data-sort="monto">
+                        <span class="glyphicon glyphicon-sort"></span>
+                    </button>
+                    Monto
+                  </th>
+
+                  <th>{{type|title}}</th>
+
+                </tr>
+              </thead>
+              <tbody class="list2">
+                {% if esNuevo %}
+                    <tr>
+                        <td class="anio">{{cuotaIngreso.anio}}</td>
+                        <td class="mes">{{cuotaIngreso.mes}}</td>
+                        <td class="tipo">{{cuotaIngreso.tipo}}</td>
+                        <td class="monto">{{cuotaIngreso.monto}}</td>
+                        <td>
+                          <div class="pago btn btn-primary clickPago" tipo="nuevo"  accion="agregar" monto="{{cuotaIngreso.monto}}" cuota-id="{{cuotaIngreso.id}}" title='{{type}}'>
+                                <span class='glyphicon glyphicon-ok' ></span>
+                            </div>
+                        </td>
+                  </tr>
+                {% endif %}
+  	            {% for cuota in cuotasImpagas %}
+  	              <tr>
+  	                <td class="anio">{{cuota.anio}}</td>
+  	                <td class="mes">{{ cuota.mes }}</td>
+                    <td class="tipo">{{cuota.tipo}}</td>
+                    <td class="monto">{{cuota.monto}}</td>
+                    <td>
+                        <div class="pago btn btn-primary" onclick="pago.verificarPago(this, true)"tipo="pagar" accion="agregar" monto="{{cuota.monto}}" cuota-id="{{cuota.id}}" title='{{type}}'>
+                            <span class='glyphicon glyphicon-ok' ></span>
+                        </div>
+                    </td>
+  	              </tr>
+  	            {% endfor %}
+              </tbody>
+            </table>
+            <div class="col-md-4 col-md-offset-4">
+                <ul class="pagination2"></ul>
+            </div>
+          </div>
+          <div class="panel-footer">
+
+            <div class="col-md-3 col-sm-4">
+                Saldo <span class="label label-primary" id="saldo">$ {{alumno.saldo}}</span>
+            </div>
+
+            <div class="col-md-3 col-sm-4">
+              A pagar: <span class="label label-success" id="totalSeleccionado">$ 0</span>
+            </div>
+
+            <div class="col-md-3 col-sm-4">
+                Resta Pagar: <span class="label label-danger" id="totalAPagar">$ 0</span>
+            </div>
+
+
+            <div class="col-md-3 col-sm-12 form-group">
+                <div class="btn-group btn-group-sm col-md-12 col-sm-12" role="group" >
+                  <button type="button" id="pagarSeleccion" class="btn btn-danger col-md-12 col-sm-12">Pagar</button>
+                </div>
+            </div>
+          </div>
+          <form id="formulario" action="{{path ('pago_seleccionado')}}" method="post">
+
+            <input type="hidden" name="alumnoId" value="{{alumno.id}}">
+            <input type="hidden" value="{{ alumno.saldo }}" id="add_saldo" name="add_saldo" />
+            <div id="inputs">
+
+            </div>
+          </form>
+      </div>
+    {% endif %}
+
+      <script type="text/javascript">
+        function total() {
+            this.total = 0;
+            this.aPagar = 0;
+            this.saldo =  parseFloat({{alumno.saldo}});
+            var obj = this;
+
+            $(".pago").each(function() {
+             var monto = $(this).attr('monto');
+             obj.total += parseFloat(monto);
+            });
+
+            this.actualizarTotal = function(){
+              $('#totalSeleccionado').text('$ '+ obj.aPagar);
+              $('#totalAPagar').text('$ '+ obj.total);
+              $('#saldo').text('$ '+ obj.saldo);
+            }
+
+            this.verificarPago = function(element, report = true){
+              var id = $(element).attr('cuota-id');
+              var monto = $(element).attr('monto');
+              var accion = $(element).attr('accion');
+              var tipo = $(element).attr('tipo');
+              var name = (tipo == 'nuevo')?'nuevo': 'cuota';
+              var condition = true;
+              if (accion == "agregar") {
+                if (parseFloat(this.saldo) >= parseFloat(monto)) {
+                  this.saldo= parseFloat(this.saldo) - parseFloat(monto);
+                  this.aPagar= parseFloat(this.aPagar) + parseFloat(monto);
+                  this.total= parseFloat(this.total) - parseFloat(monto);
+                  var text = "<input type='hidden' name='"+name+"[]' id='"+tipo+"_"+id+"'' monto='"+monto+"' value='"+id+"'>";
+                  $('#inputs').append(text);
+                  $(element).attr('accion','quitar');
+                }else{
+                  if (report) {
+                    alert('el saldo no es suficiente');
+                    condition = false;
+                  }
+                }
+              }else if (accion == "quitar") {
+                this.aPagar = parseFloat(this.aPagar) - parseFloat(monto);
+                this.saldo = parseFloat(this.saldo) + parseFloat(monto);
+                this.total= parseFloat(this.total) + parseFloat(monto);
+                $(element).attr('accion','agregar');
+                $('#'+tipo+"_"+id).remove();
+              }
+              if (condition) {
+                $(element).toggleClass("btn-primary btn-danger");
+                $(element).children().toggleClass("glyphicon-ok glyphicon-remove");
+                this.actualizarTotal();
+              }
+            }
+
+            $('#pagarSeleccion').click(function(){
+             var r = confirm("Está seguro que desea realizar el pago?");
+             if (r == true) {
+               $('#formulario').submit();
+             }
+            });
+
+            $(".pago").each(function() {
+             var monto = $(this).attr('monto');
+             if (obj.saldo >= monto) {
+               obj.verificarPago($(this), false);
+             }
+            });
+       }
+
+       var pago = new total();
+        $( document ).ready(function() {
+
+         //
+         //  var monkeyList2 = new List('paginacion2', {
+         //      valueNames: [ 'anio','mes','numero','tipo', 'monto'],
+         //      page: '{{ render(url('paginacion')) }}',
+         //      plugins: [ ListPagination({}) ]
+         //  });
+         //
+         //  $(".input-busqueda2").keyup(function(){
+         //      filtros = [];
+         //      $("input[name='busqueda2']:checked").each(function() {
+         //          filtros.push($(this).val());
+         //      });
+         //      monkeyList2.search($(this).val(), filtros);
+         //  });
+         //
+         //  var monkeyList = new List('paginacion', {
+         //     valueNames: [ 'anio','mes','numero','tipo', 'monto', "comision", "fechaAlta"],
+         //     page: '{{ render(url('paginacion')) }}',
+         //     plugins: [ ListPagination({}) ]
+         // });
+         //
+         // $(".input-busqueda").keyup(function(){
+         //     filtros = [];
+         //     $("input[name='busqueda']:checked").each(function() {
+         //         filtros.push($(this).val());
+         //     });
+         //     monkeyList.search($(this).val(), filtros)
+         // });
+        });
+
+    </script>
+{% endblock %}
