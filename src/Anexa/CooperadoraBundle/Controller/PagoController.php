@@ -71,7 +71,6 @@ class PagoController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
-
     /**
      * Displays a form to edit an existing pago entity.
      *
@@ -99,7 +98,7 @@ class PagoController extends Controller
     } // fin edit
 
 
-    public function verPagosAction(Alumno $alumno, $datos=array())
+    public function verPagosAction(Alumno $alumno, $type="def",$datos=array())
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -152,7 +151,17 @@ class PagoController extends Controller
 
         $datos['alumno'] = $alumno;
 
+        if ($type == "pcs") {
+          $saldo = $alumno->getSaldo();
+          if (isset($_POST['add_saldo'])) {
+            $saldo += $_POST['add_saldo'];
+          }
+          $alumno->setSaldo($saldo);
+          $datos['alumno'] = $alumno;
+          return $this->render('AnexaCooperadoraBundle:pago:pagarConSaldo.html.twig', $datos);
+        }
         return $this->render('AnexaCooperadoraBundle:pago:listarPagos.html.twig', $datos);
+
     }// fin ver pagos
 
 
@@ -179,7 +188,6 @@ class PagoController extends Controller
             }
 
             if (isset($data['nuevo'])) {
-              die('tambien hay nuevos');
                 $cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneById($data['nuevo']);
                 $this->setAction($cuota, $alumno, $usuario, $beca, new Pago);
                 $alumno->setNuevo(false);

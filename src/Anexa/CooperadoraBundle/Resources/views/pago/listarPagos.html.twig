@@ -16,8 +16,32 @@
         </div>
     {% endif %}
 
-<!-- ##################################### cuotas no pagas ################################### -->
 
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Agregar Saldo y Pagar</div>
+        <div class="panel-footer">
+          <form class="" action="{{ path('pago_por_monto', { 'id': alumno.id, 'type': "pcs"}) }}" method="post">
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="titulo">Saldo Actual</label>
+                <input class="form-control" value="{{ alumno.saldo }}" id="saldo" name="saldo" disabled readonly />
+              </div>
+              <div class="col-md-3">
+                <label for="titulo">Agregar:</label>
+                <input type="number" class="form-control" id="add_saldo" name="add_saldo" step="0.01" required />
+              </div>
+              <div class="col-md-3">
+                  <label for="titulo">Saldo Final</label>
+                  <input class="form-control" id="result" name="result" value="{{alumno.saldo}}" disabled readonly />
+              </div>
+              <button type="submit" class="btn btn-danger col-md-3" style="height: 4.3em;">Agregar y Pagar</button>
+            </div>
+          </form>
+        </div>
+    </div>
+
+<!-- ##################################### cuotas no pagas ################################### -->
 
     {% if tieneCuotasImpagas %}
     {% set type = is_granted('ROLE_SUPER_ADMIN') ? 'becar' : 'pagar'%}
@@ -260,34 +284,23 @@
              obj.total += parseFloat($(this).attr('monto'));
            });
            $('.pago').click(function(){
-             console.log('entro al pago');
-             $(this).toggleClass("btn-primary btn-danger");
-             $(this).children().toggleClass("glyphicon-ok glyphicon-remove");
              var id = $(this).attr('cuota-id');
              var monto = $(this).attr('monto');
              var accion = $(this).attr('accion');
              var tipo = $(this).attr('tipo');
-             if (tipo == "pagar") {
-               if (accion == "agregar") {
-                 obj.aPagar+=parseFloat(monto);
-               }else {
-                 obj.aPagar-=parseFloat(monto);
-               }
-             }
-             if(tipo == 'nuevo'){
-               var name="nuevo";
-             }else{
-               var name="cuota"
-             }
+             var name = (tipo == 'nuevo')?'nuevo': 'cuota';
              if (accion == "agregar") {
-               console.log('entro a crear el input');
+               obj.aPagar+=parseFloat(monto);
                var text = "<input type='hidden' name='"+name+"[]' id='"+tipo+"_"+id+"'' monto='"+monto+"' value='"+id+"'>";
                $('#inputs').append(text);
                $(this).attr('accion','quitar');
              }else{
+               obj.aPagar-=parseFloat(monto);
                $(this).attr('accion','agregar');
                $('#'+tipo+"_"+id).remove();
              }
+             $(this).toggleClass("btn-primary btn-danger");
+             $(this).children().toggleClass("glyphicon-ok glyphicon-remove");
               obj.actualizarTotal();
            });
 
@@ -307,6 +320,15 @@
         }
 
         $( document ).ready(function() {
+          $("#add_saldo").keyup(function(){
+            var result = parseFloat($("#saldo").val()) + parseFloat($(this).val());
+            if (result > 0) {
+              $('#result').val(result);
+            }else {
+              $('#result').val(0)
+            }
+          });
+
           new total();
 
           var monkeyList2 = new List('paginacion2', {

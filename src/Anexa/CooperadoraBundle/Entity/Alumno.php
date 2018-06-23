@@ -37,9 +37,9 @@ class Alumno {
 
 	/**
 	* @var decimal
-	* @ORM\Column(name="saldoFavor", type="decimal")
+	* @ORM\Column(name="saldo", type="decimal")
 	*/
-	protected $saldoFavor;
+	protected $saldo;
 
 	/**
 	* @var boolean
@@ -199,12 +199,12 @@ class Alumno {
 	}
 
 	/**
-	* Get saldoFavor
+	* Get saldo
 	* @return decimal
 	*/
-	public function getSaldoFavor()
+	public function getSaldo()
 	{
-		return $this->saldoFavor;
+		return $this->saldo;
 	}
 
 
@@ -361,12 +361,12 @@ public function setAnioIngreso($anio) {
 }
 
 /**
-* Set saldoFavor
+* Set saldo
 * @param decimal $saldo
 * @return Alumno
 */
-public function setSaldoFavor($saldo) {
-	$this->saldoFavor = $saldo;
+public function setSaldo($saldo) {
+	$this->saldo = $saldo;
 	return $this;
 }
 
