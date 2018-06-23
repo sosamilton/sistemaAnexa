@@ -54,6 +54,12 @@
                   </button>
                   Comisión
                 </th>
+                <th>
+                  <button class="sort btn" data-sort="monto">
+                      <span class="glyphicon glyphicon-sort"></span>
+                  </button>
+                  Monto Mínimo
+                </th>
 
                 <th>Acciones</th>
             </tr>
@@ -63,6 +69,7 @@
                     <tr>
                         <td class="denominacion">{{ tipo.denominacion }}</td>
                         <td class="comision">{{ tipo.comision }}%</td>
+                        <td class="monto">{{ tipo.montoMinimo }}</td>
                         <td>
                             <div>
 

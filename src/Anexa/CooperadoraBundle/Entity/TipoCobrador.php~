@@ -35,53 +35,12 @@ class TipoCobrador {
 	protected $comision;
 
     /**
-    * @var montoMinimo
-    * @ORM\Column(name="montoMinimo", type="decimal")
-    */
-    protected $montoMinimo;
-
-
-    /**
     * @var boolean
     * @ORM\Column(name="borrado", type="boolean")
     */
     protected $borrado = false;
 
-    /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="tipoCobrador")
-     */
-
-    protected $users;
-
-    public function __construct(){
-        $this->users = new ArrayCollection();
-    }
-
 	/* ****************************** GETTERS ******************************* */
-
-    /**
-    * Add user
-    * @param User $unUser
-    * @return ArrayCollection
-    */
-    public function addUser($unUser) {
-        $this->users[] = $unUser;
-        return $this->getUsers();
-    }
-
-    /**
-    *remove user
-    *@param User $unUser
-    *@return ArrayCollection
-    */
-    public function removeUser($unUser) {
-        $this->users->removeElement($unUser);
-        return $this->users;
-    }
-
-    public function __toString(){
-        return (string)$this->id;
-    }
 
 	/**
 	* Get id
@@ -108,15 +67,6 @@ class TipoCobrador {
 
     public function getComision(){
     	return $this->comision;
-    }
-
-    /**
-    * Get montoMinimo
-    * @return decimal
-    */
-
-    public function getMontoMinimo(){
-        return $this->montoMinimo;
     }
 
     /**
@@ -150,16 +100,6 @@ class TipoCobrador {
     public function setComision($comision){
     	$this->comision = $comision;
     	return $this;
-    }
-
-    /**
-    * Set montoMinimo
-    * @param decimal $monto
-    * @return TipoCobrador
-    */
-    public function setMontoMinimo($monto){
-        $this->montoMinimo = $monto;
-        return $this;
     }
 
     /**
