@@ -26,10 +26,14 @@ class PagoController extends Controller
 
         $alumnos = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findByBorrado(false);
 
-        return $this->render('AnexaCooperadoraBundle:pago:index.html.twig', array(
-                                                                        'alumnos' => $alumnos,
-                                                                        'menu' => 'pago')
-                                                                    );
+        return $this->render(
+          'AnexaCooperadoraBundle:pago:index.html.twig',
+            array(
+                  'alumnos' => $alumnos,
+                  'user' => $this->getUser(),
+                  'menu' => 'pago'
+            )
+        );
     }
 
     /**

@@ -53,7 +53,7 @@ class User extends BaseUser
     protected $fechaUltCierre;
 
     /**
-    @ORM\ManyToOne(targetEntity="TipoCobrador", inversedBy="users")
+    *@ORM\ManyToOne(targetEntity="TipoCobrador", inversedBy="users")
     *@ORM\JoinColumn(name="tipoCobrador_id", referencedColumnName="id")
     *
     */
