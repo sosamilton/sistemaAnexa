@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Doctrine\ORM\EntityRepository;
@@ -50,6 +52,7 @@ class AlumnoType extends AbstractType
             )
             ->add('contacto', TextType::class, array('label' => 'Contacto'))
             ->add('comentario', TextType::class, array('label' => 'Comentario'))
+            ->add('saldoFavor', NumberType::class, array('label' => 'Saldo a favor'))
             ->add('nivel', ChoiceType::class, array(
                                     'choices' => array(
                                         'Inicial/Jardín' => 'I',

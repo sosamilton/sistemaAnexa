@@ -1,0 +1,30 @@
+{% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
+{% block title %} Administración | Cuotas {% endblock %}
+
+{% block dataAdmin %}
+  <div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Creación Automática de Cuotas</div>
+    <!-- Table -->
+    <div class="panel-body" id="paginacion">                                 
+      <div class="col-md-6"> Ingrese el año para el cual se crearán las cuotas</div>
+      <form method="post" action="{{ path('cuotas_create')}}">
+        <div class="form-group">
+                <div class="col-md-8">
+                  <label for="anio">Año</label>
+                  <input type="anio" class="form-control" id="anio" required value="año">
+                </div>
+        </div>
+
+        <div class="col-md-6"> Ingrese el monto correspondiente </div>
+        <div class="form-group">
+                <div class="col-md-8">
+                  <label for="monto">Monto</label>
+                  <input type="monto" class="form-control" id="monto" required value="monto">
+                </div>
+        </div>
+        <button type="submit" class="btn btn-primary col-md-12">Crear cuotas</button>
+      </form>
+    </div>    
+  </div> 
+{% endblock %}

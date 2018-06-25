@@ -29,7 +29,7 @@ class CuotaController extends Controller
         } else {
         $datos['cuotas'] = $cuotas;
         }
-        $datos['menu'] = "cuotas";
+        $datos['menu'] = "cuota";
         return $this->render('AnexaCooperadoraBundle:cuota:index.html.twig', $datos);
     }
 
@@ -47,9 +47,9 @@ class CuotaController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($cuota);
             $em->flush();
-        $datos['msj'] = ' La cuota se agregó correctamente!';
-         $datos['success'] = 1;
-             return $this->indexAction($datos); //, array('id' => $cuota->getId()));
+            $datos['msj'] = ' La cuota se agregó correctamente!';
+            $datos['success'] = 1;
+            return $this->indexAction($datos); //, array('id' => $cuota->getId()));
         }
 
         return $this->render('AnexaCooperadoraBundle:cuota:new.html.twig', array(
@@ -57,6 +57,35 @@ class CuotaController extends Controller
             'menu' => 'cuota',
             'form' => $form->createView(),
         ));
+    }
+
+    /**
+    * Crea las cuotas automaticamente
+    */
+
+    public function addAction(Request $request)
+    {          
+       return $this->render('AnexaCooperadoraBundle:cuota:add.html.twig', array(
+            'menu' => 'cuota'));
+        
+    }
+
+     public function createAction(Request $request)
+    {          
+        var_dump($request->request->get('anio'));
+        $em = $this->getDoctrine()->getManager();
+        $array_cuotas = array("Matricula", "Enero");//, "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+        foreach ($array_cuotas as $key) {
+            $cuota = new Cuota();
+            $cuota->setMonto(500); //$cuota->setMonto($request->request->get('monto'));
+            $cuota->setMes($key);
+            $cuota->setAnio(2018); //$cuota->setAnio($request->request->get('anio'));
+            $em->persist($cuota);       
+        }      
+        $em->flush();
+        $datos['msj'] = ' Las cuotas se agregaron correctamente!';
+        $datos['success'] = 1;
+        return $this->indexAction($datos); 
     }
 
     /**
@@ -91,7 +120,6 @@ class CuotaController extends Controller
 
             return $this->redirectToRoute('cuota_index'); 
         }
-
         return $this->render('AnexaCooperadoraBundle:cuota:edit.html.twig', array(
             'cuota' => $cuota,
             'menu' => 'cuota',

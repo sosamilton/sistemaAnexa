@@ -35,7 +35,7 @@ class ListadoController extends Controller
 		$meses = array();
 		$matriculas = array();
 		foreach ($cuotas as $cuota) {
-			if ($cuota->getTipo() == 'matricula') {
+			if ($cuota->getMes() == 'Matricula') {
 				$matriculas[$cuota->getAnio()] = $cuota->getAnio();
 			}
 			$anios[$cuota->getAnio()] = $cuota->getAnio();
@@ -59,7 +59,7 @@ class ListadoController extends Controller
 		
 		$em = $this->getDoctrine()->getManager();
 		$matriculas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findBy(
-								array('borrado'=>'false','tipo'=>'matricula',
+								array('borrado'=>'false','mes'=>'Matricula',
 									'anio'=>$request->request->get('anio'))
 								);
 		$pagos =array();
