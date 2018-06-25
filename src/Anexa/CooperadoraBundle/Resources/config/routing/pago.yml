@@ -8,6 +8,11 @@ pago_mostrar:
     defaults: { _controller: "AnexaCooperadoraBundle:Pago:verPagos" }
     methods:  GET
 
+pago_por_monto:
+    path:     /{id}/pagoPorMonto/{type}
+    defaults: { _controller: "AnexaCooperadoraBundle:Pago:verPagos" , type: "pcs"}
+    methods:  [GET, HEAD, POST]
+
 pago_seleccionado:
     path:      /pago_seleccionado
     defaults: {_controller: "AnexaCooperadoraBundle:Pago:pagoSeleccionado"}

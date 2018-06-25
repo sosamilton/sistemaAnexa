@@ -66,7 +66,12 @@
                           <td class="nombre">{{ alumno.nombre }}</td>
                           <td>
                               <div class="">
-                                <a class="btn btn-success" href="{{ path('pago_mostrar', { 'id': alumno.id }) }}" title="Ver Pagos"><span class='glyphicon glyphicon-eye-open'></span></a>
+                                {% if 'Pago' in user.tipoCobrador %}
+                                  {% set url = path('pago_mostrar', { 'id': alumno.id }) %}
+                                {% else %}
+                                  {% set url = path('pago_mostrar', { 'id': alumno.id }) %}
+                                {% endif %}
+                                <a class="btn btn-success" href="{{url}}" title="Ver Pagos"><span class='glyphicon glyphicon-eye-open'></span></a>
                               </div>
                           </td>
                         </tr>

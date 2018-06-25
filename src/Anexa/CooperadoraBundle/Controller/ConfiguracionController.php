@@ -30,22 +30,22 @@ class ConfiguracionController extends Controller
 
         return $this->render('AnexaCooperadoraBundle:configuracion:index.html.twig', $datos);
     }
-   
+
 
     public function editAction (Request $request)
     {
         $data= $request->request->all();
-       
+
         $em = $this->getDoctrine()->getManager();
         $configuraciones = $em->getRepository('AnexaCooperadoraBundle:Configuracion')->findAll();
-      
-        for ($i = 0; $i < sizeof($data['dato']); $i++) {      
+
+        for ($i = 0; $i < sizeof($data['dato']); $i++) {
             $configuraciones[$i]->setValorNumerico((int)$data['dato'][$i]);
-            $configuraciones[$i]->setValorTextual($data['dato'][$i]); 
-            $em->persist($configuraciones[$i]);   
+            $configuraciones[$i]->setValorTextual($data['dato'][$i]);
+            $em->persist($configuraciones[$i]);
         }
         $em->flush();
-        
+
         $datos['menu']='configuracion';
         return $this->indexAction($datos);
 
@@ -88,10 +88,10 @@ class ConfiguracionController extends Controller
     public function paginacionAction(){
         $em = $this->getDoctrine()->getManager();
         $configuracions = $em->getRepository('AnexaCooperadoraBundle:Configuracion')->findOneByClave('paginacion');
-        if (count($configuracions) == 1 ) {
-            $configuracions=$configuracions->getValorNumerico();
+        if (empty($configuracions)) {
+          $configuracions=5;
         }else{
-            $configuracions=5;
+          $configuracions=$configuracions->getValorNumerico();
         }
         return new Response($configuracions);
     }
