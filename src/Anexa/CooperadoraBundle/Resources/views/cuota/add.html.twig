@@ -6,13 +6,13 @@
     <!-- Default panel contents -->
     <div class="panel-heading">Creación Automática de Cuotas</div>
     <!-- Table -->
-    <div class="panel-body" id="paginacion">                                 
+    <div class="panel-body" id="paginacion">
       <div class="col-md-6"> Ingrese el año para el cual se crearán las cuotas</div>
-      <form method="post" action="{{ path('cuotas_create')}}">
+      <form method="POST" action="{{ path('cuotas_create')}}">
         <div class="form-group">
                 <div class="col-md-8">
                   <label for="anio">Año</label>
-                  <input type="anio" class="form-control" id="anio" required value="año">
+                  <input type="anio" class="form-control" id="anio" name="anio" required value="{{ "now"|date("Y") }}">
                 </div>
         </div>
 
@@ -20,11 +20,11 @@
         <div class="form-group">
                 <div class="col-md-8">
                   <label for="monto">Monto</label>
-                  <input type="monto" class="form-control" id="monto" required value="monto">
+                  <input type="monto" class="form-control" id="monto"  name="monto" required placeholder="monto">
                 </div>
         </div>
         <button type="submit" class="btn btn-primary col-md-12">Crear cuotas</button>
       </form>
-    </div>    
-  </div> 
+    </div>
+  </div>
 {% endblock %}
