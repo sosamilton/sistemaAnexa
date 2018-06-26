@@ -144,10 +144,12 @@
           <form id="formulario" action="{{path ('pago_seleccionado')}}" method="post">
 
             <input type="hidden" name="alumnoId" value="{{alumno.id}}">
-            <input type="hidden" value="{{ alumno.saldo }}" id="add_saldo" name="add_saldo" />
+            <input type="hidden" value="{{ alumno.saldo }}" id="total_saldo" name="total_saldo" />
             <div id="inputs">
 
             </div>
+            <input type="hidden" value="{{ alumno.saldo }}" id="sub_saldo" name="sub_saldo" />
+            <input type="hidden" value="{{ alumno.saldo }}" id="add_saldo" name="add_saldo" />
           </form>
       </div>
     {% endif %}
@@ -168,6 +170,8 @@
               $('#totalSeleccionado').text('$ '+ obj.aPagar);
               $('#totalAPagar').text('$ '+ obj.total);
               $('#saldo').text('$ '+ obj.saldo);
+              $('#add_saldo').val(obj.saldo);
+              $('#sub_saldo').val(obj.aPagar);
             }
 
             this.verificarPago = function(element, report = true){

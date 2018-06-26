@@ -173,6 +173,7 @@ class PagoController extends Controller
         $usuario = $this->getUser();
 
         if (isset($data['alumnoId'])){
+
             $alumno = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findOneById($data['alumnoId']);
             if ($this->isGranted('ROLE_SUPER_ADMIN')) {
               $beca=true;
@@ -184,6 +185,21 @@ class PagoController extends Controller
               foreach ($data['cuota'] as $id) {
                 $cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneById($id);
                 $this->setAction($cuota, $alumno, $usuario, $beca, new Pago);
+              }
+            }
+
+            if (isset($data['total_saldo']) {
+              $rest = $data['total_saldo'] - $data['sub_saldo'];
+              if ($res == $data['sub_saldo'] ) {
+                $alumno->setSaldo($rest);
+                $em->persist($alumno);
+              }else {
+                $datos=array(
+                  'msj' => 'hubo un error en el saldo',
+                  'success' => 0
+                );
+
+                return $this->verPagosAction($alumno, $datos);
               }
             }
 
