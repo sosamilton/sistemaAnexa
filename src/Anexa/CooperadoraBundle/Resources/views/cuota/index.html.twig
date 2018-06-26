@@ -10,7 +10,9 @@
         </div>
   {% endif %}
     {% if is_granted('ROLE_SUPER_ADMIN') %}
-        <a class="btn btn-primary botonAdd" href="{{ path('cuota_new') }}">Agregar Cuota</a>
+        <a class="btn btn-primary botonAdd" href="{{ path('cuotas_add') }}">Crear Cuotas Automáticamente</a>
+        <a class="btn btn-primary botonAdd" href="{{ path('cuota_new') }}">Crear Cuotas Manualmente</a>
+
     {% endif %}
 {% if cuotas is defined %}
 
@@ -64,11 +66,12 @@
                   Mes
                 </th>
                 <th>
-                  <button class="sort btn" data-sort="tipo">
-                      <span class="glyphicon glyphicon-sort"></span>
-                  </button>
-                  Tipo
+                <button class="sort btn" data-sort="tipo">
+                    <span class="glyphicon glyphicon-sort"></span>
+                </button>
+                    Tipo
                 </th>
+                
                 <th>
                   <button class="sort btn" data-sort="monto">
                       <span class="glyphicon glyphicon-sort"></span>
@@ -84,8 +87,8 @@
                 {% for cuota in cuotas %}
                     <tr>
                         <td class="anio">{{ cuota.anio }}</td>
-                        <td class="mes"> {% if cuota.mes == 'matriculaIngreso' %} Matricula Ingreso {% else %} {{ cuota.mes }} {% endif %} </td>
-                        <td class="tipo"> {% if cuota.tipo == 'matriculaIngreso' %} matricula Ingreso {% else %} {{ cuota.tipo }} {% endif %} </td>
+                        <td class="mes"> {% if cuota.mes == 'matricula' %} Matricula {% else %} {{ cuota.mes }} {% endif %} </td>
+                        <td class="tipo"> {{ cuota.tipo }} </td>
                         <td class="monto"> {{ cuota.monto }}</td>
                         <td>
                             <div class="">

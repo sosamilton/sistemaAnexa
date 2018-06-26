@@ -22,3 +22,13 @@ cuota_delete:
     path:     /{id}/delete
     defaults: { _controller: "AnexaCooperadoraBundle:Cuota:delete" }
     methods:  GET
+
+cuotas_add:
+    path:     /agregar
+    defaults: {_controller: "AnexaCooperadoraBundle:Cuota:add" }
+    methods:  [GET, POST]
+
+cuotas_create:
+    path:     /create
+    defaults: {_controller: "AnexaCooperadoraBundle:Cuota:create" }
+    methods:  [GET, POST]

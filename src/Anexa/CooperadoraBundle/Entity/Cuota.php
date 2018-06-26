@@ -37,11 +37,11 @@ class Cuota {
 	protected $anio;
 
 
-	/**
+	/*
 	* @var integer
 	* @ORM\Column(name="orden", type="integer")
-    */
-	protected $orden;
+    
+	protected $orden; */
 
 
     /**
@@ -62,7 +62,7 @@ class Cuota {
 	* @var string
 	* @ORM\Column (name="tipoCuota", type="string", length=255)
 	*/
-	protected $tipo;
+	protected $tipo; 
 
 	/**
 	* @ORM\OneToMany (targetEntity="Pago", mappedBy="cuota")
@@ -140,14 +140,14 @@ class Cuota {
     	return $this->mes;
     }
 
-    /**
+    /*
     *Get orden
     * @return integer
-    */
+    
     public function getOrden()
     {
     	return $this->orden;
-    }
+    } */
 
     /**
     *Get monto
@@ -176,7 +176,7 @@ class Cuota {
     public function getTipo()
     {
         return $this->tipo;
-    }
+    } 
 
 
 
@@ -203,16 +203,16 @@ class Cuota {
     	return $this;
     }
 
-    /**
+    /*
     *Set orden
     * @param $orden
     * @return Cuota
-    */
+    *
     public function setOrden($orden)
     {
     	$this->orden = $orden;
     	return $this;
-    }
+    } */
 
     /**
     *set monto

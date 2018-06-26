@@ -24,7 +24,7 @@ class CuotaRepository extends \Doctrine\ORM\EntityRepository
 				    ->select('c')
 				    ->where('c.tipo <> :tipo')
 				    ->AndWhere('c.borrado = 0')
-				    ->setParameter('tipo', "matriculaIngreso")
+				    ->setParameter('tipo', "matricula")
 				    ->addOrderBy('c.anio', 'DESC')
    					->addOrderBy('c.mes', 'DESC')
 				    ->getQuery()
@@ -37,7 +37,7 @@ class CuotaRepository extends \Doctrine\ORM\EntityRepository
 				    ->select('c')
 				    ->where('c.tipo = :tipo')
 				    ->AndWhere('c.borrado = 0')
-				    ->setParameter('tipo', "matriculaIngreso")
+				    ->setParameter('tipo', "matricula")
 				    ->addOrderBy('c.anio', 'DESC')
    					->addOrderBy('c.mes', 'DESC')
 				    ->getQuery()
@@ -54,7 +54,7 @@ class CuotaRepository extends \Doctrine\ORM\EntityRepository
 		    ->AndWhere('c.tipo = :tipo')
 		    ->setParameter('alumno', $alumno)
 		    ->setParameter('anio', $anio)
-		    ->setParameter('tipo', "matriculaIngreso")
+		    ->setParameter('tipo', "matricula")
 		    ->getQuery()
 		    ->getOneOrNullResult();
     }

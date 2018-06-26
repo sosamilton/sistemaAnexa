@@ -26,7 +26,6 @@ class CuotaType extends AbstractType
             ->add('mes', ChoiceType::class, array(
                                     'choices' => array(
                                         'Matrícula' => 'Matricula',
-                                        'Matrícula Ingreso' => 'matriculaIngreso',
                                         'Enero' => 'Enero',
                                         'Febrero' => 'Febrero',
                                         'Marzo' => 'Marzo',
@@ -42,12 +41,11 @@ class CuotaType extends AbstractType
                                         'label' => 'Mes')
                  )
             ->add('monto', NumberType::class, array('label' =>'Monto'))
-            ->add('orden', NumberType::class, array('label'=> 'Orden'))
             ->add('tipo', ChoiceType::class, array(
                                     'choices'  => array(
                                         'Mensual' => 'mensual',
-                                        'Matricula' => 'matricula',
-                                        'Matrícula Ingreso' => 'matriculaIngreso'),
+                                        'Matricula' => 'matricula'
+                                
                                     'label' => 'Tipo')
                 )
             
