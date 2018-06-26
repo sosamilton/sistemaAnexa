@@ -58,11 +58,11 @@ class Cuota {
 	protected $monto;
 
 
-	/*
+	/**
 	* @var string
 	* @ORM\Column (name="tipoCuota", type="string", length=255)
-	
-	protected $tipo; */
+	*/
+	protected $tipo; 
 
 	/**
 	* @ORM\OneToMany (targetEntity="Pago", mappedBy="cuota")
@@ -169,14 +169,14 @@ class Cuota {
     }
 
 
-    /*
+    /**
     *Get tipo
     * @return string
-    *
+    */
     public function getTipo()
     {
         return $this->tipo;
-    } */
+    } 
 
 
 
@@ -235,16 +235,16 @@ class Cuota {
     return $this;
     }
 
-     /*
+     /**
     *Set tipo
     * @param string $tipo
     * @return Cuota
-    *
+    */
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
         return $this;
-    }*/
+    }
 
     /**
     *Set borrado

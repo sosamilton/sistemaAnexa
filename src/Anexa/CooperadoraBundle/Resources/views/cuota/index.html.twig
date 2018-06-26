@@ -65,6 +65,12 @@
                   </button>
                   Mes
                 </th>
+                <th>
+                <button class="sort btn" data-sort="tipo">
+                    <span class="glyphicon glyphicon-sort"></span>
+                </button>
+                    Tipo
+                </th>
                 
                 <th>
                   <button class="sort btn" data-sort="monto">
@@ -81,8 +87,8 @@
                 {% for cuota in cuotas %}
                     <tr>
                         <td class="anio">{{ cuota.anio }}</td>
-                        
-                        <td class="tipo"> {% if cuota.mes == 'matricula' %} matricula  {% else %} {{ cuota.mes }} {% endif %} </td>
+                        <td class="mes"> {% if cuota.mes == 'matricula' %} Matricula {% else %} {{ cuota.mes }} {% endif %} </td>
+                        <td class="tipo"> {{ cuota.tipo }} </td>
                         <td class="monto"> {{ cuota.monto }}</td>
                         <td>
                             <div class="">

@@ -41,12 +41,13 @@ class CuotaType extends AbstractType
                                         'label' => 'Mes')
                  )
             ->add('monto', NumberType::class, array('label' =>'Monto'))
-            /*->add('tipo', ChoiceType::class, array(
+            ->add('tipo', ChoiceType::class, array(
                                     'choices'  => array(
                                         'Mensual' => 'mensual',
+                                        'Matricula' => 'matricula'
                                 
                                     'label' => 'Tipo')
-                )*/
+                )
             
             
             ->add('button', SubmitType::class)

@@ -72,15 +72,21 @@ class CuotaController extends Controller
 
      public function createAction(Request $request)
     {
-        var_dump($request->request->get('anio'));
-        die;
         $em = $this->getDoctrine()->getManager();
-        $array_cuotas = array("Matricula", "Enero");//, "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+        $array_cuotas = array("Matricula", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         foreach ($array_cuotas as $key) {
             $cuota = new Cuota();
-            $cuota->setMonto(500); //$cuota->setMonto($request->request->get('monto'));
+            if ($key == "Matricula") {
+                $cuota->setTipo('matricula');
+                $cuota->setMonto(($request->request->get('monto')*2));
+            }
+            else {
+                $cuota->setTipo('mensual'); 
+                $cuota->setMonto($request->request->get('monto'));
+            }
+            
             $cuota->setMes($key);
-            $cuota->setAnio(2018); //$cuota->setAnio($request->request->get('anio'));
+            $cuota->setAnio($request->request->get('anio'));
             $em->persist($cuota);
         }
         $em->flush();
