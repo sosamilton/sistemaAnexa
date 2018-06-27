@@ -162,7 +162,12 @@ class PagoController extends Controller
           }
           $alumno->setSaldo($saldo);
           $datos['alumno'] = $alumno;
-          return $this->render('AnexaCooperadoraBundle:pago:pagarConSaldo.html.twig', $datos);
+          if ($datos['tieneCuotasImpagas']) {
+            return $this->render('AnexaCooperadoraBundle:pago:pagarConSaldo.html.twig', $datos);
+          }else {
+            $em->persist($alumno);
+            $em->flush();
+          }
         }
         return $this->render('AnexaCooperadoraBundle:pago:listarPagos.html.twig', $datos);
 
@@ -177,6 +182,7 @@ class PagoController extends Controller
         $usuario = $this->getUser();
 
         if (isset($data['alumnoId'])){
+
             $alumno = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findOneById($data['alumnoId']);
             if ($this->isGranted('ROLE_SUPER_ADMIN')) {
               $beca=true;
@@ -189,6 +195,21 @@ class PagoController extends Controller
                 $cuota = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findOneById($id);
                 $this->setAction($cuota, $alumno, $usuario, $beca, new Pago);
               }
+            }
+
+            if (isset($data['total_saldo'])) {
+              $rest = $data['total_saldo'] - $data['sub_saldo'];
+              if ($rest == $data['add_saldo'] ) {
+                $alumno->setSaldo($rest);
+                $em->persist($alumno);
+                $em->flush();
+              }else {
+                $datos=array(
+                  'msj' => 'hubo un error en el saldo',
+                  'success' => 0
+                );
+              }
+              die('peron');
             }
 
             if (isset($data['nuevo'])) {
