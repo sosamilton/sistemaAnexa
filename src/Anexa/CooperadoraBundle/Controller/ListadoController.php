@@ -62,6 +62,7 @@ class ListadoController extends Controller
 								array('borrado'=>'false','tipo'=>'matricula',
 									'anio'=>$request->request->get('anio'))
 								);
+		
 		$pagos =array();
 		$alumnos = array();
 		$datos['success'] = false;
