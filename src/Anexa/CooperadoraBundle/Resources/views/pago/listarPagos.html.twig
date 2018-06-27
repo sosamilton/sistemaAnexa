@@ -35,7 +35,12 @@
                   <label for="titulo">Saldo Final</label>
                   <input class="form-control" id="result" name="result" value="{{alumno.saldo}}" disabled readonly />
               </div>
-              <button type="submit" class="btn btn-danger col-md-3" style="height: 4.3em;">Agregar y Pagar</button>
+              {% if tieneCuotasImpagas %}
+                <button type="submit" class="btn btn-danger col-md-3" style="height: 4.3em;">Agregar y Pagar</button>
+              {% else %}
+                <input  name="agregar_saldo" value="noimpagas" type="hidden" />
+                <button type="submit" class="btn btn-success col-md-3" style="height: 4.3em;">Agregar Saldo</button>
+              {% endif %}
             </div>
           </form>
         </div>

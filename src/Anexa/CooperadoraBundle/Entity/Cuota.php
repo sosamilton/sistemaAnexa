@@ -40,7 +40,7 @@ class Cuota {
 	/*
 	* @var integer
 	* @ORM\Column(name="orden", type="integer")
-    
+
 	protected $orden; */
 
 
@@ -49,7 +49,7 @@ class Cuota {
     * @ORM\Column (name="mes", type="string", length=255)
     */
     protected $mes;
-    
+
 
 	/**
 	* @var decimal
@@ -60,9 +60,9 @@ class Cuota {
 
 	/**
 	* @var string
-	* @ORM\Column (name="tipoCuota", type="string", length=255)
+	* @ORM\Column (name="tipo", type="string", length=255)
 	*/
-	protected $tipo; 
+	protected $tipo;
 
 	/**
 	* @ORM\OneToMany (targetEntity="Pago", mappedBy="cuota")
@@ -100,7 +100,7 @@ class Cuota {
         return $this->pagos;
     }
 
-     
+
 	/* *********************** GETTERS *********************** */
 
 	/**
@@ -143,7 +143,7 @@ class Cuota {
     /*
     *Get orden
     * @return integer
-    
+
     public function getOrden()
     {
     	return $this->orden;
@@ -176,7 +176,7 @@ class Cuota {
     public function getTipo()
     {
         return $this->tipo;
-    } 
+    }
 
 
 

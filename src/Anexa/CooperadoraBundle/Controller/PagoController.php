@@ -162,7 +162,12 @@ class PagoController extends Controller
           }
           $alumno->setSaldo($saldo);
           $datos['alumno'] = $alumno;
-          return $this->render('AnexaCooperadoraBundle:pago:pagarConSaldo.html.twig', $datos);
+          if ($datos['tieneCuotasImpagas']) {
+            return $this->render('AnexaCooperadoraBundle:pago:pagarConSaldo.html.twig', $datos);
+          }else {
+            $em->persist($alumno);
+            $em->flush();
+          }
         }
         return $this->render('AnexaCooperadoraBundle:pago:listarPagos.html.twig', $datos);
 
@@ -192,19 +197,19 @@ class PagoController extends Controller
               }
             }
 
-            if (isset($data['total_saldo']) {
+            if (isset($data['total_saldo'])) {
               $rest = $data['total_saldo'] - $data['sub_saldo'];
-              if ($res == $data['sub_saldo'] ) {
+              if ($rest == $data['add_saldo'] ) {
                 $alumno->setSaldo($rest);
                 $em->persist($alumno);
+                $em->flush();
               }else {
                 $datos=array(
                   'msj' => 'hubo un error en el saldo',
                   'success' => 0
                 );
-
-                return $this->verPagosAction($alumno, $datos);
               }
+              die('peron');
             }
 
             if (isset($data['nuevo'])) {
