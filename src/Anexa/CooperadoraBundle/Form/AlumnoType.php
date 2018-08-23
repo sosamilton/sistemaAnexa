@@ -25,7 +25,7 @@ class AlumnoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            
+
             ->add('dni', TextType::class, array('label' => 'Número de Documento'))
             ->add('apellido', TextType::class, array('label' => 'Apellido'))
             ->add('nombre', TextType::class, array('label' => 'Nombre'))
@@ -52,15 +52,15 @@ class AlumnoType extends AbstractType
             )
             ->add('contacto', TextType::class, array('label' => 'Contacto'))
             ->add('comentario', TextType::class, array('label' => 'Comentario'))
-            ->add('saldoFavor', NumberType::class, array('label' => 'Saldo a favor'))
+            ->add('saldo', NumberType::class, array('label' => 'Saldo a favor'))
             ->add('nivel', ChoiceType::class, array(
                                     'choices' => array(
                                         'Inicial/Jardín' => 'I',
                                         'Primaria' => 'P'),
                                     'label' => 'Nivel')
             )
-                                        
-            
+
+
             ->add('button', SubmitType::class);
     }
 

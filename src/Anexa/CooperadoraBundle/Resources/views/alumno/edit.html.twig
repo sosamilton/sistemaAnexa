@@ -15,6 +15,7 @@
     {{ form_end(edit_form) }} #}
 
             {{ form_start(edit_form,  {'attr': {'id':'form'}}) }}
+                {% do edit_form.saldo.setRendered %}
                 {{ form_errors(edit_form) }}
 
                 <div class="col-md-4">
@@ -35,7 +36,7 @@
           							</span>
           					</div>
                 </div>
-               
+
                 <div class="col-md-4">
                     {{ form_label(edit_form.dni) }}
                     {{ form_widget(edit_form.dni, {'attr': {'class':'form-control'}}) }}
@@ -52,17 +53,17 @@
                     {{ form_label(edit_form.email) }}
                     {{ form_widget(edit_form.email, {'attr': {'class':'form-control'}}) }}
                 </div>
-            
+
             <div class="col-md-3">
                     {{ form_label(edit_form.nivel) }}
                     {{ form_widget(edit_form.nivel, {'attr': {'class':'form-control'}}) }}
             </div>
-            
+
               <div class="col-md-2">
                     {{ form_label(edit_form.curso) }}
                     {{ form_widget(edit_form.curso, {'attr': {'class':'form-control'}}) }}
             </div>
-            
+
               <div class="col-md-2">
                     {{ form_label(edit_form.division) }}
                     {{ form_widget(edit_form.division, {'attr': {'class':'form-control'}}) }}
@@ -72,22 +73,22 @@
                     {{ form_label(edit_form.anioIngreso) }}
                     {{ form_widget(edit_form.anioIngreso, {'attr': {'class':'form-control'}}) }}
             </div>
-            
+
               <div class="col-md-4">
                     {{ form_label(edit_form.contacto) }}
                     {{ form_widget(edit_form.contacto, {'attr': {'class':'form-control'}}) }}
             </div>
-            
+
               <div class="col-md-4">
                     {{ form_label(edit_form.comentario) }}
                     {{ form_widget(edit_form.comentario, {'attr': {'class':'form-control'}}) }}
             </div>
-            
+
             <div class="col-md-2">
                     {{ form_label(edit_form.nuevo) }}
                     {{ form_widget(edit_form.nuevo, {'attr': {'class':'form-control'}}) }}
             </div>
-               
+
               <div class="col-md-12 form-group">
           				{{ form_label(edit_form.button) }}
           				{{ form_widget(edit_form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label': 'Editar Alumno'}) }}
@@ -103,7 +104,7 @@
         viewMode: 'years',
         format: 'DD/MM/YYYY'
       });
-      
+
       $("#form").trigger("chosen:updated");
 
   });

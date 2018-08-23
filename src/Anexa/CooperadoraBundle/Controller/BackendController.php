@@ -52,6 +52,8 @@ class BackendController extends Controller
           $alumno->setCurso($activesheet[$j][2]);
           $alumno->setDivision($activesheet[$j][3]);
           $alumno->setNivel($activesheet[$j][4]);
+          $alumno->setAnioIngreso(date("Y"));
+          $alumno->setSaldo(0);
           if (isset($activesheet[$j][5])) {
             $alumno->setTelefono($activesheet[$j][5]);
           }
