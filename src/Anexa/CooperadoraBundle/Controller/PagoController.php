@@ -245,6 +245,8 @@ class PagoController extends Controller
               $em->persist($pago);
               $em->flush();
               $cuota->addPago($pago);
+              var_dump($cuota->getPagos()->count());
+              
               $alumno->addPago($pago);
               $usuario->addPago($pago);
               $em->persist($cuota);
