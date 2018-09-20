@@ -44,16 +44,15 @@ class CuotaType extends AbstractType
             ->add('tipo', ChoiceType::class, array(
                                     'choices'  => array(
                                         'Mensual' => 'mensual',
-                                        'Matricula' => 'matricula'
-                                
+                                        'Matricula' => 'matricula'),
                                     'label' => 'Tipo')
                 )
-            
-            
+
+
             ->add('button', SubmitType::class)
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

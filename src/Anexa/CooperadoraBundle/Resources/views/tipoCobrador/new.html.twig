@@ -19,10 +19,14 @@
           <div class="col-md-3">
               {{ form_label(form.comision) }}
               {{ form_widget(form.comision, {'attr': {'class':'form-control'}}) }}
-          </div> 
-          
-        </div>  
-             
+          </div>
+					<div class="col-md-3">
+              {{ form_label(form.montoMinimo) }}
+              {{ form_widget(form.montoMinimo, {'attr': {'class':'form-control'}}) }}
+          </div>
+
+        </div>
+
         {{ form_label(form.button) }}
             {{ form_widget(form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label': 'Agregar Tipo Cobrador'}) }}
 
@@ -31,4 +35,3 @@
   </div>
 
 {% endblock %}
-

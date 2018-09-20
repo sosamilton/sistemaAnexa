@@ -43,7 +43,7 @@ class IndexController extends Controller{
 
 		$cuotas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findBy
 				(array('borrado'=>'false',
-					'anio'=>$anio 
+					'anio'=>$anio
 					)
 				);
 		$meses = array();
@@ -57,8 +57,8 @@ class IndexController extends Controller{
 		$result = array();
 		if ($alumno) {
 			if ($cuotas) {
-				$cuotasAlumno = $em->getRepository('AnexaCooperadoraBundle:Cuota')->CuotasAlumnosPorAnio($anio, $alumno);        	
-	        	
+				$cuotasAlumno = $em->getRepository('AnexaCooperadoraBundle:Cuota')->CuotasAlumnosPorAnio($anio, $alumno);
+
 	        	foreach (array_keys($meses) as $i) {
 	        		if (isset($cuotasAlumno[$i]['pago'])) {
 	        			$result[$i] = 'Si';
@@ -82,9 +82,9 @@ class IndexController extends Controller{
 		} else {
 			return array(
 					'status' => false,
-					'msj' => 'El alumno no existe!'
+					'msj' => 'Ese número de DNI no se encuentra registrado. Por favor llená el formulario de contacto en la página principal con el número de DNI, el nombre del alumno, el curso y la división, así revisamos el problema. Gracias.'
 				);
-		} 
+		}
 	}
 
  }
