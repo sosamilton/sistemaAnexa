@@ -19,17 +19,20 @@
                   <div class="col-md-4">
                       {{ form_label(edit_form.comision) }}
                       {{ form_widget(edit_form.comision, {'attr': {'class':'form-control'}}) }}
-                  </div>              
-                </div>              
+                  </div>
+                  <div class="col-md-4">
+                      {{ form_label(edit_form.montoMinimo) }}
+                      {{ form_widget(edit_form.montoMinimo, {'attr': {'class':'form-control'}}) }}
+                  </div>
+                </div>
 
                   {{ form_label(edit_form.button) }}
                   {{ form_widget(edit_form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label' : 'Editar Tipo De Cobrador'}) }}
- 
+
           {{ form_end(edit_form) }}
 
         </div>
     </div>
-    
-  
-{% endblock %}
 
+
+{% endblock %}

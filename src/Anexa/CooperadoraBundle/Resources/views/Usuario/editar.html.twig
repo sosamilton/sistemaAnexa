@@ -53,7 +53,9 @@
           </div>
       
       <script type="text/javascript">
-          $('#user_tipo').parent().hide();
+          if  ($('#user_roles').val() != "ROLE_COBRADOR"){
+            $('#user_tipo').parent().hide();
+          }
           $('#user_roles').change(function(event) {
             if ($(this).val() == "ROLE_COBRADOR") {
               $('#user_tipo').parent().show();

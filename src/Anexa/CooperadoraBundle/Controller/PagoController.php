@@ -138,7 +138,7 @@ class PagoController extends Controller
             $datos['tieneCuotasImpagas'] = true;
         }
         if ($alumno->getNuevo()) {
-          $datos['cuotaIngreso'] = $em->getRepository('AnexaCooperadoraBundle:Cuota')->cuotasIngreso();
+          $datos['cuotaIngreso'] = $em->getRepository('AnexaCooperadoraBundle:Cuota')->cuotasIngreso($alumno->getAnioIngreso());
           $datos['esNuevo'] = true;
         }else{
           $datos['esNuevo'] = false;
@@ -245,6 +245,8 @@ class PagoController extends Controller
               $em->persist($pago);
               $em->flush();
               $cuota->addPago($pago);
+              var_dump($cuota->getPagos()->count());
+
               $alumno->addPago($pago);
               $usuario->addPago($pago);
               $em->persist($cuota);

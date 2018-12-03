@@ -15,7 +15,7 @@ class AlumnoRestController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$alumno = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findOneByDni($dni);
 		if ($alumno) {
-			$cuotasAlumno = $em->getRepository('AnexaCooperadoraBundle:Cuota')->CuotasAlumnosPorAnio($anio, $alumno); 
+			$cuotasAlumno = $em->getRepository('AnexaCooperadoraBundle:Cuota')->CuotasAlumnosPorAnio($anio, $alumno);
 			return new View($cuotasAlumno, Response::HTTP_OK);
 		} else {
 			return new View('No existe el alumno', Response::HTTP_NOT_FOUND);

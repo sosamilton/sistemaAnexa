@@ -2,19 +2,6 @@
 {% block title %} Administración | Cuotas | Ver{% endblock %}
 
 {% block dataAdmin %}
-    {% if msjImpagas is defined %}
-        <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <strong>Atención! </strong>{{msjImpagas}}
-        </div>
-    {% endif %}
-
-    {% if msjPagas is defined %}
-        <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <strong>Atención! </strong>{{msjPagas}}
-        </div>
-    {% endif %}
 
 
     <div class="panel panel-primary">
@@ -153,11 +140,11 @@
           <div class="panel-footer">
 
             <div class="col-md-4">
-                Total a Pagar <span class="label label-danger" id="totalAPagar">0</span>
+                Total a Pagar <span class="label label-success" id="totalSeleccionado">0</span>
             </div>
 
             <div class="col-md-4">
-                Total Seleccionado<span class="label label-success" id="totalSeleccionado">0</span>
+              Deuda Total <span class="label label-danger" id="totalAPagar">0</span>
             </div>
 
             <div class="col-md-4">
