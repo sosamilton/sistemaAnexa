@@ -1,0 +1,30 @@
+* a agregar:
+-- trasferecia-pagos mis cuetas
+-- ingrese un monto y calcule las cuetas pagas automaticamente
+    (monto y enter)
+-- agregar a saldo a favor del alumno si no llega a cubrir una cuota
+
+* en importacion
+-- poner en mayuscula el nombre y apellido
+-- se carge automaticamente el año de ingreso
+-- verificar que marque los nuevos
+
+* agregar cambiar contraseña para los cobradores!!
+
+* agregar al modelo del alumno
+-- agregar al alumno el año ingreso (esto nos sive para calcular el pago de la matricula)
+-- agregar saldo para poner el saldo a favor en pago online
+
+* problemas con las cuotas y matriculas
+en agregar cuota: (hay que revisar bien como hacerlo)
+-- matricula / matricula ingreso -- en mes
+-- sacar los tipos si se puede
+el valor de la matricula es el doble del valor de la cuota anual del año de igreso
+-- generar automaticamente las cuotas de un año
+
+
+* agregar al cobrador un monto minimo
+-- si este en el cierre supera el monto minimo se pone como comision el valor
+-- si no lo supera al monto minimo, la comision es la establesida en el campo monto minimo
+
+
