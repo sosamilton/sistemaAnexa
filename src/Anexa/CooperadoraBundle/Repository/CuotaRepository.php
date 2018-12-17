@@ -31,7 +31,7 @@ class CuotaRepository extends \Doctrine\ORM\EntityRepository
         		    ->getResult();
     }
 
-    public function cuotasIngreso($anio)
+    public function CuotasIngreso($anio)
     {
         return $this->createQueryBuilder('c')
 				    ->select('c')
@@ -47,7 +47,7 @@ class CuotaRepository extends \Doctrine\ORM\EntityRepository
         		->getOneOrNullResult();
     }
 
-    public function cuotasIngresoData($anio, $alumno)
+    public function CuotasIngresoData($anio, $alumno)
     {
         return $this->createQueryBuilder('c')
 		    ->select(array('c.mes', 'p.id as pago'))

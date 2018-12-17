@@ -30,13 +30,13 @@ class TipoCobrador {
 
 	/**
 	* @var decimal
-	* @ORM\Column(name="comision", type="decimal")
+	* @ORM\Column(name="comision", type="float")
 	*/
 	protected $comision;
 
     /**
     * @var montoMinimo
-    * @ORM\Column(name="montoMinimo", type="decimal")
+    * @ORM\Column(name="montoMinimo", type="float")
     */
     protected $montoMinimo;
 
