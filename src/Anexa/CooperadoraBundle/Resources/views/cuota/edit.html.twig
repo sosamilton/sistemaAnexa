@@ -19,34 +19,29 @@
                   <div class="col-md-4">
                       {{ form_label(edit_form.mes) }}
                       {{ form_widget(edit_form.mes, {'attr': {'class':'form-control'}}) }}
-                  </div> 
+                  </div>
                     <div class="col-md-4">
                       {{ form_label(edit_form.tipo) }}
                       {{ form_widget(edit_form.tipo, {'attr': {'class':'form-control'}}) }}
-                  </div> 
+                  </div>
                 </div>
 
                 <div class="form-group col-md-12">
-                  
+
                   <div class="col-md-4">
                       {{ form_label(edit_form.monto) }}
                       {{ form_widget(edit_form.monto, {'attr': {'class':'form-control'}}) }}
                   </div> 
-                  <div class="col-md-3">
-                      {{ form_label(edit_form.orden) }}
-                      {{ form_widget(edit_form.orden, {'attr': {'class':'form-control'}} )}}
-                  </div>
-                     
-                </div>                 
+
+                </div>
 
                   {{ form_label(edit_form.button) }}
                   {{ form_widget(edit_form.button, {'attr': {'class':'form-control btn btn-primary col-md-12'}, 'label' : 'Editar Cuota'}) }}
- 
+
           {{ form_end(edit_form) }}
 
         </div>
     </div>
-    
-  
-{% endblock %}
 
+
+{% endblock %}
