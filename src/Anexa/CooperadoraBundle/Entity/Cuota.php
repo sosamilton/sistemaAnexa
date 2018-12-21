@@ -28,21 +28,11 @@ class Cuota {
 	*/
 	protected $borrado = false;
 
-
-
 	/**
 	* @var integer
 	* @ORM\Column(name="anio", type="integer")
 	*/
 	protected $anio;
-
-
-	/*
-	* @var integer
-	* @ORM\Column(name="orden", type="integer")
-
-	protected $orden; */
-
 
     /**
     * @var string

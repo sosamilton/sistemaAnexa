@@ -40,39 +40,38 @@ class IndexController extends Controller{
 	protected function getPagosAlumno($anio, $alumno){
 		$em = $this->getDoctrine()->getManager();
 		$alumno = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findByDni($alumno);
-
-		$cuotas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findBy
-				(array('borrado'=>'false',
-					'anio'=>$anio
-					)
+		$cuotas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findBy(array('anio'=>$anio, 'borrado'=>false)
 				);
+
 		$meses = array();
-		$anios = array();
 		$i = 0;
 		foreach ($cuotas as $cuota) {
 			$meses[$i] = $cuota->getMes();
-			$anios[$cuota->getAnio()] = $cuota->getAnio();
 			$i++;
 		}
+
 		$result = array();
 		if ($alumno) {
 			if ($cuotas) {
+				$cuo = $em->getRepository('AnexaCooperadoraBundle:Cuota')->CuotasIngresoData($anio, $alumno);
 				$cuotasAlumno = $em->getRepository('AnexaCooperadoraBundle:Cuota')->CuotasAlumnosPorAnio($anio, $alumno);
+				array_unshift($cuotasAlumno, $cuo);
 
-	        	foreach (array_keys($meses) as $i) {
-	        		if (isset($cuotasAlumno[$i]['pago'])) {
-	        			$result[$i] = 'Si';
-	        		} else {
-	        			$result[$i] = 'No';
-	        		}
-	        	}
-	        	return array(
-						'status' => true,
-						'data' => $cuotasAlumno,
-						'meses' => array_values($meses),
-						'info' => 'Cuotas pagas del alumno',
-						'pagos' => $result
-					);
+      	foreach (array_keys($meses) as $i) {
+      		if (isset($cuotasAlumno[$i]['pago'])) {
+      			$result[$i] = 'Si';
+      		} else {
+      			$result[$i] = 'No';
+      		}
+
+      	}
+      	return array(
+				'status' => true,
+				'data' => $cuotasAlumno,
+				'meses' => array_values($meses),
+				'info' => 'Cuotas pagas del alumno: '.$alumno[0]->getApellido().", ".$alumno[0]->getNombre(),
+				'pagos' => $result
+			);
 			} else {
 				return array(
 						'status' => false,

@@ -20,7 +20,7 @@ class TipoCobradorType extends AbstractType {
         $builder
         	->add('denominacion', TextType::class, array('label'=> 'Denominación'))
         	->add('comision', TextType::class, array('label' => 'Porcentaje de comisión'))
-          ->add('montoMinimo', NumberType::class, array('label' => 'Monto minimo'))
+          ->add('montoMinimo', NumberType::class, array('label' => 'Monto mínimo'))
 
         	->add('button', SubmitType::class);
     }
