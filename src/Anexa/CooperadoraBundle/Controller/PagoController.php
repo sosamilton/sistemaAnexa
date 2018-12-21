@@ -198,7 +198,12 @@ class PagoController extends Controller
             }
 
             if (isset($data['total_saldo'])) {
-              $rest = $data['total_saldo'] - $data['sub_saldo'];
+              // if ($beca) {
+              //   $rest = $data['total_saldo'];
+              // }else {
+                $rest = $data['total_saldo'] - $data['sub_saldo'];
+              // }
+              // $beca?$rest = $data['total_saldo']:($data['total_saldo'] - $data['sub_saldo']);
               if ($rest == $data['add_saldo'] ) {
                 $alumno->setSaldo($rest);
                 $em->persist($alumno);

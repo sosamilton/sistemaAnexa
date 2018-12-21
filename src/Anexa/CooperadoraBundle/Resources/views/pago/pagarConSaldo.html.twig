@@ -127,7 +127,7 @@
             </div>
 
             <div class="col-md-3 col-sm-4">
-              A pagar: <span class="label label-success" id="totalSeleccionado">$ 0</span>
+              {{ is_granted('ROLE_SUPER_ADMIN')? 'A Becar' : 'A Pagar' }}<span class="label label-success" id="totalSeleccionado">$ 0</span>
             </div>
 
             <div class="col-md-3 col-sm-4">
@@ -137,7 +137,7 @@
 
             <div class="col-md-3 col-sm-12 form-group">
                 <div class="btn-group btn-group-sm col-md-12 col-sm-12" role="group" >
-                  <button type="button" id="pagarSeleccion" class="btn btn-danger col-md-12 col-sm-12">Pagar</button>
+                  <button type="button" id="pagarSeleccion" class="btn btn-danger col-md-12 col-sm-12">{{ is_granted('ROLE_SUPER_ADMIN')? "Becar" : "Pagar" }}</button>
                 </div>
             </div>
           </div>
@@ -222,6 +222,8 @@
                obj.verificarPago($(this), false);
              }
             });
+            this.actualizarTotal();
+
        }
 
        var pago = new total();
