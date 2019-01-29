@@ -47,8 +47,8 @@ class BackendController extends Controller
           }
           $alumno->setDni($activesheet[$j][0]);
           $name = explode(",", $activesheet[$j][1]);
-          $alumno->setApellido(ucfirst(strtolower($name[0])));
-          $alumno->setNombre(ucfirst(strtolower($name[1])));
+          $alumno->setApellido(mb_convert_case($name[0], MB_CASE_TITLE, "UTF-8"));
+          $alumno->setNombre(mb_convert_case($name[1], MB_CASE_TITLE, "UTF-8"));
           $alumno->setCurso($activesheet[$j][2]);
           $alumno->setDivision($activesheet[$j][3]);
           $alumno->setNivel($activesheet[$j][4]);
