@@ -25,14 +25,21 @@
                 <div class="col-md-4">
                   <label for="rol">Rol</label>
                   <div class="form-control" > {% if usuario.roles[0] == "ROLE_SUPER_ADMIN" %} Administrador {% else %} Cobrador {% endif %}</div>
-
                 </div>
+                {% if usuario.roles[0] == "ROLE_COBRADOR" %}
+                    <div class="col-md-4">
+                      <label for="username">Tipo de Cobrador</label>
+                      <div class="form-control" >{{usuario.tipo.denominacion}}</div>
+                    </div>
+                {% endif %}
               </div>
             </div>
           </div>
       </div>
       <script type="text/javascript">
-          $('#user_tipo').parent().hide();
+          if  ($('#user_roles').val() != "ROLE_COBRADOR"){
+            $('#user_tipo').parent().hide();
+          }
           $('#user_roles').change(function(event) {
             if ($(this).val() == "ROLE_COBRADOR") {
               $('#user_tipo').parent().show();
@@ -40,6 +47,5 @@
               $('#user_tipo').parent().hide();
             }
           });
-
       </script>
 {% endblock %}

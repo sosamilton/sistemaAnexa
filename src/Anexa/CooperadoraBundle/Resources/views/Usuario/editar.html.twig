@@ -1,6 +1,6 @@
 {% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
 
-{% block title %} Administracion | Usuario | Agregar{% endblock %}
+{% block title %} Administración | Usuario | Editar{% endblock %}
 
 {% block dataAdmin %}
     	<div class="panel panel-primary">
@@ -34,14 +34,14 @@
               </div>
               </div>
               <div class="col-md-12">
-                  <div class="col-md-6">
-                  {{ form_label(edit_form.tipo) }}
-                  {{ form_widget(edit_form.tipo, {'attr': {'class':'form-control'}}) }}
-                  </div>
-        
+
                 <div class="col-md-6">
                   {{ form_label(edit_form.habilitado) }}
                   {{ form_widget(edit_form.habilitado, {'attr': {'class':'form-control'}}) }}
+                </div>
+                <div class="col-md-6">
+                  {{ form_label(edit_form.tipo) }}
+                  {{ form_widget(edit_form.tipo, {'attr': {'class':'form-control'}}) }}
                 </div>
               </div>
 
@@ -51,16 +51,16 @@
             {{ form_end(edit_form) }}
             </div>
           </div>
-      
+
       <script type="text/javascript">
-          if  ($('#user_roles').val() != "ROLE_COBRADOR"){
-            $('#user_tipo').parent().hide();
+          if  ($('#app_user_registration_roles').val() != "ROLE_COBRADOR"){
+            $('#app_user_registration_tipo').parent().hide();
           }
-          $('#user_roles').change(function(event) {
+          $('#app_user_registration_roles').change(function(event) {
             if ($(this).val() == "ROLE_COBRADOR") {
-              $('#user_tipo').parent().show();
+              $('#app_user_registration_tipo').parent().show();
             }else{
-              $('#user_tipo').parent().hide();
+              $('#app_user_registration_tipo').parent().hide();
             }
           });
       </script>
