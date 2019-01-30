@@ -43,18 +43,18 @@ class Balance {
     *
     */
     protected $pagos;
-	
+
 	/**
 	* @var decimal
 	* @ORM\Column(name="total", type="decimal")
 	*/
 	protected $total;
 
-    /**
-    * @var decimal
-    * @ORM\Column(name="totalComision", type="decimal")
-    */
-    protected $comisionCobrada;
+  /**
+  * @var decimal
+  * @ORM\Column(name="totalComision", type="decimal")
+  */
+  protected $comisionCobrada;
 
 	public function __construct(){
 		$this->pagos = new ArrayCollection();
@@ -66,7 +66,7 @@ class Balance {
         return (string)$this->id;
     }
 
-    
+
 
     /**
      * Get id
