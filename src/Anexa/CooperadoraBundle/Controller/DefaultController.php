@@ -17,5 +17,6 @@ class BackendController extends Controller
       $txt = "Hello world!";
       $headers = "From: milton.sosa@info.unlp.edu.ar" . "\r\n";
       mail($to,$subject,$txt,$headers);
+      return $this->indexAction();
     }
 }

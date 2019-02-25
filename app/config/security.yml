@@ -24,6 +24,7 @@ security:
 
     access_control:
         - { path: ^/entrar$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/sendMail$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/backend*, role: IS_AUTHENTICATED_FULLY }
