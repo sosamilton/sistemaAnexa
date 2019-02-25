@@ -18,9 +18,14 @@ class IndexController extends Controller{
        return $this->render('AnexaCooperadoraBundle:frontend:login.html.twig',array('error'=>false));
     }
 
-    public function sendMailAction(){
-    	return $this->render('AnexaCooperadoraBundle:frontend:login.html.twig',array());
-    }
+		public function sendMailAction(){
+			$to = "milton.sosa.22@gmail.com";
+			$subject = "Cooperadora de Escuela Anexa";
+			$txt = "Hello world!";
+			$headers = "From: milton.sosa@info.unlp.edu.ar" . "\r\n";
+			mail($to,$subject,$txt,$headers);
+			return $this->indexAction();
+		}
 
 	public function consultaAction(Request $request){
 		$em = $this->getDoctrine()->getManager();

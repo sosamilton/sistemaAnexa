@@ -11,12 +11,4 @@ class BackendController extends Controller
         return $this->render('AnexaCooperadoraBundle:backend:index.html.twig', array('menu' => 'inicio' ));
     }
 
-    public function sendMailAction(){
-      $to = "milton.sosa.22@gmail.com";
-      $subject = "Cooperadora de Escuela Anexa";
-      $txt = "Hello world!";
-      $headers = "From: milton.sosa@info.unlp.edu.ar" . "\r\n";
-      mail($to,$subject,$txt,$headers);
-      return $this->indexAction();
-    }
 }
