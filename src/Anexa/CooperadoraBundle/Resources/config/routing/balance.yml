@@ -7,3 +7,8 @@ balance_cerrar:
     path:   /cerrar
     defaults: { _controller: "AnexaCooperadoraBundle:Balance:cerrar"}
     methods:  POST
+
+balance_show:
+  path:     /{id}/show
+  defaults: { _controller: "AnexaCooperadoraBundle:Balance:show"}
+  methods:  GET

@@ -1,0 +1,38 @@
+{% extends 'AnexaCooperadoraBundle:backend:base.html.twig' %}
+
+{% block title %} Administración | Cobros Realizados {% endblock %}
+
+{% block dataAdmin %}
+    <div class="panel panel-primary" id="paginacion">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Detalles</div>
+      <!-- Table -->
+      <div class="panel-body">
+        <div class="input-group col-md-12">
+        <table class="table">
+          <thead>
+              <tr>
+                <th>
+                  <button class="sort btn" data-sort="mes">
+                      <span class="glyphicon glyphicon-sort">mes</span>
+                  </button>
+                  Mes
+                </th>
+                <th>
+                  <button class="sort btn" data-sort="cantidad">
+                      <span class="glyphicon glyphicon-sort">cantidad</span>
+                  </button>
+                  Cantidad
+                </th>
+                </tr>
+            </thead>
+          <tbody class='list'>
+          {% for cobro in cuotasCobradas %}
+              <tr>
+                  <td class="mes">{{ pepe  }}</td>
+                  <td class="cantidad">{{ pepe }}</td>
+
+        </div>
+      </div>
+    </div>
+{% endblock %}

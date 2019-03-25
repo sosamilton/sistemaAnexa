@@ -16,7 +16,7 @@ class CuotaRepository extends \Doctrine\ORM\EntityRepository
 				    ->setParameter('anio', $anio)
 				    ->setParameter('tipo', "matricula")
 				    ->getQuery()
-        		    ->getResult();
+        		->getResult();
     }
     public function cuotasActivasAlumno()
     {
@@ -28,7 +28,7 @@ class CuotaRepository extends \Doctrine\ORM\EntityRepository
 				    ->addOrderBy('c.anio', 'DESC')
    					->addOrderBy('c.id', 'ASC')
 				    ->getQuery()
-        		    ->getResult();
+        		->getResult();
     }
 
     public function CuotasIngreso($anio)
@@ -63,4 +63,13 @@ class CuotaRepository extends \Doctrine\ORM\EntityRepository
 		    ->getQuery()
 		    ->getOneOrNullResult();
     }
+
+		public function getCuotas() {
+			return $this->createQueryBuilder('c')
+			->select('c')
+			->where('c.borrado = 0')
+			->addOrderBy('c.anio', 'DESC')
+			->getQuery()
+			->getResult();
+		}
 }

@@ -26,60 +26,68 @@ class BackendController extends Controller
 
     public function loadDataAction(Request $request){
       $file = $request->files->get('upload');
-      $name = $file->getFilename();
-      $url =  $file->getRealPath();
-      $em = $this->getDoctrine()->getManager();
-      if ($file->isValid()) {
-        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($url);
-        $phpExcelObject->setActiveSheetIndex(0);
-        $activesheet = $phpExcelObject->getActiveSheet()->toArray();
-        $j = 1;
-        $alumnosNuevos = 0;
-        $alumnosActualizados = 0;
-        while (isset($activesheet[$j][0])) {
-          $alumno = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findOneByDni($activesheet[$j][0]);
-          if (!isset($alumno)) {
-              $alumnosNuevos++;
-              $alumno = new Alumno();
-              $alumno->setNuevo(true);
-          }else {
-            $alumnosActualizados++;
+      if ($file ){
+        $name = $file->getFilename();
+        $url =  $file->getRealPath();
+        $em = $this->getDoctrine()->getManager();
+        if ($file->isValid()) {
+          $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($url);
+          $phpExcelObject->setActiveSheetIndex(0);
+          $activesheet = $phpExcelObject->getActiveSheet()->toArray();
+          $j = 1;
+          $alumnosNuevos = 0;
+          $alumnosActualizados = 0;
+          while (isset($activesheet[$j][0])) {
+            $alumno = $em->getRepository('AnexaCooperadoraBundle:Alumno')->findOneByDni($activesheet[$j][0]);
+            if (!isset($alumno)) {
+                $alumnosNuevos++;
+                $alumno = new Alumno();
+                $alumno->setNuevo(true);
+            }else {
+              $alumnosActualizados++;
+            }
+            $alumno->setDni($activesheet[$j][0]);
+            $name = explode(",", $activesheet[$j][1]);
+            $alumno->setApellido(mb_convert_case($name[0], MB_CASE_TITLE, "UTF-8"));
+            $alumno->setNombre(mb_convert_case($name[1], MB_CASE_TITLE, "UTF-8"));
+            $alumno->setCurso($activesheet[$j][2]);
+            $alumno->setDivision($activesheet[$j][3]);
+            $alumno->setNivel($activesheet[$j][4]);
+            $alumno->setAnioIngreso(date("Y"));
+            $alumno->setSaldo(0);
+            if (isset($activesheet[$j][5])) {
+              $alumno->setTelefono($activesheet[$j][5]);
+            }
+            if (isset($activesheet[$j][6])) {
+              $alumno->setFechaNacimiento($activesheet[$j][6]);
+            }
+            if (isset($activesheet[$j][7])) {
+              $alumno->setEmail($activesheet[$j][7]);
+            }
+            if (isset($activesheet[$j][8])) {
+              $alumno->setDireccion($activesheet[$j][8]);
+            }
+            if (isset($activesheet[$j][9])) {
+              $alumno->setContacto($activesheet[$j][9]);
+            }
+            $em->persist($alumno);
+            $j++;
           }
-          $alumno->setDni($activesheet[$j][0]);
-          $name = explode(",", $activesheet[$j][1]);
-          $alumno->setApellido(mb_convert_case($name[0], MB_CASE_TITLE, "UTF-8"));
-          $alumno->setNombre(mb_convert_case($name[1], MB_CASE_TITLE, "UTF-8"));
-          $alumno->setCurso($activesheet[$j][2]);
-          $alumno->setDivision($activesheet[$j][3]);
-          $alumno->setNivel($activesheet[$j][4]);
-          $alumno->setAnioIngreso(date("Y"));
-          $alumno->setSaldo(0);
-          if (isset($activesheet[$j][5])) {
-            $alumno->setTelefono($activesheet[$j][5]);
-          }
-          if (isset($activesheet[$j][6])) {
-            $alumno->setFechaNacimiento($activesheet[$j][6]);
-          }
-          if (isset($activesheet[$j][7])) {
-            $alumno->setEmail($activesheet[$j][7]);
-          }
-          if (isset($activesheet[$j][8])) {
-            $alumno->setDireccion($activesheet[$j][8]);
-          }
-          if (isset($activesheet[$j][9])) {
-            $alumno->setContacto($activesheet[$j][9]);
-          }
-          $em->persist($alumno);
-          $j++;
-        }
-        $em->flush();
-        return $this->render('AnexaCooperadoraBundle:importar:index.html.twig', array(
-          'menu' => 'importData',
-          'carga' => true,
-          'alumnosNuevos' => $alumnosNuevos,
-          'alumnosActualizados' => $alumnosActualizados
-        ));
+          $em->flush();
+          return $this->render('AnexaCooperadoraBundle:importar:index.html.twig', array(
+            'menu' => 'importData',
+            'carga' => true,
+            'alumnosNuevos' => $alumnosNuevos,
+            'alumnosActualizados' => $alumnosActualizados
+          ));
 
+        }//
+      } else {
+        return $this->render('AnexaCooperadoraBundle:importar:index.html.twig', array(
+          'msj' => 'Debe seleccionar un archivo',
+          'success' => false,
+          'menu' => 'importData')
+        );
       }
     }
 }

@@ -64,6 +64,12 @@
                     </button>
                     Rol
                   </th>
+                  <th>
+                    <button class="sort btn" data-sort="tipo">
+                        <span class="glyphicon glyphicon-sort"></span>
+                    </button>
+                    Tipo de Cobrador
+                  </th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -74,7 +80,7 @@
                     <td class="username">{{usuario.username}}</td>
                     <td class="estado">{% if usuario.habilitado %} Habilitado {% else %} Deshabilitado {% endif %}</td>
                     <td class="role">{% if usuario.roles[0] == "ROLE_SUPER_ADMIN" %} Administrador {% else %} Cobrador {% endif %}</td>
-
+                    <td class="tipo">{% if usuario.tipo.denominacion is defined %} {{ usuario.tipo.denominacion }} {% else %} -  {% endif %}</td>
                     <td>
                         <div class="">
                             <a class="btn btn-success" href="{{ path('usuario_show', {'id': usuario.id}) }}" title='Ver'>

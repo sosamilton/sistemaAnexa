@@ -6,7 +6,7 @@
     {% if cobros is defined %}
     <div class="panel panel-primary" id="paginacion">
       <!-- Default panel contents -->
-      <div class="panel-heading">Listado de Cuotas</div>
+      <div class="panel-heading">Listado de Cobros Realizados</div>
       <!-- Table -->
       <div class="panel-body">
         <div class="input-group col-md-12">
@@ -55,35 +55,35 @@
                         </button>
                         DNI
                       </th>
-                      
+
                       <th>
                         <button class="sort btn" data-sort="nombre">
                             <span class="glyphicon glyphicon-sort"></span>
                         </button>
                         Nombre
                       </th>
-                        
+
                         <th>
                         <button class="sort btn" data-sort="apellido">
                             <span class="glyphicon glyphicon-sort"></span>
                         </button>
                         Apellido
                       </th>
-                        
+
                     <th>
                         <button class="sort btn" data-sort="cuota">
                             <span class="glyphicon glyphicon-sort"></span>
                         </button>
                         Cuota
                       </th>
-                    
+
                     <th>
                         <button class="sort btn" data-sort="monto">
                             <span class="glyphicon glyphicon-sort"></span>
                         </button>
                         Monto
                     </th>
-                        
+
                     <th>
                         <button class="sort btn" data-sort="fecha">
                             <span class="glyphicon glyphicon-sort"></span>
@@ -103,8 +103,8 @@
                             <td class="fecha">{{ cobro.fecha|date("Y-m-d")  }}</td>
                         </tr>
                     {% endfor %}
-                  
-              </tbody> 
+
+              </tbody>
             </table>
             <div class="col-md-4 col-md-offset-4">
                 <ul class="pagination"></ul>
@@ -112,7 +112,7 @@
         </div>
         {% if cierre is not defined %}
         <div class="panel-footer">
-            <form id="formulario" action="{{path ('balance_index')}}" method="POST">
+            <form id="formulario" action="{{path ('balance_cerrar')}}" method="POST">
                 <div class="col-md-4">
                     <div class="btn-group btn-group-sm col-md-12" role="group" >
                       <button type="submit" id="cerrarBalance" class="btn btn-danger col-md-12">Cerrar Balance</button>
@@ -123,11 +123,111 @@
         {% else %}
             <div class="alert alert-success" role="alert">El cierre se efectuó correctamente!</div>
         {% endif%}
-         
+
 </div>
       {% else %}
         <div class="alert alert-danger" role="alert">No hay cobros realizados desde el último cierre a la fecha</div>
       {% endif %}
+
+      {#  tabla de balances #}
+
+      {% if balances is not empty  %}
+      <div class="panel panel-primary" id="paginacion">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Listado de Balances</div>
+        <!-- Table -->
+        <div class="panel-body">
+          <div class="input-group col-md-12">
+              <div class="input-group-addon">
+                <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                  <span class="glyphicon glyphicon-filter"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="opcionesDeFiltrado" style="padding:10px;">
+                  <li role="presentation">
+                      <input type="checkbox" name="busqueda" value="fecha" checked>
+                      <label>Fecha</label>
+                  </li>
+                </ul>
+              </div>
+              <input type="text" class="input-busqueda form-control" placeholder="Inicie su búsqueda aquí" />
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-search"></span>
+              </div>
+          </div>
+          <table class="table">
+            <thead>
+                      <tr>
+                        <th>
+                          <button class="sort btn" data-sort="fechaDesde">
+                              <span class="glyphicon glyphicon-sort"></span>
+                          </button>
+                          Fecha Desde
+                        </th>
+
+                        <th>
+                          <button class="sort btn" data-sort="fechaHasta">
+                              <span class="glyphicon glyphicon-sort"></span>
+                          </button>
+                          Fecha Hasta
+                        </th>
+
+                          <th>
+                          <button class="sort btn" data-sort="cobrador">
+                              <span class="glyphicon glyphicon-sort"></span>
+                          </button>
+                          Cobrador
+                        </th>
+
+                        <th>
+                        <button class="sort btn" data-sort="total">
+                            <span class="glyphicon glyphicon-sort"></span>
+                        </button>
+                        Total Cobrado
+                      </th>
+
+                      <th>
+                      <button class="sort btn" data-sort="comision">
+                          <span class="glyphicon glyphicon-sort"></span>
+                      </button>
+                      Comisión
+                    </th>
+
+                    <th>
+                    <button class="sort btn" data-sort="neto">
+                        <span class="glyphicon glyphicon-sort"></span>
+                    </button>
+                    Ingreso Neto
+                  </th>
+                      </tr>
+                  </thead>
+                <tbody class='list'>
+                      {% for balance in balances %}
+                          <tr>
+                              <td class="fechaDesde">{{ balance.fechaDesde|date("Y-m-d") }}</td>
+                              <td class="fechaHasta">{{ balance.fechaHasta|date("Y-m-d") }}</td>
+                              <td class="cobrador">{{ balance.cobrador }}</td>
+                              <td class="total">{{ balance.total }}</td>
+                              <td class="comisionCobrada">{{ balance.comisionCobrada }}</td>
+                              <td class="neto">{{ balance.total - balance.comisionCobrada  }}</td>
+                              <td>
+                                  <div class="">
+                                    <a class="btn btn-success" href="{{ path('balance_show', { 'id': balance.id }) }}" title="Ver"><span class='glyphicon glyphicon-eye-open'></span></a>
+                                  </div>
+                              </td>
+                          </tr>
+                      {% endfor %}
+
+                </tbody>
+              </table>
+              <div class="col-md-4 col-md-offset-4">
+                  <ul class="pagination"></ul>
+              </div>
+          </div>
+
+  </div>
+        {% else %}
+          <div class="alert alert-danger" role="alert">No hay balances registrados!</div>
+        {% endif %}
 
     <script type="text/javascript">
         $( document ).ready(function() {

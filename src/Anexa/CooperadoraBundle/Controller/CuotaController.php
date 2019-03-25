@@ -22,7 +22,7 @@ class CuotaController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $cuotas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->findByBorrado(false);
+        $cuotas = $em->getRepository('AnexaCooperadoraBundle:Cuota')->getCuotas();
         if (count($cuotas) == 0) {
             $datos['msj'] = 'No hay cuotas registradas aún';
             $datos['success'] = false;
@@ -81,10 +81,10 @@ class CuotaController extends Controller
                 $cuota->setMonto(($request->request->get('monto')*2));
             }
             else {
-                $cuota->setTipo('mensual'); 
+                $cuota->setTipo('mensual');
                 $cuota->setMonto($request->request->get('monto'));
             }
-            
+
             $cuota->setMes($key);
             $cuota->setAnio($request->request->get('anio'));
             $em->persist($cuota);
