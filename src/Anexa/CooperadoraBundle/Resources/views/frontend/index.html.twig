@@ -1,5 +1,10 @@
 {% extends 'AnexaCooperadoraBundle::base.html.twig' %}
 
+{% block addJS %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
+
+
 {% block page %}
 	{% if (data.2 is defined) and (data.2.valorNumerico == 1) %}
 
@@ -19,29 +24,40 @@
 				  	</div>
 				</div>
 			</div>
-			<div class="col-md-offset-1 col-md-3">
+			<div class="col-md-4">
+				{% for message in app.session.flashbag.get('email') %}
+						<div class="alert alert-success alert-dismissible" role="alert">
+						  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						  <strong>Atención!</strong> <br>{{message}}
+						</div>
+				{% endfor %}
+
 				<div class="panel panel-default">
 					<div class="panel-heading">Contacto</div>
 				  	<div class="panel-body">
-						<form action="{{path('sendMail')}}" method="POST">
-							<div class="form-group">
-								<label for="exampleInputEmail1">Nombre</label>
-								<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre">
-							</div>
-							<div class="form-group">
-								<label for="exampleInputEmail1">E-Mail</label>
-								<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-							</div>
-							<div class="form-group">
-								<label for="exampleInputEmail1">Teléfono</label>
-								<input type="tel" class="form-control" id="exampleInputEmail1" placeholder="(0221) - 44XXXX">
-							</div>
-							<div class="form-group">
-								<label for="exampleInputPassword1">Comentario</label>
-								<textarea class="form-control" name="comentario" rows="4"></textarea>
-							</div>
-							<button type="submit" class=" col-md-12 btn btn-default">Enviar</button>
-						</form>
+								{{ form_start(form,  {'attr': {'id':'form'}}) }}
+									{{ form_errors(form) }}
+										<div class="form-group">
+												{{ form_label(form.name) }}
+												{{ form_widget(form.name, {'attr': {'class':'form-control'}}) }}
+										</div>
+										<div class="form-group">
+												{{ form_label(form.email) }}
+												{{ form_widget(form.email, {'attr': {'class':'form-control'}}) }}
+										</div>
+										<div class="form-group">
+												{{ form_label(form.cel) }}
+												{{ form_widget(form.cel, {'attr': {'class':'form-control'}}) }}
+										</div>
+										<div class="form-group">
+												{{ form_label(form.body) }}
+												{{ form_widget(form.body, {'attr': {'class':'form-control'}}) }}
+										</div>
+
+										<div class="col-md-12">
+											<div class="g-recaptcha" data-sitekey="6LcA5ZMUAAAAANvV5r_zUooCn9youC-xzdfjM-Xz"></div>
+										</div>
+								{{ form_end(form) }}
 				  	</div>
 				</div>
 			</div>
