@@ -7,16 +7,60 @@ use Anexa\CooperadoraBundle\Entity\Alumno;
 
 class IndexController extends Controller{
 
-	public function indexAction(){
+	public function indexAction(Request $request){
 		$em = $this->getDoctrine()->getManager();
 		$config = $em->getRepository('AnexaCooperadoraBundle:Configuracion')->findAll();
-		return $this->render('AnexaCooperadoraBundle:frontend:index.html.twig', array( 'data' => $config));
+		$data = array();
+		$form = $this->createForm('Anexa\CooperadoraBundle\Form\ContactType', $data);
+		$form->handleRequest($request);
+		if ($form->isSubmitted() && $form->isValid() && $this->captchaverify($request->get('g-recaptcha-response'))) {
+			$content = "Nombre:".$form['name']->getData() ."\n ";
+			$content .= "Email:". $form['email']->getData()." \n\n";
+			$content .= "Telefono:". $form['cel']->getData()." \n";
+			$content .= "Mensaje:\n".$form['body']->getData()."\n";
+			$subject = "Contacto de la WEB";
+			$mail_to = "milton.sosa.22@gmail.com";
+			$headers = "From:". $form['name']->getData()." <".$form['email']->getData().">";
+			$success = mail($mail_to, $subject, $content, $headers);
+			if ($success) {
+				$this->addFlash(
+						'success',
+						'El mensaje fue enviado correctamente.'
+				);
+			} else {
+				$this->addFlash(
+						'danger',
+						'El mensaje no pudo ser enviado. Lo sentimos :('
+				);
+			}
+
+		}
+
+		return $this->render('AnexaCooperadoraBundle:frontend:index.html.twig', array(
+			'data' => $config,
+			'form' => $form->createView(),
+		));
+	}
+
+	private function captchaverify($recaptcha){
+			$url = "https://www.google.com/recaptcha/api/siteverify";
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_HEADER, 0);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+					"secret"=>"6LcA5ZMUAAAAACncQVNg8PUF860FERTnfo3-KEYK","response"=>$recaptcha));
+			$response = curl_exec($ch);
+			curl_close($ch);
+			$data = json_decode($response);
+
+			return $data->success;
 	}
 
 	public function loginAction() {
-
        return $this->render('AnexaCooperadoraBundle:frontend:login.html.twig',array('error'=>false));
-    }
+  }
 
 		public function sendMailAction(){
 			$to = "milton.sosa.22@gmail.com";
