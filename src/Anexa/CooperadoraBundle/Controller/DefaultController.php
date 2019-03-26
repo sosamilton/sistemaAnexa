@@ -10,4 +10,5 @@ class BackendController extends Controller
     {
         return $this->render('AnexaCooperadoraBundle:backend:index.html.twig', array('menu' => 'inicio' ));
     }
+
 }
