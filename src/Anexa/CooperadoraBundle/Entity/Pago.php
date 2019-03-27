@@ -58,6 +58,17 @@ class Pago {
 	protected $becado;
 
 
+/**
+*@ORM\ManyToOne(targetEntity="Balance", inversedBy="pagos")
+*/
+protected $balance;
+
+/**
+* @var decimal
+* @ORM\Column(name="monto", type="decimal")
+*/
+protected $monto;
+
 
 /** ************************ GETTERS ******************************** */
 
@@ -126,6 +137,15 @@ class Pago {
 		return $this->cuota;
 	}
 
+	/**
+	* Get Balance
+	* @return Balance
+	*/
+	public function getBalance()
+	{
+		return $this->balance;
+	}
+
 
 	/** ****************************** SETTERS ***********************************+ */
 
@@ -189,6 +209,36 @@ class Pago {
 	public function setBorrado($borrado)
 	{
 		$this->borrado = $borrado;
+		return $this;
+	}
+
+	/** Set balance
+	* @param boolean $balance
+	* @return Pago
+	*/
+	public function setBalance($balance)
+	{
+		$this->balance = $balance;
+		return $this;
+	}
+
+	/**
+	*Get monto
+	* @return decimal
+	*/
+	public function getMonto()
+	{
+		return $this->monto;
+	}
+
+	/**
+	*set monto
+	* @param decimal $monto
+	* @return Cuota
+	*/
+	public function setMonto($monto)
+	{
+		$this->monto = $monto;
 		return $this;
 	}
 

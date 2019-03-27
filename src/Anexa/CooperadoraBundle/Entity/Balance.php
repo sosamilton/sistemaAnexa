@@ -39,7 +39,7 @@ class Balance {
 	protected $cobrador;
 
 	/**
-    * @ORM\OneToMany(targetEntity="Pago", mappedBy="balance")
+    * @ORM\OneToMany(targetEntity="Pago", mappedBy="balance",cascade={"persist"})
     *
     */
     protected $pagos;
