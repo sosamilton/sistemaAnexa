@@ -25,12 +25,15 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				{% for message in app.session.flashbag.get('email') %}
-						<div class="alert alert-success alert-dismissible" role="alert">
+				{% for label, messages in app.flashes(['success', 'danger']) %}
+					{% for message in messages %}
+						<div class="alert alert-{{ label }} alert-dismissible" role="alert">
 						  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						  <strong>Atención!</strong> <br>{{message}}
 						</div>
+					{% endfor %}
 				{% endfor %}
+
 
 				<div class="panel panel-default">
 					<div class="panel-heading">Contacto</div>

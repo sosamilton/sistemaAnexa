@@ -1,8 +1,0 @@
-{
-	"title": 0,
-	"type": "default",
-	"description": "Descripcion del proyecto",
-	"run": "index.php",
-	"dev-run": "index_dev.php",
-	"icon": "localhost/proyect.png"
-}

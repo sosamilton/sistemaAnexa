@@ -19,7 +19,7 @@ class IndexController extends Controller{
 			$content .= "Telefono:". $form['cel']->getData()." \n";
 			$content .= "Mensaje:\n".$form['body']->getData()."\n";
 			$subject = "Contacto de la WEB";
-			$mail_to = "milton.sosa.22@gmail.com";
+			$mail_to = "cooperadoraescuelaanexa@yahoo.com.ar";
 			$headers = "From:". $form['name']->getData()." <".$form['email']->getData().">";
 			$success = mail($mail_to, $subject, $content, $headers);
 			if ($success) {
