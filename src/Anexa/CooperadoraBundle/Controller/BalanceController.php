@@ -63,6 +63,7 @@ class BalanceController extends Controller
             $balance->setCobrador($this->getUser());
             foreach ($cobros as $cobro) {
               $balance->addPago($cobro);
+              $cobro->setBalance($balance);
               $total+=$cobro->getCuota()->getMonto();
             }
 
@@ -76,30 +77,34 @@ class BalanceController extends Controller
             $datos['cierre'] = true;
 
             $datos['menu'] = 'balance';
-            $datos['balances'] = $balance;
+            $datos['success'] = true;
+            $datos['msj'] = "El cierre se realizó exitosamente!";
+            $datos['balance'] = $balance;
+            $datos['id'] = $balance->getId();
         }
         //return $this->render('AnexaCooperadoraBundle:balance:index.html.twig', $datos);
-        return $this->redirectToRoute('balance_show', array('id' => $balance->getId()));
+        return $this->redirectToRoute('balance_show', $datos);
     }
 
     public function showAction(Balance $balance) {
-      //$em = $this->getDoctrine()->getManager();
       $cobros = $balance->getPagos();
-      var_dump('e');
-      var_dump($balance->getCobrador());die;
-      $cuotasCobradas = array();
+      $cantCuotasCobradas = array();
+      $cobradoXcuota = array();
       foreach ($cobros as $cobro) {
-        if (array_key_exists($cobro->getCuota()->getId(), $cuotasCobradas)) {
-            $cuotasCobradas[$cobro->getCuota()->getId()]++;
+        if (array_key_exists($cobro->getCuota()->getMes()."-".$cobro->getCuota()->getAnio(), $cantCuotasCobradas)) {
+            $cantCuotasCobradas[$cobro->getCuota()->getMes()."-".$cobro->getCuota()->getAnio()]++;
+            $cobradoXcuota[$cobro->getCuota()->getMes()."-".$cobro->getCuota()->getAnio()] = $cobradoXcuota[$cobro->getCuota()->getMes()."-".$cobro->getCuota()->getAnio()] + $cobro->getMonto();
           }
           else {
-            $cuotasCobradas[$cobro->getCuota()->getId()] = 1;
+            $cantCuotasCobradas[$cobro->getCuota()->getMes()."-".$cobro->getCuota()->getAnio()] = 1;
+            $cobradoXcuota[$cobro->getCuota()->getMes()."-".$cobro->getCuota()->getAnio()] = $cobro->getMonto();
           }
       }
-      var_dump($cuotasCobradas);die;
-
       return $this->render('AnexaCooperadoraBundle:balance:show.html.twig', array(
-          'cobradas' => $cuotasCobradas,
+          'keys_cobradas' =>array_keys($cantCuotasCobradas),
+          'cobradas' => $cantCuotasCobradas,
+          'montosXcuota' => $cobradoXcuota,
+          'balance' => $balance,
           'menu' => 'balance'
       ));
     }

@@ -3,6 +3,12 @@
 {% block title %} Administración | Cobros Realizados {% endblock %}
 
 {% block dataAdmin %}
+    {% if msj is defined %}
+          <div class="alert alert-{% if success %}success{% else %}danger{% endif %} alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <strong>Atención!</strong>{{ msj }}
+          </div>
+    {% endif %}
     {% if cobros is defined %}
     <div class="panel panel-primary" id="paginacion">
       <!-- Default panel contents -->
@@ -20,12 +26,12 @@
                     <label>DNI</label>
                 </li>
                 <li role="presentation">
-                    <input type="checkbox" name="busqueda" value="nombre" checked>
-                    <label>Nombre</label>
+                  <input type="checkbox" name="busqueda" value="apellido" checked>
+                  <label>Apellido</label>
                 </li>
                 <li role="presentation">
-                    <input type="checkbox" name="busqueda" value="apellido" checked>
-                    <label>Apellido</label>
+                    <input type="checkbox" name="busqueda" value="nombre" checked>
+                    <label>Nombre</label>
                 </li>
                 <li role="presentation">
                     <input type="checkbox" name="busqueda" value="cuota" checked>
@@ -56,18 +62,18 @@
                         DNI
                       </th>
 
-                      <th>
-                        <button class="sort btn" data-sort="nombre">
-                            <span class="glyphicon glyphicon-sort"></span>
-                        </button>
-                        Nombre
-                      </th>
-
                         <th>
                         <button class="sort btn" data-sort="apellido">
                             <span class="glyphicon glyphicon-sort"></span>
                         </button>
                         Apellido
+                      </th>
+
+                      <th>
+                        <button class="sort btn" data-sort="nombre">
+                          <span class="glyphicon glyphicon-sort"></span>
+                        </button>
+                        Nombre
                       </th>
 
                     <th>
@@ -96,8 +102,8 @@
                     {% for cobro in cobros %}
                         <tr>
                             <td class="dni">{{ cobro.alumno.dni }}</td>
-                            <td class="nombre">{{ cobro.alumno.nombre }}</td>
                             <td class="apellido">{{ cobro.alumno.apellido }}</td>
+                            <td class="nombre">{{ cobro.alumno.nombre }}</td>
                             <td class="cuota">{{ cobro.cuota.mes }}</td>
                             <td class="monto">{{ cobro.cuota.monto }}</td>
                             <td class="fecha">{{ cobro.fecha|date("Y-m-d")  }}</td>
@@ -189,14 +195,14 @@
                       <button class="sort btn" data-sort="comision">
                           <span class="glyphicon glyphicon-sort"></span>
                       </button>
-                      Comisión
+                      Total Comisión
                     </th>
 
                     <th>
                     <button class="sort btn" data-sort="neto">
                         <span class="glyphicon glyphicon-sort"></span>
                     </button>
-                    Ingreso Neto
+                    Neto A Rendir
                   </th>
                       </tr>
                   </thead>
@@ -206,9 +212,9 @@
                               <td class="fechaDesde">{{ balance.fechaDesde|date("Y-m-d") }}</td>
                               <td class="fechaHasta">{{ balance.fechaHasta|date("Y-m-d") }}</td>
                               <td class="cobrador">{{ balance.cobrador }}</td>
-                              <td class="total">{{ balance.total }}</td>
-                              <td class="comisionCobrada">{{ balance.comisionCobrada }}</td>
-                              <td class="neto">{{ balance.total - balance.comisionCobrada  }}</td>
+                              <td class="total">${{ balance.total }}</td>
+                              <td class="comisionCobrada">${{ balance.comisionCobrada }}</td>
+                              <td class="neto">${{ balance.total - balance.comisionCobrada  }}</td>
                               <td>
                                   <div class="">
                                     <a class="btn btn-success" href="{{ path('balance_show', { 'id': balance.id }) }}" title="Ver"><span class='glyphicon glyphicon-eye-open'></span></a>

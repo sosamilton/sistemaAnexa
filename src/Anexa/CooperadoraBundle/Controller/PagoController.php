@@ -122,6 +122,7 @@ class PagoController extends Controller
         foreach ($pagos as $key => $pago) {
             $cuotasPagasAux[$pago->getCuota()->getId()]=array();
             $cuotasPagasAux[$pago->getCuota()->getId()]['data']=$pago->getCuota();
+            $cuotasPagasAux[$pago->getCuota()->getId()]['monto']=$pago->getMonto();
             $cuotasPagasAux[$pago->getCuota()->getId()]['beca']=$pago->getBecado();
             $cuotasPagasAux[$pago->getCuota()->getId()]['cobrador']=$pago->getUser();
             $cuotasPagas[] = $pago->getCuota(); //obtengo la cuota asociada con cada pago para obtener mes, año de la cuota
@@ -246,6 +247,7 @@ class PagoController extends Controller
               $pago->setUser($usuario);
               $pago->setFecha(new \DateTime());
               $pago->setBecado($beca);
+              $pago->setMonto($cuota->getMonto());
               $em->persist($pago);
               $em->flush();
               $cuota->addPago($pago);
